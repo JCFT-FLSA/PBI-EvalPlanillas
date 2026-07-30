@@ -17,14 +17,13 @@ queryGroup 'Transformar archivo de Planillas\Consultas auxiliares'
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["Objetivos2025","Objetivos2026","Objetivos","ObjetivosSegmento","VentasSAP_2015","VentasSAP_2016","VentasSAP_2017","VentasSAP_2018","VentasSAP_2019","VentasSAP_2020","VentasSAP_2021","VentasSAP_2022","VentasSAP_2023","VentasSAP_2024","VentasHistoricas","VentasSAP_2025","VentasSAP_2026","Ventas","Canales","Clientes","Fechas","Marcas","Regionales","Sucursales_Info","Sucursales","Vendedores","ClasesFacturas","Materiales_Atrib","Materiales","RH_TablaKPI","RH_Utilidad","RH_UtilidadMensual","NominaVendedores_2025","NominaVendedores_2026","RH_PlanillasMensuales","RH_PesosVariable_2025","RH_PesosVariable_2026","RH_PesosVariable","RH_PersonalFLSA","RH_MesesInventario","RH_NivelServicio","CRM-Visitas_2025","CRM-Visitas_2026","RH_VisitasCRM","CRM_Visitas SDI_2025","CRM-Visitas SDI_2026","RH_VisitasCRM_SDI","Nomina_General_2025","Nomina_General_2026","RH_Planilla_General","Carteras2025","Carteras2026","CarteraIVT","Medidas","Parámetro1","Transformar archivo de ejemplo","Archivo de ejemplo","Transformar archivo","DiasValidosxMes","CxC","MaterialesSDI_2025","MaterialesSDI_2026","MaterialesSDI","ObjetivosSDI_2025","ObjetivosSDI_2026","ObjetivosSDI","Ramos","Sectores","ActividadesCRM","ZEERR","EERR","Clientes POS","FacturasPOS_2023","FacturasPOS_2024","FacturasPOS_2025","FactPOS_2026","FacturasPOS"]
+annotation PBI_QueryOrder = ["Objetivos2025","Objetivos2026","Objetivos","ObjetivosSegmento","VentasSAP_2015","VentasSAP_2016","VentasSAP_2017","VentasSAP_2018","VentasSAP_2019","VentasSAP_2020","VentasSAP_2021","VentasSAP_2022","VentasSAP_2023","VentasSAP_2024","VentasHistoricas","VentasSAP_2025","VentasSAP_2026","Ventas","Canales","Clientes","Fechas","Marcas","Regionales","Sucursales_Info","Sucursales","Vendedores","ClasesFacturas","Materiales_Atrib","Materiales","RH_TablaKPI","RH_Utilidad","RH_UtilidadMensual","NominaVendedores_2025","NominaVendedores_2026","RH_PlanillasMensuales","RH_PesosVariable_2025","RH_PesosVariable_2026","RH_PesosVariable","RH_PersonalFLSA","RH_MesesInventario","RH_NivelServicio","CRM-Visitas_2025","CRM-Visitas_2026","RH_VisitasCRM","CRM_Visitas SDI_2025","CRM-Visitas SDI_2026","RH_VisitasCRM_SDI","Nomina_General_2025","Nomina_General_2026","RH_Planilla_General","Carteras2025","Carteras2026","CarteraIVT","Medidas","Parámetro1","Transformar archivo de ejemplo","Archivo de ejemplo","Transformar archivo","DiasValidosxMes","CxC","MaterialesSDI_2025","MaterialesSDI_2026","MaterialesSDI","ObjetivosSDI_2025","ObjetivosSDI_2026","ObjetivosSDI","Ramos","Sectores","ActividadesCRM","ZEERR","EERR","Clientes POS","FacturasPOS_2023","FacturasPOS_2024","FacturasPOS_2025","FactPOS_2026","FacturasPOS","TiposDeCambio"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table DateTableTemplate_bc9e555b-0e47-4ce9-81d5-1338379f913e
 ref table Lineas
 ref table Objetivos
-ref table ObjetivosGralDesa
 ref table MarcasDesarrollo
 ref table Ventas
 ref table FechasAñoMes
@@ -126,6 +125,9 @@ ref table LocalDateTable_09d65ac8-2ab1-476e-8516-be487513d433
 ref table LocalDateTable_57450423-8362-4f0c-9022-14ff237faed7
 ref table LocalDateTable_e41b5a34-7a46-428b-b324-43edb37bd16e
 ref table LocalDateTable_3b0ae192-c116-43dd-8459-1ee706299595
+ref table TiposDeCambio
+ref table LocalDateTable_4871ed21-085f-4b79-802d-7ee9c0ad8ba8
+ref table LocalDateTable_c7ea65b7-13ec-408b-b30d-31d2987a1bdb
 
 ref cultureInfo es-ES
 

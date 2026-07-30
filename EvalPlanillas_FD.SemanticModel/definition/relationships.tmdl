@@ -76,10 +76,6 @@ relationship e4bed979-b7eb-4429-b63e-74a1fbbb9899
 	fromColumn: ObjetivosGral.AñoMes
 	toColumn: FechasAñoMes.AñoMes
 
-relationship 1005b447-bf45-42f2-89df-fe1ae7402a2c
-	fromColumn: ObjetivosGralDesa.GestionMes
-	toColumn: FechasAñoMes.AñoMes
-
 relationship 54f7ad21-af62-4dd7-926a-e94f7fbb624f
 	joinOnDateBehavior: datePartOnly
 	fromColumn: RH_TablaVariables.PeriodoIni
@@ -389,4 +385,14 @@ relationship 0a484da3-9fef-49fb-9f10-ee8bd448204b
 	joinOnDateBehavior: datePartOnly
 	fromColumn: 2026_TODOS.Periodo
 	toColumn: LocalDateTable_3b0ae192-c116-43dd-8459-1ee706299595.Date
+
+relationship 5d72e741-ba69-427a-a204-5597e6f65aa5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TiposDeCambio.FechaIni
+	toColumn: LocalDateTable_4871ed21-085f-4b79-802d-7ee9c0ad8ba8.Date
+
+relationship 7a952334-03d9-48ce-9b90-6110e0c7fdc2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TiposDeCambio.FechaFin
+	toColumn: LocalDateTable_c7ea65b7-13ec-408b-b30d-31d2987a1bdb.Date
 

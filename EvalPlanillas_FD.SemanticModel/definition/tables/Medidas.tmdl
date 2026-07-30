@@ -42,18 +42,28 @@ table Medidas
 		displayFolder: CarteraIVT
 		lineageTag: 477f1fab-e3e9-482b-9316-9104efd1cf4f
 
-	measure ValorStock = SUM(StockMensual[Valor])
-		lineageTag: c2717441-422a-4f2e-be61-4b9fcf29145e
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	measure 'Presupuesto $us' = SUM(ObjetivosGral[Presupuesto])
 		lineageTag: 28ce387e-72ca-4d7f-9a99-2300973635e6
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure TC_Sus = SELECTEDVALUE(Fechas[TC_$us], BLANK())
+	measure TC_Sus = ```
+			
+			VAR _Hoy = TODAY()
+			RETURN
+			    CALCULATE(
+			        VALUES(TiposDeCambio[Valor]),
+			        FILTER(
+			            TiposDeCambio,
+			            _Hoy >= TiposDeCambio[FechaIni] &&
+			            _Hoy <= TiposDeCambio[FechaFin]
+			        )
+			    )
+			
+			```
 		lineageTag: b1d4c441-855e-4ebe-9810-2bdab5b6730a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure NuevosClientes = ```
 			
