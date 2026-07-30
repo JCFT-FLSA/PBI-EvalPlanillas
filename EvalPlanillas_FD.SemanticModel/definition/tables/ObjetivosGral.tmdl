@@ -81,7 +81,7 @@ table ObjetivosGral
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column Presupuesto = sumx(filter(filter(FILTER(FILTER(filter(Objetivos, Objetivos[Canal] = ObjetivosGral[Canal]), Objetivos[Sucursal] = ObjetivosGral[Sucursal]), Objetivos[Vendedor] = ObjetivosGral[CodVendedor]), Objetivos[Linea] = ObjetivosGral[Linea]), Objetivos[GestionMes] = ObjetivosGral[AñoMes]), Objetivos[Objetivo])
+	column Presupuesto = sumx(filter(filter(FILTER(FILTER(filter(Objetivos, Objetivos[Canal] = ObjetivosGral[Canal]), Objetivos[Sucursal] = ObjetivosGral[Sucursal]), Objetivos[Vendedor] = ObjetivosGral[CodVendedor]), Objetivos[Linea] = ObjetivosGral[Linea]), Objetivos[Periodo] = ObjetivosGral[AñoMes]), Objetivos[Objetivo])
 		lineageTag: b02499c4-48a6-4518-a41b-71e536135ca4
 		summarizeBy: sum
 

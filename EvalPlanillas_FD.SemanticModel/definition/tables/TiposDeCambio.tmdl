@@ -1,0 +1,64 @@
+table TiposDeCambio
+	lineageTag: 503c8b47-9259-467b-9931-347c708c5cbf
+
+	column CodMoneda
+		dataType: string
+		lineageTag: 7c49e838-0d7c-40fa-8ba5-f214dd9a2e37
+		summarizeBy: none
+		sourceColumn: CodMoneda
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaIni
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f30ad1f3-9081-4a64-bdd3-4af20438aff2
+		summarizeBy: none
+		sourceColumn: FechaIni
+
+		variation Variación
+			isDefault
+			relationship: 5d72e741-ba69-427a-a204-5597e6f65aa5
+			defaultHierarchy: LocalDateTable_4871ed21-085f-4b79-802d-7ee9c0ad8ba8.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FechaFin
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2d41bc84-30df-4970-99d1-6ebb0e1a105a
+		summarizeBy: none
+		sourceColumn: FechaFin
+
+		variation Variación
+			isDefault
+			relationship: 7a952334-03d9-48ce-9b90-6110e0c7fdc2
+			defaultHierarchy: LocalDateTable_c7ea65b7-13ec-408b-b30d-31d2987a1bdb.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Valor
+		dataType: double
+		lineageTag: 01383c7d-e531-44e6-99d6-6bdd033961b8
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition TiposDeCambio = m
+		mode: import
+		source =
+				let
+				  Origen = PowerBI.Dataflows([]),
+				  #"Navegación 1" = Origen{[workspaceId = "8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				  #"Navegación 2" = #"Navegación 1"{[dataflowId = "a256efe0-be0d-4a2f-9dfa-451c12d26cc7"]}[Data],
+				  #"Navegación 3" = #"Navegación 2"{[entity = "TiposDeCambio"]}[Data]
+				in
+				  #"Navegación 3"
+
