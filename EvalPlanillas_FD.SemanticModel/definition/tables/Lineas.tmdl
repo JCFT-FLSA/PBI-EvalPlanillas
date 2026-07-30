@@ -1,0 +1,32 @@
+table Lineas
+	lineageTag: e42fed95-f31f-45cc-95ed-aceaa42194f5
+
+	column Linea
+		lineageTag: 1daf2566-8145-4876-a6aa-82f3e24c02f0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Linea]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portafolio
+		lineageTag: ece18210-25a6-419e-b450-97d7b1db85e4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Portafolio]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Lineas-48e74507-fc7b-4d83-b891-9981e9d186ff = calculated
+		mode: import
+		source = ```
+				
+				    DISTINCT(
+				        SELECTCOLUMNS(
+				        Materiales,
+				        "Linea", [Linea],
+				        "Portafolio", [Portafolio]
+				        )
+				    )
+				```
+

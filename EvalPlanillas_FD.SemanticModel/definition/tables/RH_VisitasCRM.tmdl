@@ -1,0 +1,51 @@
+table RH_VisitasCRM
+	lineageTag: 9ca02ced-9764-4141-beab-257a9af42696
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 6075b62e-fedc-4685-84c9-aed235f27153
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: fa08552b-3f8c-4e15-ad7a-b98f51be2df5
+			defaultHierarchy: LocalDateTable_ffc264f0-9dcd-4e81-b579-2bf9a7653cd0.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Canal
+		dataType: int64
+		formatString: 0
+		lineageTag: 377384da-82a5-4755-87e6-8d6aaf04eb26
+		summarizeBy: sum
+		sourceColumn: Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visitas
+		dataType: int64
+		formatString: 0
+		lineageTag: d2981fed-ac3e-40a5-a546-37dfaca6b6c3
+		summarizeBy: sum
+		sourceColumn: Visitas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_VisitasCRM = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({#"CRM-Visitas_2025", #"CRM-Visitas_2026"})
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

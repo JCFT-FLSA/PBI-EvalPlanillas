@@ -1,0 +1,1095 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 4145.33642578125,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 4131,
+            "y": 47.5
+          },
+          "nodeIndex": "Canales",
+          "size": {
+            "height": 156,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2105.4,
+            "y": 43
+          },
+          "nodeIndex": "Clientes",
+          "size": {
+            "height": 251,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2456.3,
+            "y": 0
+          },
+          "nodeIndex": "Fechas",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 11140.9,
+            "y": 0
+          },
+          "nodeIndex": "FechasAñoMes",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7225.4,
+            "y": 0
+          },
+          "nodeIndex": "Lineas",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4742.4,
+            "y": 47.5
+          },
+          "nodeIndex": "Marcas",
+          "size": {
+            "height": 156,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 8798.1,
+            "y": 0
+          },
+          "nodeIndex": "MarcasDesarrollo",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 9417.7,
+            "y": 0
+          },
+          "nodeIndex": "Medidas",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7858.7,
+            "y": 0
+          },
+          "nodeIndex": "Objetivos",
+          "size": {
+            "height": 251,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 9111.6,
+            "y": 0
+          },
+          "nodeIndex": "ObjetivosGralDesa",
+          "size": {
+            "height": 213,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 31,
+            "y": 441
+          },
+          "nodeIndex": "Regionales",
+          "size": {
+            "height": 137,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 305,
+            "y": 370
+          },
+          "nodeIndex": "Sucursales",
+          "size": {
+            "height": 341,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 646,
+            "y": 286
+          },
+          "nodeIndex": "Vendedores",
+          "size": {
+            "height": 338,
+            "width": 238
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 10834.8,
+            "y": 0
+          },
+          "nodeIndex": "Ventas",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 12671.4,
+            "y": 0
+          },
+          "nodeIndex": "Objetivos_Gest0",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 13283.6,
+            "y": 0
+          },
+          "nodeIndex": "Objetivos_Gest2",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 13589.7,
+            "y": 0
+          },
+          "nodeIndex": "Objetivos_Gest1",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 12977.5,
+            "y": 0
+          },
+          "nodeIndex": "ObjetivosGral",
+          "size": {
+            "height": 194,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 16315.7,
+            "y": 58
+          },
+          "nodeIndex": "CarteraIVT",
+          "nodeLineageTag": "a7ada80f-f5a7-4caf-9015-d1fe46375b45",
+          "size": {
+            "height": 280,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 16656.5,
+            "y": 70
+          },
+          "nodeIndex": "ClasesFacturas",
+          "size": {
+            "height": 197,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 18019.5,
+            "y": 34
+          },
+          "nodeIndex": "Gestiones Previas",
+          "size": {
+            "height": 269,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 17338,
+            "y": 195.8
+          },
+          "nodeIndex": "Materiales",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 20064,
+            "y": 0
+          },
+          "nodeIndex": "RH_PersonalFLSA",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 20404.8,
+            "y": 0
+          },
+          "nodeIndex": "RH_PesosVariable",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 20745.5,
+            "y": 0
+          },
+          "nodeIndex": "RH_Planilla_BonoTrimestral",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 21427.1,
+            "y": 22
+          },
+          "nodeIndex": "RH_PlanillasMensuales",
+          "size": {
+            "height": 293,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 21767.8,
+            "y": 58
+          },
+          "nodeIndex": "RH_TablaKPI",
+          "size": {
+            "height": 221,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 22108.6,
+            "y": 34
+          },
+          "nodeIndex": "RH_TablaVariables",
+          "size": {
+            "height": 269,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 22449.3,
+            "y": 70
+          },
+          "nodeIndex": "RH_Utilidad",
+          "size": {
+            "height": 197,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 29874.7,
+            "y": 0
+          },
+          "nodeIndex": "DiasValidosxMes",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 29488.5,
+            "y": 38
+          },
+          "nodeIndex": "ObjetivosSegmento",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 31099.8,
+            "y": 0
+          },
+          "nodeIndex": "CxC",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 31463.6,
+            "y": 0
+          },
+          "nodeIndex": "RH_UtilidadMensual",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "VentasSDI",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Ramos",
+          "nodeLineageTag": "2758ac70-7325-4f37-8e01-5a6aa2d00945",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Sectores",
+          "nodeLineageTag": "283860a3-3354-499e-b241-376e5280c779",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_MesesInventario",
+          "nodeLineageTag": "ffab74de-a850-44b3-a121-2084fa08ead9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "Sucursales_Info",
+          "nodeLineageTag": "e96bc38c-0c1a-490d-bf4c-2a9cbc136649",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "VentasHistoricas",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "ActividadesCRM",
+          "nodeLineageTag": "dde06af1-0b07-49c5-8078-a7115a7be538",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_VariableMensual",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "EERR",
+          "nodeLineageTag": "76cba41e-4cb8-4c6b-9e60-b81a78cfdb86",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "FacturasPOS",
+          "nodeLineageTag": "a5795478-85d6-40f2-a5dd-529630d5ad7f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "NItGestAnt",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "NitGest2",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_ClientesNuevosAnt",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_ClientesNuevos",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_NivelServicio",
+          "nodeLineageTag": "3407dbe4-f25d-4bc3-868f-10a502670368",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_Planilla_General",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_VisitasCRM",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "RH_VisitasCRM_SDI",
+          "nodeLineageTag": "d2322cac-d0db-488b-812d-fb0d53910e32",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "MaterialesSDI",
+          "nodeLineageTag": "a6f89755-aa97-4a6d-b89e-feccde01a8d8",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "ObjetivosSDI",
+          "nodeLineageTag": "b8cc67fa-6b71-403b-9a28-666cda9d22f7",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 15975,
+            "y": 0
+          },
+          "nodeIndex": "2026_C10",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 15293.5,
+            "y": 0
+          },
+          "nodeIndex": "2026_C11",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 14271.2,
+            "y": 0
+          },
+          "nodeIndex": "2026_C20-C30",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 24159.3,
+            "y": 46
+          },
+          "nodeIndex": "2026_CANALES",
+          "size": {
+            "height": 245,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "2026_G-MARKETING",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 14952.7,
+            "y": 0
+          },
+          "nodeIndex": "2026_G-VENTAS",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 30667.1,
+            "y": 0
+          },
+          "nodeIndex": "2026_SAC",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 13930.5,
+            "y": 0
+          },
+          "nodeIndex": "2026_SDI",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "2026_TODOS",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0.800000011920929,
+        "y": 396
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 540,
+            "y": 457.5
+          },
+          "nodeIndex": "ObjetivosGral",
+          "nodeLineageTag": "a8545eb6-0a61-4fce-bc8f-ecf09a5e5d76",
+          "size": {
+            "height": 317,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 490.5
+          },
+          "nodeIndex": "Ventas",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 117.5
+          },
+          "nodeIndex": "Vendedores",
+          "size": {
+            "height": 337,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 341,
+            "y": 107.5
+          },
+          "nodeIndex": "Sucursales",
+          "size": {
+            "height": 317,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 616,
+            "y": 135.5
+          },
+          "nodeIndex": "Regionales",
+          "size": {
+            "height": 173,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Disposición 1",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 157.82475899342606,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 316.11098683848371,
+            "y": 475.58629033561306
+          },
+          "nodeIndex": "CarteraIVT",
+          "nodeLineageTag": "a7ada80f-f5a7-4caf-9015-d1fe46375b45",
+          "size": {
+            "height": 276.6147589319487,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 673.64276872139953,
+            "y": 470.20308273872843
+          },
+          "nodeIndex": "CxC",
+          "nodeLineageTag": "7697fb48-79b5-4431-85ee-7af2e4612cc0",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1081.8112824502919,
+            "y": 355.39412576747839
+          },
+          "nodeIndex": "Clientes",
+          "nodeLineageTag": "054e574c-e2de-40b7-94c2-9122c6a8d224",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 328.80157390134246
+          },
+          "nodeIndex": "Vendedores",
+          "nodeLineageTag": "889a256a-e7b7-48ec-a8bf-76f3c326e23c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 555.82168580247685,
+            "y": 88.4366675449595
+          },
+          "nodeIndex": "Regionales",
+          "nodeLineageTag": "fc856f0a-6c0d-4a49-b124-5d96de994716",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 885.7769494368066,
+            "y": 3.4610691989615
+          },
+          "nodeIndex": "Sucursales",
+          "nodeLineageTag": "3a03064a-16ae-48ce-8832-3e01ccd2236f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 251.24759629386489,
+            "y": 95.358805942882526
+          },
+          "nodeIndex": "Fechas",
+          "nodeLineageTag": "7924875d-e79b-4834-b6a6-59122b7089d2",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        }
+      ],
+      "name": "Disposición 2",
+      "zoomValue": 86.67841720414475,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 295.20000076293945,
+            "y": 165
+          },
+          "nodeIndex": "Objetivos",
+          "nodeLineageTag": "0ed56066-75c5-4c1b-811d-baaae4b11816",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 587.20000076293945,
+            "y": 185
+          },
+          "nodeIndex": "Lineas",
+          "nodeLineageTag": "e42fed95-f31f-45cc-95ed-aceaa42194f5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 120.20000076293945,
+            "y": -18
+          },
+          "nodeIndex": "Materiales",
+          "nodeLineageTag": "4b4aaba8-ce74-4961-ac7b-9e6d77cf8744",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Disposición 3",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 287.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "Objetivos",
+          "nodeLineageTag": "0ed56066-75c5-4c1b-811d-baaae4b11816",
+          "size": {
+            "height": 367,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 590.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "Vendedores",
+          "nodeLineageTag": "889a256a-e7b7-48ec-a8bf-76f3c326e23c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Lineas",
+          "nodeLineageTag": "e42fed95-f31f-45cc-95ed-aceaa42194f5",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 363
+          },
+          "nodeIndex": "Sucursales",
+          "nodeLineageTag": "3a03064a-16ae-48ce-8832-3e01ccd2236f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 571.20000076293945,
+            "y": 388
+          },
+          "nodeIndex": "Fechas",
+          "nodeLineageTag": "7924875d-e79b-4834-b6a6-59122b7089d2",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Objetivos",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 669,
+            "y": 367
+          },
+          "nodeIndex": "Ventas",
+          "nodeLineageTag": "6585c945-b9ab-42cf-b674-6a86c1b13bae",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 481,
+            "y": 0
+          },
+          "nodeIndex": "Fechas",
+          "nodeLineageTag": "7924875d-e79b-4834-b6a6-59122b7089d2",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 35,
+            "y": 26
+          },
+          "nodeIndex": "Materiales",
+          "nodeLineageTag": "4b4aaba8-ce74-4961-ac7b-9e6d77cf8744",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 889,
+            "y": 29
+          },
+          "nodeIndex": "Sucursales",
+          "nodeLineageTag": "3a03064a-16ae-48ce-8832-3e01ccd2236f",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Disposición 4",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Disposición 4",
+  "defaultDiagram": "Todas las tablas"
+}

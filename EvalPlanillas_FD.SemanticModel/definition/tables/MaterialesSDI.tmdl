@@ -1,0 +1,49 @@
+table MaterialesSDI
+	lineageTag: a6f89755-aa97-4a6d-b89e-feccde01a8d8
+
+	column Material
+		dataType: int64
+		formatString: 0
+		lineageTag: 30e3acb2-fa71-4a93-b999-564430b878c5
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbMaterial
+		dataType: string
+		lineageTag: 59cc44d0-218c-4a1f-82a2-c874b0ba551f
+		summarizeBy: none
+		sourceColumn: nbMaterial
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Servicio'
+		dataType: string
+		lineageTag: 63e14027-aefa-4ef0-ab46-694f83118e9c
+		summarizeBy: none
+		sourceColumn: Tipo Servicio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Eq_Trabajo
+		dataType: string
+		lineageTag: 90d6e64f-fff3-49d5-9796-023e106daf7c
+		summarizeBy: none
+		sourceColumn: Eq_Trabajo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MaterialesSDI = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({MaterialesSDI_2026}),
+				    #"Duplicados quitados" = Table.Distinct(Origen)
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

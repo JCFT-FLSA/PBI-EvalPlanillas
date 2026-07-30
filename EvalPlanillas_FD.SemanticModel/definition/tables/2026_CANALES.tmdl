@@ -1,0 +1,480 @@
+table 2026_CANALES
+	lineageTag: d4e3aa69-b4d7-4269-8a0e-b311de7cc50d
+
+	column Item
+		formatString: 0
+		lineageTag: 11852e1c-3071-46fe-a8b7-96269fa0f9c5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: 9052c160-95b2-4cf5-89b3-86c2ba4b768e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: f2d78eaa-4617-47f0-bbce-53f7d52ca84e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: 8118de21-2aae-4a5c-b2ea-5c9a945ef8d4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: f136671f-bb4b-4021-96db-7dbf66f79a1c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_1 =
+			
+			VAR _Canal =
+			    SWITCH(
+			        '2026_CANALES'[Cargo],
+			        "JPDV", 10,
+			        "JVN", 11,
+			        "JCI", 20,
+			        "JC10R", 10,
+			        BLANK()
+			    )
+			RETURN
+			    IF(
+			        '2026_CANALES'[Cargo] = "JC10R",
+			        CALCULATE(
+			            SUM(Objetivos[ObjetivoBs]),
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_CANALES'[AñoMes] &&
+			                Objetivos[Canal] = _Canal &&
+			                Objetivos[Regional] = '2026_CANALES'[Regional]
+			            )
+			        ),
+			        CALCULATE(
+			            SUM(Objetivos[ObjetivoBs]),
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_CANALES'[AñoMes] &&
+			                Objetivos[Canal] = _Canal
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 082defa1-9a91-46a1-898b-2c99ddd2ed3e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 =
+			
+			VAR _Canal =
+			    SWITCH(
+			        '2026_CANALES'[Cargo],
+			        "JPDV", 10,
+			        "JVN", 11,
+			        "JCI", 20,
+			        "JC10R", 10,
+			        BLANK()
+			    )
+			RETURN
+			    IF(
+			        '2026_CANALES'[Cargo] = "JC10R",
+			        CALCULATE(
+			            SUM(Ventas[Venta]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_CANALES'[AñoMes] &&
+			                RELATED(Canales[CodCanal]) = _Canal &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_CANALES'[Regional]
+			            )
+			        ),
+			        CALCULATE(
+			            SUM(Ventas[Venta]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_CANALES'[AñoMes] &&
+			                RELATED(Canales[CodCanal]) = _Canal
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 7e355b01-7395-4dd7-89e3-c6c7079a0bac
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = CALCULATE(VALUES(Fechas[NbTrimestreAño]), filter(Fechas, Fechas[AñoMes] = '2026_CANALES'[AñoMes]))
+		lineageTag: 2fb6ad94-4f10-4c4a-8b24-759c8fefd5b5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = BLANK()
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: f2d1ec6a-b488-4fae-9f1e-58847150366d
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactorGestActual = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = '2026_CANALES'[AñoMes]), 'DiasValidosxMes'[Factor])
+		lineageTag: c116d671-1f67-4d29-94b9-e881dce6aae4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FactorGestAnterior = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = DATEADD('2026_C11'[AñoMes], - [Valor Gestiones Previas], YEAR)), 'DiasValidosxMes'[Factor])
+		lineageTag: 2c387a42-fc38-4a10-83a7-33eb2d50fe61
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_2 =
+			// Enero 2023 = Se utiilzo el avance de ventas nacional. Se modifico en febrero.
+			VAR _Canal =
+			    SWITCH(
+			        '2026_CANALES'[Cargo],
+			        "JPDV", 10,
+			        "JVN", 11,
+			        "JCI", 20,
+			        "JC10R", 10,
+			        BLANK()
+			    )
+			RETURN
+			    IF(
+			        '2026_CANALES'[Cargo] = "JC10R",
+			        CALCULATE(
+			            SUM(Objetivos[UtilidadObjBs]),
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_CANALES'[AñoMes] &&
+			                Objetivos[Canal] = _Canal &&
+			                Objetivos[Regional] = '2026_CANALES'[Regional]
+			            )
+			        ),
+			        CALCULATE(
+			            SUM(Objetivos[UtilidadObjBs]),
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_CANALES'[AñoMes] &&
+			                Objetivos[Canal] = _Canal
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 0709e4ba-4f83-4b5c-9928-84f8d83ebb28
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 = ```
+			
+			VAR _Canal =
+			    SWITCH(
+			        '2026_CANALES'[Cargo],
+			        "JPDV", 10,
+			        "JVN", 11,
+			        "JCI", 20,
+			        "JC10R", 10,
+			        BLANK()
+			    )
+			VAR _Costo =
+			    IF(
+			        '2026_CANALES'[Cargo] = "JC10R",
+			        CALCULATE(
+			            SUM(Ventas[Costo]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_CANALES'[AñoMes] &&
+			                RELATED(Canales[CodCanal]) = _Canal &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_CANALES'[Regional]
+			            )
+			        ),
+			        CALCULATE(
+			            SUM(Ventas[Costo]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_CANALES'[AñoMes] &&
+			                RELATED(Canales[CodCanal]) = _Canal
+			            )
+			        )
+			    )
+			RETURN
+			    '2026_CANALES'[Avance_1] - _Costo
+			
+			```
+		formatString: #,0.00
+		lineageTag: 20c61eee-94d1-4ad9-bb14-c720a53e1abd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_3 = ```
+			
+			VAR _Canal = 
+			    SWITCH(
+			        '2026_CANALES'[Cargo],
+			        "JPDV", 10,
+			        "JVN", 11,
+			        "JCI", 20,
+			        "JC10R", 10,
+			        BLANK()
+			    )
+			
+			VAR _calc1 = EOMONTH('2026_CANALES'[AñoMes], -13) + 1
+			VAR _calc2 = 
+			    
+			    IF (
+			        '2026_CANALES'[Cargo] = "JC10R",
+			        CALCULATE(
+			            DISTINCTCOUNT(Ventas[Nit]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = _calc1 &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_CANALES'[Regional] &&
+			                Ventas[Canal distribución] = _Canal &&
+			                Ventas[EsPrimeraCompra] = 1
+			            )
+			        ),
+			        CALCULATE(
+			            DISTINCTCOUNT(Ventas[Nit]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = _calc1 &&
+			                Ventas[Canal distribución] = _Canal &&
+			                Ventas[EsPrimeraCompra] = 1
+			            )
+			        )
+			    )
+			
+			RETURN
+			 _calc2
+			```
+		formatString: #,0
+		lineageTag: 554ebeb4-00e8-42a3-8627-327b822474f8
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_3 = ```
+			
+			VAR _Canal = 
+			    SWITCH(
+			        '2026_CANALES'[Cargo],
+			        "JPDV", 10,
+			        "JVN", 11,
+			        "JCI", 20,
+			        "JC10R", 10,
+			        BLANK()
+			    )
+			
+			RETURN
+			    IF (
+			        '2026_CANALES'[Cargo] = "JC10R",
+			            CALCULATE(
+			                DISTINCTCOUNT(Ventas[Nit]),
+			                FILTER(
+			                    Ventas,
+			                    RELATED(Fechas[AñoMes]) = '2026_CANALES'[AñoMes] &&
+			                    Ventas[Canal distribución] = _Canal &&
+			                    RELATED(Sucursales[SucursalReg]) = '2026_CANALES'[Regional] &&
+			                    Ventas[EsPrimeraCompra] = 1
+			                )
+			            ),
+			            CALCULATE(
+			                DISTINCTCOUNT(Ventas[Nit]),
+			                FILTER(
+			                    Ventas,
+			                    RELATED(Fechas[AñoMes]) = '2026_CANALES'[AñoMes] &&
+			                    Ventas[Canal distribución] = _Canal &&
+			                    Ventas[EsPrimeraCompra] = 1
+			                )
+			            )
+			)
+			```
+		formatString: 0
+		lineageTag: 37cbba6f-2a55-4604-a176-22d159fdc813
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = DIVIDE('2026_CANALES'[Avance_1], '2026_CANALES'[Objetivos_1], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 68497ce1-5531-421b-912f-7fc634e95263
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = DIVIDE('2026_CANALES'[Avance_2], '2026_CANALES'[Objetivos_2], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 4fed5b70-b3a2-42a2-b32b-ca43232c812e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = DIVIDE('2026_CANALES'[Avance_3], '2026_CANALES'[Objetivos_3], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 439802fd-4e6d-496d-ae8f-e7dcf8770980
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 1601c048-07dd-485d-bb95-31ccb698e82a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 905b1c0b-d479-4e21-8dd7-4c6193bf122d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: 6b0b541d-0624-4c72-aa81-80a86a1d0d8d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: General Date
+		lineageTag: c344a262-7c25-411e-85a5-71838a01dcc7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: bdcaa60b-4e92-45c9-9f14-da6ccf565029
+			defaultHierarchy: LocalDateTable_a441ff26-6f35-463b-9c92-3e5015bbb34a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		lineageTag: 70972b4e-7312-4a7e-a10f-cc4e11d8a081
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: 203e4a1c-1222-47ec-9eb5-6837e7887d47
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: c3a27767-200c-4477-ba87-effeccfacd24
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: 7663e097-d685-4a58-a3dc-86e14115a6f7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: cac46795-1125-48e2-9d13-909c734a4a5d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: 9aff8e8a-6318-4e16-b6bc-9fd61408efe1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: b2706c5d-5188-48e2-974d-f9a83fb45412
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: b57fa463-5dff-4af1-8c7a-33ac395cd65c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: d097fc80-ffba-47b0-8e48-d0e9430f4cc8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_CANALES-ef303150-8bca-4377-b826-e73f817b4413 = calculated
+		mode: import
+		source =
+				UNION(
+				    // Jefe C10
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JPDV" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // Jefe C10 Regional
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JC10R" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // Jefe C11
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JVN" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // Jefe C20 & 30
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JCI" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				)
+
+	annotation PBI_Id = 2484d1ea34a9476e8992b45c7db034e4
+

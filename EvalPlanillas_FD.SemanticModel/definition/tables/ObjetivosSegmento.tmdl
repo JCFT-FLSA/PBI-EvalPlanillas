@@ -1,0 +1,146 @@
+table ObjetivosSegmento
+	lineageTag: 08db63b7-6ab7-4bff-a8db-0042427a8d66
+
+	column Material
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e4f306c-5ac9-45b3-b6db-2a823d3d5e02
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column MES
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f8a59a0-cace-438a-8b87-a5113353773c
+		summarizeBy: sum
+		sourceColumn: MES
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año
+		dataType: int64
+		formatString: 0
+		lineageTag: dfe85bf5-6765-48c7-84fa-2a373ec17f3e
+		summarizeBy: sum
+		sourceColumn: Año
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: 635f4a3c-3ed4-4d87-b5bc-bfe1d479f5fd
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total $us'
+		dataType: double
+		lineageTag: f03296d6-c136-4f8a-bcf7-514731f2f75e
+		summarizeBy: sum
+		sourceColumn: Total $us
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Segmento
+		dataType: string
+		lineageTag: 7218eea5-0e7b-4a07-828a-ac0ea06db341
+		summarizeBy: none
+		sourceColumn: Segmento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo
+		dataType: double
+		lineageTag: 31438011-52f2-41d1-b88d-398eae37247d
+		summarizeBy: sum
+		sourceColumn: Objetivo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Ventas = ```
+			
+			    SUMX (
+			        FILTER(
+			            FILTER (
+			            Ventas,
+			            RELATED(Fechas[AñoMes]) = DATE(ObjetivosSegmento[Año], ObjetivosSegmento[MES], 1)
+			            ),
+			            Ventas[Material] = ObjetivosSegmento[Material]
+			        ),
+			        Ventas[Venta]
+			    )
+			
+			```
+		lineageTag: 32c2c2f2-53d0-4072-a7e3-3e9138ca2ef0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Costos = ```
+			
+			    SUMX (
+			        FILTER(
+			            FILTER (
+			            Ventas,
+			            RELATED(Fechas[AñoMes]) = DATE(ObjetivosSegmento[Año], ObjetivosSegmento[MES], 1)
+			            ),
+			            Ventas[Material] = ObjetivosSegmento[Material]
+			        ),
+			        Ventas[Costo]
+			    )
+			```
+		lineageTag: b1d4b142-221b-41ba-a730-a0cce180a436
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: e65fb7fb-ff02-4ae0-89ff-e4260d20e9f0
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: ec8ab633-bcf8-4743-8cf6-27c12d69a3f2
+			defaultHierarchy: LocalDateTable_2585b5ea-8b41-4854-bf35-735993e355f5.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition ObjetivosSegmento-81d21d2d-dbac-40e4-a872-f6034e3228a7 = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"a05a1560-5ff7-4b22-9a20-18ae96dc3f3b" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="a05a1560-5ff7-4b22-9a20-18ae96dc3f3b"]}[Data],
+				    ObjetivosSegmento1 = #"a05a1560-5ff7-4b22-9a20-18ae96dc3f3b"{[entity="ObjetivosSegmento2023"]}[Data],
+				    #"Personalizada agregada" = Table.AddColumn(ObjetivosSegmento1, "Objetivo", each [#"Total $us"] * 6.96),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Personalizada agregada",{{"Objetivo", type number}}),
+				    #"Columna combinada insertada" = Table.AddColumn(#"Tipo cambiado", "Combinada", each Text.Combine({"1/", Text.From([MES], "es-BO"), "/", Text.From([Año], "es-BO")}), type text),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columna combinada insertada",{{"Combinada", "Periodo"}}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"Periodo", type date}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

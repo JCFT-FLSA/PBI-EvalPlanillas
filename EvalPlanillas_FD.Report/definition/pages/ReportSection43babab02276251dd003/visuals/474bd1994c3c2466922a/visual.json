@@ -1,0 +1,911 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "474bd1994c3c2466922a",
+  "position": {
+    "x": 262.90900406018631,
+    "y": 63.326830666348265,
+    "z": 4000,
+    "height": 656.66109386195365,
+    "width": 1011.2825411989492
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Periodo"
+                }
+              },
+              "queryRef": "RH_VariableMensual.Periodo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Item"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Item)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Cargo"
+                }
+              },
+              "queryRef": "RH_VariableMensual.Cargo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "nbVendedor"
+                }
+              },
+              "queryRef": "RH_VariableMensual.nbVendedor"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "CodVendedor"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.CodVendedor)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Sucursal"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Sucursal)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Objetivo1"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Objetivo1)",
+              "nativeQueryRef": "Objetivo1",
+              "displayName": "Obj_Ventas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Avance1"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Avance1)",
+              "nativeQueryRef": "Avance1",
+              "displayName": "Ventas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Presupuesto1"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Presupuesto1)",
+              "nativeQueryRef": "Presupuesto1",
+              "displayName": "Cumpl_Ventas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Peso_Obj1"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Peso_Obj1)",
+              "nativeQueryRef": "Peso_Obj11"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Valor_Obj1"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Valor_Obj1)",
+              "nativeQueryRef": "Valor_Obj1"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Objetivo2"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Objetivo2)",
+              "nativeQueryRef": "Objetivo2",
+              "displayName": "Obj_Utilidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Avance2"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Avance2)",
+              "nativeQueryRef": "Avance2",
+              "displayName": "Utilidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Presupuesto2"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Presupuesto2)",
+              "displayName": "Cumpl_Utilidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Peso_Obj2"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Peso_Obj2)",
+              "nativeQueryRef": "Peso_Obj21"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Valor_Obj2"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Valor_Obj2)",
+              "nativeQueryRef": "Valor_Obj2"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Objetivo3"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Objetivo3)",
+              "nativeQueryRef": "Objetivo31",
+              "displayName": "Objetivo3"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Avance3"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Avance3)",
+              "nativeQueryRef": "Avance31",
+              "displayName": "Avance3"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Presupuesto3"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Presupuesto3)",
+              "nativeQueryRef": "Presupuesto3",
+              "displayName": "Cumpl3"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Peso_Obj3"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Peso_Obj3)",
+              "nativeQueryRef": "Peso_Obj31"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Valor_Obj3"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Valor_Obj3)",
+              "nativeQueryRef": "Valor_Obj31"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Objetivo4"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Objetivo4)",
+              "nativeQueryRef": "Objetivo41"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Avance4"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Avance4)",
+              "nativeQueryRef": "Avance4"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Presupuesto4"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Presupuesto4)",
+              "nativeQueryRef": "Presupuesto4",
+              "displayName": "Cumpl4"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Peso_Obj4"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Peso_Obj4)",
+              "nativeQueryRef": "Peso_Obj4"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "Valor_Obj4"
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Valor_Obj4)",
+              "nativeQueryRef": "Valor_Obj41",
+              "displayName": "Valor_Obj4"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RH_VariableMensual"
+                        }
+                      },
+                      "Property": "ValorVariable"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.ValorVariable)",
+              "nativeQueryRef": "ValorVariable",
+              "displayName": "ValorVariable"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "RH_VariableMensual"
+                      }
+                    },
+                    "Property": "ValorVariable"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "241.64437755527666D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "RH_VariableMensual.nbVendedor"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.CodVendedor)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Objetivo3)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Objetivo2)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Presupuesto2)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Presupuesto1)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.19674741896847D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "RH_VariableMensual.Cargo"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "RH_VariableMensual.Periodo"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Avance3)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Presupuesto3)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Sum(RH_VariableMensual.Peso_Obj3)"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0a708e3d32936b72bf2c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Periodo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bd36b0f932549e2dd4b0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Item"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f41be1c4bcd163049368",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Cargo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "17eaa947f134a364b956",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "nbVendedor"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "06686e53bf6e45b4469b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "CodVendedor"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "170a6a7f9c9a3463c4d4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Objetivo1"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4ca77277f77d394bce03",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Avance1"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2915cb0e512a88679193",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Presupuesto1"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "812951480fab8da927ff",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Objetivo2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c2a6e91be3e36e073417",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Avance2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fd80c251c8797e889ab8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Presupuesto2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "70e6c40113de08a6d769",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Sucursal"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c3e025c31104ac2fa78e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Avance3"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c3cef90d0bc3a31c9ad5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Objetivo3"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "728378db963636a8f5c3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Presupuesto3"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "531885379b5e1a02d676",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Objetivo4"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2e0c729219171ee6e3e3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Avance4"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d27f8b141570ee7a0881",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Presupuesto4"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b149b2d03d243eb076ac",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Peso_Obj1"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "81c91e998a5a43c66865",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Peso_Obj2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "aff55fbca836053d6363",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Peso_Obj3"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fa03053df1fd015dfa04",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Peso_Obj4"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "75a51d67bd9d92668d59",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Valor_Obj1"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "117f7e6db067bfff3974",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Valor_Obj2"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "677000353a53194a6769",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Valor_Obj3"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "91b886e8fb4ceb8c374a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "Valor_Obj4"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ded1bf9bd503843c8367",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "RH_VariableMensual"
+                  }
+                },
+                "Property": "ValorVariable"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

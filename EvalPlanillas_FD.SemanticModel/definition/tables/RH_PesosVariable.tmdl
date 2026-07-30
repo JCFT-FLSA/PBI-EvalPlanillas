@@ -1,0 +1,110 @@
+table RH_PesosVariable
+	lineageTag: 185f4ea2-fdeb-4afa-9b23-2f509306f2b7
+
+	column 'Gestion '
+		dataType: int64
+		lineageTag: 15322f12-ce5c-42cb-b674-4d288957e377
+		summarizeBy: sum
+		sourceColumn: "Gestion "
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: de39feb2-c408-4be3-b201-79686b6338a0
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		dataType: string
+		lineageTag: 80072325-0302-4674-b5c2-0c7c4f108f6e
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Obs
+		dataType: string
+		lineageTag: 747d7543-e923-45e7-9885-d4a3d49b9b7e
+		summarizeBy: none
+		sourceColumn: Obs
+
+		annotation SummarizationSetBy = Automatic
+
+	column Obj1
+		dataType: double
+		lineageTag: 33da07f0-84c1-4a58-8fa1-5ed694986f32
+		summarizeBy: sum
+		sourceColumn: Obj1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Obj2
+		dataType: double
+		lineageTag: 569ab6cd-b691-49bc-a899-b655d6eb6530
+		summarizeBy: sum
+		sourceColumn: Obj2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Obj3
+		dataType: double
+		lineageTag: acda223a-d97c-4e89-9cf1-18f31ebc9d71
+		summarizeBy: sum
+		sourceColumn: Obj3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Obj4
+		dataType: double
+		lineageTag: 7225ddb9-74c8-4037-a154-fa1bae823a6e
+		summarizeBy: sum
+		sourceColumn: Obj4
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Obj5
+		dataType: double
+		lineageTag: 748b7102-bec0-4d13-8a2a-8cc28c0bdfb7
+		summarizeBy: sum
+		sourceColumn: Obj5
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Obj6
+		dataType: double
+		lineageTag: f4a8c18b-1382-4b9a-a541-c74ccee7b118
+		summarizeBy: sum
+		sourceColumn: Obj6
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition RH_PesosVariable-c565a4c2-422a-4617-b83b-f25bea453823 = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({RH_PesosVariable_2025, RH_PesosVariable_2026})
+				in
+				    Origen
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

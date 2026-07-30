@@ -1,0 +1,63 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Ppt Vtas x Canal - $us",
+  "name": "Bookmarkc7fe0ec4448cdea518a8",
+  "options": {
+    "targetVisualNames": [
+      "41b8a793a016ad1d8dce"
+    ],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "ReportSectione152bb111567002aa3e9",
+    "sections": {
+      "ReportSectione152bb111567002aa3e9": {
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "8691d6443143e4774e0b": {
+            "isHidden": true
+          },
+          "ab9256ac0c5003d0a832": {
+            "isHidden": true
+          },
+          "b1d63230ed9eb54a03eb": {
+            "isHidden": true
+          },
+          "b4f423d29b046005adc6": {
+            "isHidden": true
+          },
+          "28854907ccb4a7346d8c": {
+            "isHidden": false
+          },
+          "dcf6d8564d7de2ca2062": {
+            "isHidden": false
+          },
+          "285906bc23bd9ec395ae": {
+            "isHidden": false
+          },
+          "450107a26ed71b8dc03c": {
+            "isHidden": false
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

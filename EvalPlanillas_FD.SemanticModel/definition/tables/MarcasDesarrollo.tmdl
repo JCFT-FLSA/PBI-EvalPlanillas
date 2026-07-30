@@ -1,0 +1,15 @@
+table MarcasDesarrollo
+	lineageTag: 26b9b6f9-8b30-4278-aaae-c1349c93738c
+
+	column Marca
+		lineageTag: 33b2941c-e6dd-4f43-8cd1-c636cc9f9bac
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Marca]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MarcasDesarrollo-d2847389-1867-4bc3-bf13-86d6752d0d13 = calculated
+		mode: import
+		source = UNION(ROW("Marca", "0361"), ROW("Marca", "0362"), ROW("Marca", "0368"))
+

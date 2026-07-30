@@ -1,0 +1,63 @@
+table RH_ClientesNuevos
+	lineageTag: 56c135ae-1055-4fbf-bd14-5da2eca75c82
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 7d498353-baca-4c2f-97f3-429268444e5d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fechas[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 51a9df7f-68aa-48b8-af47-3237dd1f2219
+			defaultHierarchy: LocalDateTable_f4f12070-867f-4be1-8b11-023fdbcf04ce.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column CodCanal
+		formatString: 0
+		lineageTag: 3d2bd76b-b019-49bc-8b69-5f7d4b32b99b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Canales[CodCanal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portafolio
+		lineageTag: 4206a31f-731e-440b-bbb6-0f8c6a94309f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Materiales[Portafolio]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NuevosClientes
+		formatString: 0
+		lineageTag: 8447d181-459f-45d0-96a2-fee218575bc8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [NuevosClientes]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_ClientesNuevos = calculated
+		mode: import
+		source = ```
+				
+				SUMMARIZECOLUMNS(
+				    -- Columnas con las que deseamos "agrupar"
+				    Fechas[AñoMes],
+				    Canales[CodCanal],
+				    Materiales[Portafolio],
+				
+				    -- Finalmente añadimos una columna virtual con el measure
+				    "NuevosClientes", [NuevosClientes]
+				)
+				
+				```
+
+	annotation PBI_Id = 23f8729de36340a69d8a56a8e5557d54
+

@@ -1,0 +1,49 @@
+table RH_Utilidad
+	lineageTag: 82ad0d94-6a7a-47cb-b486-9fd70c8e5097
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cdaf6a1-9804-4a4d-8c7f-d524ae83520c
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto
+		dataType: string
+		lineageTag: e0bf7e8b-2371-49e5-9f51-fc3b02da718a
+		summarizeBy: none
+		sourceColumn: Cuarto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Utilidad
+		dataType: double
+		formatString: #,0.00\ %;-#,0.00\ %;#,0.00\ %
+		lineageTag: 8f324c45-4a20-45df-831e-5fa9c0ad8869
+		summarizeBy: sum
+		sourceColumn: Utilidad
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_Utilidad-c730799c-675c-487f-844d-b14ec4937a07 = m
+		mode: import
+		source =
+				let
+				    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/",[ApiVersion = 15]),
+				    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+				    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+				    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+				    #"FijoVaribleKPI_EVALUACION xlsx" = Maestros{[Name="EvalPlanillas.xlsx"]}[Content],
+				    #"Libro de Excel importado1" = Excel.Workbook(#"FijoVaribleKPI_EVALUACION xlsx"),
+				    Utilidad_Sheet = #"Libro de Excel importado1"{[Item="Utilidad",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Utilidad_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Gestion", Int64.Type}, {"Cuarto", type text}, {"Utilidad", Percentage.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

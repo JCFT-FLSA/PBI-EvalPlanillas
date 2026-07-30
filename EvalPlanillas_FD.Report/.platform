@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "EvalPlanillas_FD"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "afef2863-2134-455b-8c1e-c4895a365115"
+  }
+}

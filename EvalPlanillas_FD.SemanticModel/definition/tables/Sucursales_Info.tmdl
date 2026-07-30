@@ -1,0 +1,120 @@
+table Sucursales_Info
+	lineageTag: e96bc38c-0c1a-490d-bf4c-2a9cbc136649
+
+	column CodSuc
+		dataType: int64
+		formatString: 0
+		lineageTag: 5eaa6329-121d-4172-8ece-2299cc8967f4
+		summarizeBy: sum
+		sourceColumn: CodSuc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: string
+		lineageTag: be008e9f-b33f-4162-8197-7b5931e33cc4
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column SucursalReg
+		dataType: int64
+		formatString: 0
+		lineageTag: b9923c35-d433-491e-bac3-02241cebbe33
+		summarizeBy: sum
+		sourceColumn: SucursalReg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Oficina de Ventas'
+		dataType: string
+		lineageTag: 2b3d4cad-059c-41ed-8183-c79143535d62
+		summarizeBy: none
+		sourceColumn: Oficina de Ventas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitud
+		dataType: double
+		lineageTag: 3e7f23bb-1f99-4354-8662-72ffd51fcb55
+		summarizeBy: sum
+		sourceColumn: Latitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: a86ec323-d867-427f-ab48-1113d45a5aa7
+		summarizeBy: sum
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SucursalFI
+		dataType: string
+		lineageTag: 5727c27e-a133-4f71-a9c7-696c71c030f5
+		summarizeBy: none
+		sourceColumn: SucursalFI
+
+		annotation SummarizationSetBy = Automatic
+
+	column Oficina
+		dataType: string
+		lineageTag: 679c5bfd-afc9-4c45-bbf6-7a4d591a2493
+		summarizeBy: none
+		sourceColumn: Oficina
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Centro Supply'
+		dataType: string
+		lineageTag: b3260dc0-931e-4075-996c-fa13c4b70418
+		summarizeBy: none
+		sourceColumn: Centro Supply
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: 6e7f5bda-edd9-4649-8c15-c3f1c4ee1105
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departamento
+		dataType: string
+		lineageTag: f181ed11-80fa-41b4-b9af-7e2eba1266bb
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Canal
+		dataType: string
+		lineageTag: 19260e60-e8e9-4455-b49d-4785074a9a53
+		summarizeBy: none
+		sourceColumn: Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sucursales_Info = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Sucursales1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Sucursales"]}[Data]
+				in
+				    Sucursales1
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

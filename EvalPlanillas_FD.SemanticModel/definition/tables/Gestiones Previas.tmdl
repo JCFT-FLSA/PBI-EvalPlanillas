@@ -1,0 +1,26 @@
+table 'Gestiones Previas'
+	lineageTag: d199418f-091a-457b-b237-e2ad5abad402
+
+	measure 'Valor Gestiones Previas' = 2
+		formatString: 0
+		lineageTag: 4c8e5998-bf85-4737-af57-6d3aa98396d2
+
+	column 'Gestiones Previas'
+		formatString: 0
+		lineageTag: 5b92a3f6-31ae-4eb9-a215-1f4cf992ea39
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Gestiones Previas-fe7bdb03-9bd5-4c3f-b92d-d137c8b5254a' = calculated
+		mode: import
+		source = GENERATESERIES(1, 2, 1)
+
+	annotation PBI_Id = dba971e9eea24d588872c134fdb43903
+

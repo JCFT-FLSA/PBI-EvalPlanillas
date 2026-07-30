@@ -1,0 +1,66 @@
+table RH_NivelServicio
+	lineageTag: 3407dbe4-f25d-4bc3-868f-10a502670368
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: 539753af-aa6d-4cef-94e6-c9ecc7d7de2a
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto
+		dataType: string
+		lineageTag: 27053a81-02d3-48ba-96d1-5b2fede3e859
+		summarizeBy: none
+		sourceColumn: Cuarto
+
+		annotation SummarizationSetBy = Automatic
+
+	column NivelServicio
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 25305a0f-f553-4ef3-9dc8-7533ab7877a0
+		summarizeBy: sum
+		sourceColumn: NivelServicio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo
+		dataType: string
+		lineageTag: 79a78c7b-6b4f-4a78-b458-f706a29ad0b2
+		summarizeBy: none
+		sourceColumn: Objetivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: d919dcba-8893-4772-9e1d-8f643aca15ce
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_NivelServicio = m
+		mode: import
+		source =
+				let
+				    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/",[ApiVersion = 15]),
+				    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+				    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+				    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+				    #"EvalPlanillas xlsx" = Maestros{[Name="EvalPlanillas.xlsx"]}[Content],
+				    #"Libro de Excel importado" = Excel.Workbook(#"EvalPlanillas xlsx"),
+				    NivelServicio_Sheet = #"Libro de Excel importado"{[Item="NivelServicio",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(NivelServicio_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Gestion", Int64.Type}, {"Cuarto", type text}, {"NivelServicio", type number}, {"Mes", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

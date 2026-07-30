@@ -1,0 +1,59 @@
+table RH_TablaKPI
+	lineageTag: 14a80f1f-1639-4e25-85cd-3897a64fe53b
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: f794e293-5cf5-48b1-8435-b71e5b6dec92
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI
+		dataType: string
+		lineageTag: e96aec0e-ad53-4712-aae2-635bbc0abe2c
+		summarizeBy: none
+		sourceColumn: KPI
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 168ece50-4c0f-409b-9e56-7701e7c79458
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Beneficio
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: b7b2ce0b-a028-42f9-a9c7-25149483def5
+		summarizeBy: sum
+		sourceColumn: Beneficio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_TablaKPI-3afae51d-d2c4-42b9-9bab-682549177ecb = m
+		mode: import
+		source =
+				let
+				    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/",[ApiVersion = 15]),
+				    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+				    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+				    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+				    #"FijoVaribleKPI_EVALUACION xlsx" = Maestros{[Name="EvalPlanillas.xlsx"]}[Content],
+				    #"Libro de Excel importado1" = Excel.Workbook(#"FijoVaribleKPI_EVALUACION xlsx"),
+				    TablaKPI_Sheet = #"Libro de Excel importado1"{[Item="TablaKPI",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(TablaKPI_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Gestion", Int64.Type}, {"KPI", type text}, {"Valor", type number}, {"Beneficio", type number}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each ([Gestion] = 2026))
+				in
+				    #"Filas filtradas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

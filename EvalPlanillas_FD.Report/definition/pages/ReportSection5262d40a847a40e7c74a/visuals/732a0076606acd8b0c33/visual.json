@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "732a0076606acd8b0c33",
+  "position": {
+    "x": 0,
+    "y": 278.32234309623431,
+    "z": 5000,
+    "height": 441.476820083682,
+    "width": 164.5255230125523
+  },
+  "visual": {
+    "visualType": "SmartFilterBySQLBI1458262140625",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "nbVendedor"
+                }
+              },
+              "queryRef": "RH_Planilla_BonoTrimestral.nbVendedor",
+              "nativeQueryRef": "Nombre",
+              "displayName": "Nombre"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "internalSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{}'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c7fa83eea8f1b15f9515",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "nbVendedor"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

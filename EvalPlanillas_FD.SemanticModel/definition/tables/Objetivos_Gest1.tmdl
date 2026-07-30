@@ -1,0 +1,64 @@
+table Objetivos_Gest1
+	lineageTag: 5ccb4592-4ed9-4450-88ca-7b804e485376
+
+	column Canal
+		formatString: 0
+		lineageTag: 18edbb95-cb9c-4d1c-8d94-2f96a07d9ab3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Canal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		formatString: 0
+		lineageTag: dc31352a-a2d6-4f70-b682-d937d2a24c6e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		formatString: 0
+		lineageTag: 4ac45af9-b4aa-460e-873c-6353b456ac3f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Linea
+		lineageTag: 30c20fe9-7b25-4857-aaa4-19b54b33460b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Linea]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		lineageTag: b3dce761-5046-474b-9e2a-f9343f3da45d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: d1723ca6-c974-4364-a129-10c49e90090d
+			defaultHierarchy: LocalDateTable_b39a72b8-eab1-4f74-a980-30eeba7be049.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Objetivos_Gest1-7ddb9363-efa7-408b-94d3-73e08ad7c814 = calculated
+		mode: import
+		source =
+				var _vendedores = DISTINCT(union(CALCULATETABLE(values(Ventas[Vendedor]), YEAR(ventas[fecha]) = YEAR(TODAY()) - 1), CALCULATETABLE(values(Objetivos[Vendedor]), Objetivos[Gestion] = YEAR(TODAY()) - 1)))
+				var _canales = FILTER(canales, Canales[CodCanal] <> 12)
+				var _sucursales = filter(sucursales, Sucursales[SucursalReg] <> 0)
+				var _fechas = CALCULATETABLE(VALUES(Fechas[AñoMes]), Fechas[Año] = year(TODAY()) - 1)
+				return
+				
+				SELECTCOLUMNS(CROSSJOIN(_Vendedores, _canales, _sucursales, Lineas, _fechas), "Canal", Canales[CodCanal], "Sucursal", Sucursales[CodSuc], "CodVendedor", Ventas[Vendedor], "Linea", Lineas[Linea], "AñoMes", Fechas[AñoMes])
+

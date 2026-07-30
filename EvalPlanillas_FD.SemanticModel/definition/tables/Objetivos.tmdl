@@ -1,0 +1,137 @@
+table Objetivos
+	lineageTag: 0ed56066-75c5-4c1b-811d-baaae4b11816
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: 89d46ab8-96e9-4e36-8b2e-5568efdf559e
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Canal
+		dataType: int64
+		formatString: 0
+		lineageTag: 85492f79-aa7a-4837-9c58-4294b8699d45
+		summarizeBy: sum
+		sourceColumn: Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ef659f7-1f9d-4bee-87c7-be915de6f8b2
+		summarizeBy: sum
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: 8908709a-050c-4933-a8aa-6c6b7994bd0b
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: a8afb3d6-b7da-4d45-8466-d008feb1198b
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: b73b495b-2bca-4d3a-8a73-8b3e7f6498ba
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Linea
+		dataType: string
+		lineageTag: 50f5da9c-7f4a-4db9-a6ed-a5887c16b279
+		summarizeBy: none
+		sourceColumn: Linea
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 8ec1f908-b7c9-450b-a15c-7d83490aed29
+		summarizeBy: sum
+		sourceColumn: Objetivo
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column UtilidadObj
+		dataType: double
+		lineageTag: 1e35b8e4-00a7-4b9d-a21c-c100deab9890
+		summarizeBy: sum
+		sourceColumn: UtilidadObj
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 4216f912-3ff4-4fd8-87de-f439e619dff9
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column ObjetivoBs
+		dataType: double
+		lineageTag: 80be4dd5-da33-4093-9530-b8d8bd995d87
+		summarizeBy: sum
+		sourceColumn: ObjetivoBs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UtilidadObjBs
+		dataType: double
+		lineageTag: 1c3a49f0-d588-4e89-8126-0e2b35706c40
+		summarizeBy: sum
+		sourceColumn: UtilidadObjBs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Objetivos-2e5bb4d7-8ef1-445e-aaf3-85ee56250df7 = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({Objetivos2025, Objetivos2026}),
+				    #"Valor reemplazado" = Table.ReplaceValue(Origen,"#","SERVICIOS",Replacer.ReplaceText,{"Linea"}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Valor reemplazado",{{"Mes", Int64.Type}}),
+				    #"Valor reemplazado1" = Table.ReplaceValue(#"Tipo cambiado",null,0,Replacer.ReplaceValue,{"UtilidadObj"}),
+				    #"Columna combinada insertada" = Table.AddColumn(#"Valor reemplazado1", "Combinada", each Text.Combine({"1/", Text.From([Mes], "es-BO"), "/", Text.From([Gestion], "es-BO")}), type text),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columna combinada insertada",{{"Combinada", type date}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado1",{{"Combinada", "Periodo"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

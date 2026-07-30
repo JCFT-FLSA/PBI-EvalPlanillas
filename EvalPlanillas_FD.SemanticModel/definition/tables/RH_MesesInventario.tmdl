@@ -1,0 +1,52 @@
+table RH_MesesInventario
+	lineageTag: ffab74de-a850-44b3-a121-2084fa08ead9
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: 5246af4b-fe9f-413c-8cf9-3f784e6a2acb
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto
+		dataType: string
+		lineageTag: eb567724-cd31-413b-96b9-a10fb381f9a5
+		summarizeBy: none
+		sourceColumn: Cuarto
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesesIOnventario
+		dataType: double
+		lineageTag: 9ef39c5f-12b8-435f-af48-2b00d8d728c0
+		summarizeBy: sum
+		sourceColumn: MesesIOnventario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition RH_MesesInventario = m
+		mode: import
+		source = ```
+				let
+				    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/", [ApiVersion = 15]),
+				    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+				    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+				    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+				    #"EvalPlanillas xlsx" = Maestros{[Name="EvalPlanillas.xlsx"]}[Content],
+				    #"Libro de Excel importado" = Excel.Workbook(#"EvalPlanillas xlsx"),
+				    MesesInventario_Sheet = #"Libro de Excel importado"{[Item="MesesInventario",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(MesesInventario_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Gestion", Int64.Type}, {"Cuarto", type text}, {"MesesIOnventario", type number}})
+				    
+				in
+				    #"Tipo cambiado"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

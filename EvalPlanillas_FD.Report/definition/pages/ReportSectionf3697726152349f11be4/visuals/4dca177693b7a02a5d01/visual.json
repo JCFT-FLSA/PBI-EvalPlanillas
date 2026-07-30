@@ -1,0 +1,183 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "4dca177693b7a02a5d01",
+  "position": {
+    "x": 240.13802576257561,
+    "y": 359.52092999882746,
+    "z": 6000,
+    "height": 360.89314728889934,
+    "width": 1040.1407058744703
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Periodo"
+                }
+              },
+              "queryRef": "CarteraIVT.Periodo",
+              "nativeQueryRef": "Periodo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Vendedores"
+                    }
+                  },
+                  "Property": "nbVendedorReg"
+                }
+              },
+              "queryRef": "Vendedores.nbVendedorReg",
+              "displayName": "Regional"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Vendedor"
+                }
+              },
+              "queryRef": "CarteraIVT.Vendedor",
+              "nativeQueryRef": "Cod Vendedor",
+              "displayName": "Cod Vendedor"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Vendedores"
+                    }
+                  },
+                  "Property": "NbVendedorRRHH"
+                }
+              },
+              "queryRef": "Vendedores.NbVendedorRRHH",
+              "displayName": "NbVendedor"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Cartera"
+                }
+              },
+              "queryRef": "CarteraIVT.Cartera",
+              "nativeQueryRef": "Cliente",
+              "displayName": "Cliente"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Clientes"
+                    }
+                  },
+                  "Property": "nbCliente"
+                }
+              },
+              "queryRef": "Clientes.nbCliente"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "VentasCarteraIVT"
+                }
+              },
+              "queryRef": "Medidas.VentasCarteraIVT",
+              "nativeQueryRef": "Ventas",
+              "displayName": "Ventas"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "CostosCarteraIVT"
+                }
+              },
+              "queryRef": "Medidas.CostosCarteraIVT",
+              "nativeQueryRef": "Costos",
+              "displayName": "Costos"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "%GrossProfitCarteraIVT"
+                }
+              },
+              "queryRef": "Medidas.%GrossProfitCarteraIVT",
+              "nativeQueryRef": "% GP",
+              "displayName": "% GP"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Vendedores"
+                  }
+                },
+                "Property": "nbVendedorReg"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "CarteraIVT"
+                  }
+                },
+                "Property": "Vendedor"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

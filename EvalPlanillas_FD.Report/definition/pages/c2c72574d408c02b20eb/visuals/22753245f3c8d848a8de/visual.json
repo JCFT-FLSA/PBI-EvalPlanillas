@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "22753245f3c8d848a8de",
+  "position": {
+    "x": 285.95744680851067,
+    "y": 21.398176291793312,
+    "z": 0,
+    "height": 698.35866261398178,
+    "width": 994.04255319148945,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CxC"
+                    }
+                  },
+                  "Property": "Periodo"
+                }
+              },
+              "queryRef": "CxC.Periodo",
+              "nativeQueryRef": "Periodo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CxC"
+                    }
+                  },
+                  "Property": "Canal_Cliente"
+                }
+              },
+              "queryRef": "Sum(CxC.Canal_Cliente)",
+              "nativeQueryRef": "Canal_Cliente1"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sucursales"
+                    }
+                  },
+                  "Property": "SucursalReg"
+                }
+              },
+              "queryRef": "Sucursales.SucursalReg",
+              "nativeQueryRef": "SucursalReg"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "CxC"
+                        }
+                      },
+                      "Property": "Importe"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(CxC.Importe)",
+              "nativeQueryRef": "Importe"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

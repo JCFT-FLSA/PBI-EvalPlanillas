@@ -1,0 +1,455 @@
+table CxC
+	lineageTag: 7697fb48-79b5-4431-85ee-7af2e4612cc0
+
+	column 'No.Fiscal'
+		dataType: string
+		lineageTag: 83b11ff8-2edb-4957-bf9a-edbbf2dc7f39
+		summarizeBy: none
+		sourceColumn: No.Fiscal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'F.Contab.'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 19844a0f-7e01-4035-a4b5-457772374e50
+		summarizeBy: none
+		sourceColumn: F.Contab.
+
+		variation Variación
+			isDefault
+			relationship: edfe3faa-8eac-4b17-b397-7a4255365b2a
+			defaultHierarchy: LocalDateTable_2140c22b-882f-48a4-b196-d374b512b7dc.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column División
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: bdbd7772-1b77-4d2a-9726-95ba35186413
+		summarizeBy: none
+		sourceColumn: División
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'C.Pago'
+		dataType: string
+		lineageTag: 844065f5-5bca-4497-97ad-29a1dcf808eb
+		summarizeBy: none
+		sourceColumn: C.Pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Venc. neto'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 1ae500f3-c083-42fd-9db0-f67d6ad4f889
+		summarizeBy: none
+		sourceColumn: Venc. neto
+
+		variation Variación
+			isDefault
+			relationship: 21e56799-8d91-4248-94df-dfa5d20f9aaa
+			defaultHierarchy: LocalDateTable_5ebf3cac-2dd9-44db-a2d1-5ce19c1f3af1.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Oficina de ventas'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 754321ad-e828-41bc-9776-351c5bd85951
+		summarizeBy: none
+		sourceColumn: Oficina de ventas
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column OldVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ff4b73c-0aea-4c46-a254-c7e89a7283e2
+		summarizeBy: none
+		sourceColumn: OldVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: c312e057-c45f-4202-8013-304a6543de5c
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column FechaCorte
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 5f5e350d-cbd6-415a-b509-a5bfb979d81f
+		summarizeBy: none
+		sourceColumn: FechaCorte
+
+		variation Variación
+			isDefault
+			relationship: a115d415-b301-4f80-83c4-70a57fbbcd89
+			defaultHierarchy: LocalDateTable_44f97564-a374-4b34-a277-6ddcef1c5a3b.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Dias Vencidos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c869446-e95e-4625-abdb-c402e6bc8075
+		summarizeBy: sum
+		sourceColumn: Dias Vencidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Rangos Vencidos'
+		dataType: string
+		lineageTag: e03687ce-26c8-4467-b685-0384886b7f95
+		summarizeBy: none
+		sourceColumn: Rangos Vencidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Factura
+		dataType: string
+		lineageTag: 804927e2-14ea-4ae3-a2e6-15f178996843
+		summarizeBy: none
+		sourceColumn: Factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e3030e7-c6de-4968-8cf0-587fe31e56bf
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCliente
+		dataType: string
+		lineageTag: f15860c2-7995-4023-81d8-a0b3e69c33db
+		summarizeBy: none
+		sourceColumn: nbCliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Días Dscto.'
+		dataType: int64
+		formatString: 0
+		lineageTag: f7a3ee1f-b5e0-47b6-8c12-31816b9ebd8a
+		summarizeBy: sum
+		sourceColumn: Días Dscto.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Días Vencidos SAP'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 04f65a61-e6be-4482-8f95-12df9ae50dba
+		summarizeBy: sum
+		sourceColumn: Días Vencidos SAP
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Importe
+		dataType: double
+		lineageTag: 12ebb314-2964-477c-bb68-8290d7f5df10
+		summarizeBy: sum
+		sourceColumn: Importe
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Canal
+		dataType: int64
+		isHidden
+		lineageTag: ac2240a0-7828-482a-8c63-83f3020b9328
+		summarizeBy: none
+		sourceColumn: Canal
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'nbOficina de ventas'
+		dataType: string
+		isHidden
+		lineageTag: f8faefee-5378-44d3-b0ff-c6c312150f37
+		summarizeBy: none
+		sourceColumn: nbOficina de ventas
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column OldnbVendedor
+		dataType: string
+		lineageTag: 2c67d8cb-f2fb-4147-b1d1-e251ad3b7181
+		summarizeBy: none
+		sourceColumn: OldnbVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column UsuarioSAP
+		dataType: string
+		isHidden
+		lineageTag: 491506a4-d704-476d-bcb8-04835a954217
+		summarizeBy: none
+		sourceColumn: UsuarioSAP
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column OfiVentas = ```
+			
+			VAR _Oficina = 
+			    IF ( ISBLANK(CxC[Oficina de ventas]) ,
+			        CxC[División],
+			        CxC[Oficina de ventas]
+			    )
+			
+			VAR _OficinaVendedor =
+			    IF (ISBLANK( CxC[OldVendedor] ),
+			        CxC[División],
+			        CALCULATE( 
+			            VALUES ( Vendedores[SucursalVendedor] ),
+			            CxC[OldVendedor]
+			        )
+			    )
+			
+			Return
+			    if (
+			        CxC[Canal_Cliente] = 20,
+			        _OficinaVendedor,
+			        _Oficina
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: ef6707da-4cd1-4bde-84d7-50b4d5a39f7c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'IVT Cartera' = ```
+			// Obtener el IVT asignado al Cliente
+			    CALCULATE(
+			        VALUES( CarteraIVT[Vendedor] ) ,
+			        FILTER (
+			            FILTER (
+			                FILTER (
+			                    CarteraIVT,
+			                    CarteraIVT[Cartera] = CxC[Cliente]
+			                ),
+			                CarteraIVT[Regional] = CxC[RegOfiVentas]
+			            ),
+			            CarteraIVT[Periodo] = CxC[Periodo]
+			        )
+			    )
+			
+			
+			```
+		formatString: 0
+		lineageTag: 5bb68467-b440-4d6f-86b8-523f678c8e75
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Canal_Cliente = ```
+			
+			VAR _CanalCliente = 
+			    CALCULATE( 
+			        VALUES (Clientes[Canal] ) , 
+			        CxC[Cliente]
+			    )
+			Return
+			    IF ( 
+			        ISBLANK ( _CanalCliente ),
+			        IF ( CxC[Canal] = 0,
+			            11,
+			            CxC[Canal]
+			        ),
+			        _CanalCliente
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 92fae28a-0d84-44d6-9dc0-deaf4f6539b6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbOfiVentas = ```
+			
+			    CALCULATE( 
+			        VALUES( Sucursales[Sucursal] ), 
+			        FILTER(
+			            Sucursales, 
+			            Sucursales[CodSuc] = CxC[OfiVentas]
+			        )
+			    )
+			```
+		lineageTag: 4b7b415a-f94e-4579-bf33-445bfe592661
+		summarizeBy: none
+		sortByColumn: OfiVentas
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column neoRangoVencido = ```
+			
+			    IF ( CxC[Rangos Vencidos] = "Vigente", "Vigente", "Vencido")
+			```
+		lineageTag: 77f57c12-6401-4455-b9b7-a9dac217d6d0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nbIVT Cartera' =
+			
+			CALCULATE(
+			    VALUES ( Vendedores[NbVendedor] ),
+			    FILTER(
+			        Vendedores,
+			        Vendedores[Codigo] = CxC[IVT Cartera]
+			    )
+			)
+		lineageTag: c69374aa-05b0-405d-9c17-f775667184bd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegOfiVentas = ```
+			
+			    CALCULATE (
+			        VALUES( Sucursales[SucursalReg] ),
+			        FILTER (Sucursales,
+			            Sucursales[CodSuc] = CxC[OfiVentas]
+			        )
+			    )
+			
+			
+			```
+		formatString: 0
+		lineageTag: dc2f321a-faf4-4bd1-b441-c5978d971d30
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column NeoCodVendedor = ```
+			
+			VAR _VentaMasReciente =
+			    CALCULATE ( 
+			        MAX(VentasHistoricas[Fecha]),
+			        FILTER (
+			            FILTER (
+			            VentasHistoricas,
+			            VentasHistoricas[Cliente] = CxC[Cliente]
+			        ),
+			        VentasHistoricas[Venta] > 0
+			    )
+			)
+			RETURN
+			 IF (
+			    ISBLANK(CxC[OldVendedor]),
+			    CALCULATE (
+			        MAX(VentasHistoricas[Vendedor]),
+			        FILTER (
+			            FILTER ( VentasHistoricas, 
+			                VentasHistoricas[Cliente] = CxC[Cliente]
+			            ),
+			            VentasHistoricas[Fecha] = _VentaMasReciente
+			        ),
+			    CxC[OldVendedor]
+			    ))
+			```
+		formatString: 0
+		lineageTag: 4e51c7d1-8efe-4f1f-bf85-c7a67f981fb2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor = ```
+			
+			    IF (
+			        ISBLANK(CxC[IVT Cartera]),
+			        IF (
+			            ISBLANK(CxC[OldVendedor]),
+			            CxC[NeoCodVendedor],
+			            CxC[OldVendedor]
+			            ),
+			        CxC[IVT Cartera]
+			    )
+			```
+		formatString: 0
+		lineageTag: 14a242b8-ed88-4b5b-836e-665c5085d8d5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor = ```
+			
+			    CALCULATE(
+			        VALUES( Vendedores[NbVendedor] ),
+			        FILTER (
+			            Vendedores,
+			            Vendedores[Codigo] = CxC[Vendedor]
+			        )
+			    )
+			```
+		lineageTag: c41ad782-a8b2-40b5-b30c-bbf6fc77633e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CxC-5a08066f-047a-4b25-80c8-3e4e54431e46 = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows([]),
+				    #"98487f9e-d82c-4bfe-a170-727d87bf45e8" = Origen{[workspaceId="98487f9e-d82c-4bfe-a170-727d87bf45e8"]}[Data],
+				    #"db125d65-c386-489f-9a56-2f3fc2cdd9c7" = #"98487f9e-d82c-4bfe-a170-727d87bf45e8"{[dataflowId="db125d65-c386-489f-9a56-2f3fc2cdd9c7"]}[Data],
+				    CxC_TXT = #"db125d65-c386-489f-9a56-2f3fc2cdd9c7"{[entity="CxC_TXT"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(CxC_TXT,{"No. cuenta de mayor"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"Vendedor", "OldVendedor"}, {"nbVendedor", "OldnbVendedor"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

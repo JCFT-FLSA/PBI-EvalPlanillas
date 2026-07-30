@@ -1,0 +1,44 @@
+table Marcas
+	lineageTag: 5d1f1917-453f-4bb0-bd31-8ad4ec41253a
+
+	column Qty
+		dataType: double
+		lineageTag: 932d0db6-e70b-4cc8-84ab-125987171dfc
+		summarizeBy: none
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column nbMarca
+		dataType: string
+		lineageTag: 72f95292-eaa4-4268-9d23-e2a4d0f26fb9
+		summarizeBy: none
+		sourceColumn: nbMarca
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marca
+		dataType: string
+		lineageTag: f4a0064f-df7e-4c3c-be55-d019b103bbf5
+		summarizeBy: none
+		sourceColumn: Marca
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Marcas-f1bae383-2f53-4089-ba15-57989ef9bf4e = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Marcas1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Marcas"]}[Data]
+				in
+				    Marcas1
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

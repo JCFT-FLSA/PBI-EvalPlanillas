@@ -1,0 +1,168 @@
+table EERR
+	lineageTag: 76cba41e-4cb8-4c6b-9e60-b81a78cfdb86
+
+	column Estrucutra_01
+		dataType: string
+		lineageTag: d3f92931-68dc-4e58-a392-e82e8e04effc
+		summarizeBy: none
+		sourceColumn: Estrucutra_01
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estrucutra_02
+		dataType: string
+		lineageTag: cf6ebad4-932f-4c4d-9e78-a58db9f37dd8
+		summarizeBy: none
+		sourceColumn: Estrucutra_02
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estrucutra_03
+		dataType: string
+		lineageTag: 2359b671-a430-4c96-a75c-84a4f5503506
+		summarizeBy: none
+		sourceColumn: Estrucutra_03
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estrucutra_04
+		dataType: string
+		lineageTag: 95232019-c21c-4582-a1ba-840a2ba9d254
+		summarizeBy: none
+		sourceColumn: Estrucutra_04
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estrucutra_05
+		dataType: string
+		lineageTag: feda3ef9-127a-4dae-99e4-d5c871df815c
+		summarizeBy: none
+		sourceColumn: Estrucutra_05
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbEstructura_01
+		dataType: string
+		lineageTag: 6cc41fb4-56dc-4be6-9673-6358a2f41eb3
+		summarizeBy: none
+		sourceColumn: NbEstructura_01
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbEstructura_02
+		dataType: string
+		lineageTag: fe40006a-3756-4984-a081-abc0f229d272
+		summarizeBy: none
+		sourceColumn: NbEstructura_02
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbEstructura_03
+		dataType: string
+		lineageTag: 4d0d9a05-74ca-40a2-a601-15d3db0b286e
+		summarizeBy: none
+		sourceColumn: NbEstructura_03
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbEstructura_04
+		dataType: string
+		lineageTag: a8c59630-ec6d-4533-8ed5-7bf8f190a287
+		summarizeBy: none
+		sourceColumn: NbEstructura_04
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbEstructura_05
+		dataType: string
+		lineageTag: ca055753-09d5-447a-8ab7-9598fcef49c5
+		summarizeBy: none
+		sourceColumn: NbEstructura_05
+
+		annotation SummarizationSetBy = Automatic
+
+	column PeriodoContable
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 5ec434f7-ac3d-42c1-b641-00a36294b25a
+		summarizeBy: none
+		sourceColumn: PeriodoContable
+
+		variation Variación
+			isDefault
+			relationship: 19c62c97-75d9-476f-90e3-e7f7e861119d
+			defaultHierarchy: LocalDateTable_ea0a1b50-7c18-46b6-91a3-bfe713c4c08a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Moneda
+		dataType: string
+		lineageTag: 7f80f88b-8050-42e2-ba86-e118db11ee47
+		summarizeBy: none
+		sourceColumn: Moneda
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo de moneda'
+		dataType: string
+		lineageTag: 4071b509-713d-407d-a775-4bc2a848fd96
+		summarizeBy: none
+		sourceColumn: Tipo de moneda
+
+		annotation SummarizationSetBy = Automatic
+
+	column TipoOperacion
+		dataType: string
+		lineageTag: 0e113925-1d03-4880-8057-2c86b5518d5d
+		summarizeBy: none
+		sourceColumn: TipoOperacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Saldo Acumulado'
+		dataType: double
+		lineageTag: 92b916cf-bc1e-408b-83f6-39659ea31e70
+		summarizeBy: sum
+		sourceColumn: Saldo Acumulado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VolumenNegocio
+		dataType: double
+		lineageTag: 106de27a-1631-47c1-8b6b-b8680a7565a3
+		summarizeBy: sum
+		sourceColumn: VolumenNegocio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column División
+		dataType: string
+		lineageTag: 1df83ec1-aad2-48aa-96c0-926192972065
+		summarizeBy: none
+		sourceColumn: División
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EERR = m
+		mode: import
+		source =
+				let
+				    Origen = ZEERR,
+				    #"Filas agrupadas" = Table.Group(Origen, {"Estrucutra_01", "Estrucutra_02", "Estrucutra_03", "Estrucutra_04", "Estrucutra_05", "NbEstructura_01", "NbEstructura_02", "NbEstructura_03", "NbEstructura_04", "NbEstructura_05", "PeriodoContable", "Moneda", "Tipo de moneda", "TipoOperacion", "División"}, {{"Saldo Acumulado", each List.Sum([SaldoAcumulado]), type nullable number}, {"VolumenNegocio", each List.Sum([VolumenNegocio]), type nullable number}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Filas agrupadas", each Text.StartsWith([Estrucutra_05], "5")),
+				    #"Filas filtradas1" = Table.SelectRows(#"Filas filtradas", each ([Tipo de moneda] = "Moneda de la sociedad"))
+				in
+				    #"Filas filtradas1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

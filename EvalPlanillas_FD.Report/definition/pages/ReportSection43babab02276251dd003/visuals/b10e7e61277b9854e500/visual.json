@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "b10e7e61277b9854e500",
+  "position": {
+    "x": 4.3286573146292584,
+    "y": 259.71943887775552,
+    "z": 5000,
+    "height": 290.02004008016036,
+    "width": 239.5190380761523
+  },
+  "visual": {
+    "visualType": "SmartFilterBySQLBI1458262140625",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "nbVendedor"
+                }
+              },
+              "queryRef": "RH_VariableMensual.nbVendedor"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "internalSelection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{}'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "5927a95ef24cb79e07fb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_VariableMensual"
+              }
+            },
+            "Property": "nbVendedor"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

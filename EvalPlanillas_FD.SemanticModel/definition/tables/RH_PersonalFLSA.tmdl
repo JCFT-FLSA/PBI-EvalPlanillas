@@ -1,0 +1,122 @@
+table RH_PersonalFLSA
+	lineageTag: 7498a79e-18a2-44d5-b34f-00e5b8a4e1a0
+
+	column COD
+		dataType: string
+		lineageTag: 0e787e6d-439d-4452-b69a-12c86553834d
+		summarizeBy: none
+		sourceColumn: COD
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		dataType: string
+		lineageTag: 2c768b4f-b741-40a0-93ba-3107ed90c0eb
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Carnet de Identidad'
+		dataType: string
+		lineageTag: 00064d18-fe62-4815-9a8f-186419f8f6ed
+		summarizeBy: none
+		sourceColumn: Carnet de Identidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Apellidos y Nombres'
+		dataType: string
+		lineageTag: d36496e3-36a9-4b03-99c7-affd4b0860e8
+		summarizeBy: none
+		sourceColumn: Apellidos y Nombres
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		dataType: string
+		lineageTag: 0c692262-27bd-4049-81d9-4927e16840ae
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Inicio Contrato Laboral'
+		dataType: string
+		lineageTag: acfb69f5-c20c-44e5-8c04-e758be3c2221
+		summarizeBy: none
+		sourceColumn: Fecha Inicio Contrato Laboral
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: string
+		lineageTag: c139905a-264b-4baf-946a-ec3703545f0a
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column CargoCorto
+		dataType: string
+		lineageTag: 1296da0e-6e9e-48d5-a4fa-e2fdc8c658f6
+		summarizeBy: none
+		sourceColumn: CargoCorto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'USUARIO SAP'
+		dataType: string
+		lineageTag: b6ba2acc-a1ee-4a16-a6b0-5cda1441eae0
+		summarizeBy: none
+		sourceColumn: USUARIO SAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		dataType: string
+		lineageTag: abf712c0-6a67-4ece-8f1c-bf732aee2176
+		summarizeBy: none
+		sourceColumn: CodVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: string
+		lineageTag: bc89f8da-8f9c-4cef-942b-9a6f803e4029
+		summarizeBy: none
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Oficina
+		dataType: string
+		lineageTag: f77fa813-a885-4f21-99b4-d05ed4ecc2c3
+		summarizeBy: none
+		sourceColumn: Oficina
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_PersonalFLSA-fb8d90e9-8078-4407-81ed-84667568a1d9 = m
+		mode: import
+		source =
+				let
+				    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/",[ApiVersion = 15]),
+				    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+				    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+				    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+				    #"PersonalFLSA xlsx" = Maestros{[Name="PersonalFLSA.xlsx"]}[Content],
+				    #"Libro de Excel importado" = Excel.Workbook(#"PersonalFLSA xlsx"),
+				    FLSA_Sheet = #"Libro de Excel importado"{[Item="FLSA",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(FLSA_Sheet, [PromoteAllScalars=true]),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Encabezados promovidos",{"COD", "Regional", "Oficina", "Area", "Carnet de Identidad", "Apellidos y Nombres", "Cargo", "Fecha Inicio Contrato Laboral", "Sucursal", "CargoCorto", "USUARIO SAP", "CodVendedor"}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Otras columnas quitadas",null,"",Replacer.ReplaceValue,{"USUARIO SAP"}),
+				    #"Valor reemplazado1" = Table.ReplaceValue(#"Valor reemplazado",null,0,Replacer.ReplaceValue,{"CodVendedor"}),
+				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Valor reemplazado1", {{"Sucursal", 0}})
+				in
+				    #"Errores reemplazados"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

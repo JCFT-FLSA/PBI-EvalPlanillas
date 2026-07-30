@@ -1,0 +1,154 @@
+table 2026_TODOS
+	lineageTag: 04bbfe9f-1a86-4811-9dc3-c304ffcdf258
+
+	column Item
+		formatString: 0
+		lineageTag: f4d6e555-8f9b-46d5-861a-ddc98287e7c1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: e05ac608-296d-4b15-8071-91464ef2b863
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Oficina
+		formatString: 0
+		lineageTag: 2cb6875a-cadd-4e83-b362-9d95703a9e8f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Oficina]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		lineageTag: ed022147-72c4-437d-8e31-11feb026aed5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsComercial
+		lineageTag: cd1a41b5-6385-4966-b70f-41207a171623
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [EsComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: 7ef57cef-7304-4195-99e5-3c7fc2e5ab11
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: c1704730-fdc2-4989-a41f-a6aa16fa1674
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: 142f808b-a8eb-4019-8e2a-f299e3acd35b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 1fe45f00-60f0-4c3f-801a-912f3094501d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: ec07ad13-6c31-40a6-971e-317f179a56f5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo
+		formatString: Long Date
+		lineageTag: 6b549de9-7d40-4c05-8741-3e35c21eca56
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Periodo]
+
+		variation Variación
+			isDefault
+			relationship: 0a484da3-9fef-49fb-9f10-ee8bd448204b
+			defaultHierarchy: LocalDateTable_3b0ae192-c116-43dd-8459-1ee706299595.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Cuarto = ```
+			
+			    CALCULATE(
+			        VALUES(Fechas[NbTrimestreAño]), 
+			        FILTER(
+			            Fechas, 
+			            Fechas[AñoMes] = [Periodo]
+			        )
+			    )
+			```
+		lineageTag: 583d9faf-f042-4739-adec-d6f6a4b2e342
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbEmpleado
+		lineageTag: bccec7dc-fc8e-4c7d-8e3a-76b46df0f24c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [nbEmpleado]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_TODOS = calculated
+		mode: import
+		source = ```
+				
+				     ADDCOLUMNS( 
+				            SELECTCOLUMNS( 
+				                FILTER(
+				                    RH_Planilla_General,
+				                     RH_Planilla_General[EsComercial] = "NO" &&
+				                     YEAR(RH_Planilla_General[Periodo]) = 2026
+				                ),
+				                "Periodo", [Periodo], 
+				                "Item", [Codigo], 
+				                "Cargo", [CargoCorto], 
+				                "nbEmpleado", [nbEmpleado], 
+				                "Oficina", [CodSuc], 
+				                "Regional", [Region], 
+				                "EsComercial", [EsComercial]
+				            ),
+				            "TKPI1", "TU1", 
+				            "TKPI2", "TV6", 
+				            "TKPI3", "TM3", 
+				            "TKPI4", "NS",  
+				            "TKPI5", BLANK()
+				        )
+				```
+
+	annotation PBI_Id = 62dbc3dc2a5a47bf8d404410a00c0d74
+

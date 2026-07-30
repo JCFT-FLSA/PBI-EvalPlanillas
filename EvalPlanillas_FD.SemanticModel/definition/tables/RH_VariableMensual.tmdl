@@ -1,0 +1,474 @@
+table RH_VariableMensual
+	lineageTag: 2753889c-dab1-467a-9fd8-8c71df737e3c
+
+	column Periodo
+		formatString: yyyy-mm
+		lineageTag: 02382326-3e9a-4d46-8924-483b3c5b5664
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Periodo]
+
+		variation Variación
+			isDefault
+			relationship: ce4f0602-1c04-476d-aee2-94de248f21b3
+			defaultHierarchy: LocalDateTable_c1770f5c-9e39-4c28-a4ac-c04f372292f1.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Quarto
+		lineageTag: 62d0c8fc-82a1-45ac-b7be-e577beec5842
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarto]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		formatString: 0
+		lineageTag: 12e123d8-3a44-4c30-8e51-d4c0de64fa67
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: 3e1189c9-faf4-47c2-b49b-22116db56c68
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: 956d1bec-8a1f-4061-adfc-e0ad9046271a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		formatString: 0
+		lineageTag: 76af9eda-3b65-4c79-8441-0158fc444d33
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 9f9422b9-0366-40d5-ab6c-c893d9ce3c70
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		formatString: 0
+		lineageTag: 71b07009-9a59-474f-80dd-faf641d7942b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo1
+		formatString: #,0
+		lineageTag: 5359b3c8-337a-4d01-8073-0b2a44525352
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Objetivo1]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Avance1
+		formatString: #,0
+		lineageTag: c0035517-4fa8-498b-bd7c-96a8fd767808
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Avance1]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Presupuesto1
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: bfd0a7cd-a5f8-4666-b6f9-d76447e3f464
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Presupuesto1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo2
+		formatString: #,0
+		lineageTag: bbb214aa-9133-4cbb-9422-0c7c3b8ad232
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Objetivo2]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Avance2
+		formatString: #,0
+		lineageTag: 19051380-932e-4da6-b4d5-02d9fe6c7ef1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Avance2]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Presupuesto2
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d556c5ff-1efc-483a-a107-474e3ab42aee
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Presupuesto2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo3
+		formatString: #,0
+		lineageTag: e5857ded-3fea-4ed8-b17b-90699e7a44f6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Objetivo3]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Avance3
+		formatString: #,0
+		lineageTag: 078e7245-9a2f-4d50-91fb-8338070418ab
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Avance3]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column Presupuesto3
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6cbb3fd0-ea48-4d23-85f8-fcc5e5f9a9a6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Presupuesto3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo4
+		formatString: 0
+		lineageTag: 6ec90d44-cb36-419e-8189-d3f0d540b41b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Objetivo4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto4
+		formatString: #,0\ %;-#,0\ %;#,0\ %
+		lineageTag: 711855ba-3cab-4ea5-ab73-02ea61c26f2e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Presupuesto4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance4
+		formatString: 0
+		lineageTag: b475139e-5494-4fdc-ab22-f4adf131be86
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Avance4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso_Obj1 = ```
+			
+			    CALCULATE(
+			        VALUES(RH_PesosVariable[Obj1]),
+			        FILTER(
+			            RH_PesosVariable,
+			            RH_PesosVariable[Cargo] = RH_VariableMensual[Cargo] &&
+			             RH_PesosVariable[Gestion ] = YEAR(RH_VariableMensual[Periodo]) &&
+			             RH_PesosVariable[Mes] = MONTH(RH_VariableMensual[Periodo])
+			        )
+			    )
+			```
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 4f756fcf-df4f-4ed3-b83f-00a12528befa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso_Obj2 = ```
+			
+			    CALCULATE(
+			        VALUES(RH_PesosVariable[Obj2]),
+			        FILTER(
+			            RH_PesosVariable,
+			            RH_PesosVariable[Cargo] = RH_VariableMensual[Cargo] &&
+			             RH_PesosVariable[Gestion ] = YEAR(RH_VariableMensual[Periodo]) &&
+			             RH_PesosVariable[Mes] = MONTH(RH_VariableMensual[Periodo])
+			        )
+			    )
+			```
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 641916ca-284a-4491-9a84-d492a0fa9cf9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso_Obj3 = ```
+			
+			    CALCULATE(
+			        VALUES(RH_PesosVariable[Obj3]),
+			        FILTER(
+			            RH_PesosVariable,
+			            RH_PesosVariable[Cargo] = RH_VariableMensual[Cargo] &&
+			             RH_PesosVariable[Gestion ] = YEAR(RH_VariableMensual[Periodo]) &&
+			             RH_PesosVariable[Mes] = MONTH(RH_VariableMensual[Periodo])
+			        )
+			    )
+			```
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: b31f3078-9b56-4124-8447-d7a1408edf31
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso_Obj4 = ```
+			
+			    CALCULATE(
+			        VALUES(RH_PesosVariable[Obj4]),
+			        FILTER(
+			            RH_PesosVariable,
+			            RH_PesosVariable[Cargo] = RH_VariableMensual[Cargo] &&
+			             RH_PesosVariable[Gestion ] = YEAR(RH_VariableMensual[Periodo]) &&
+			             RH_PesosVariable[Mes] = MONTH(RH_VariableMensual[Periodo])
+			        )
+			    )
+			```
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 5ce73250-50e9-472b-9eff-767f38956f1a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor_Obj1 = ```
+			
+			VAR _valor = 
+			    RH_VariableMensual[Presupuesto1] * RH_VariableMensual[Peso_Obj1]
+			RETURN
+			    IF (
+			        _Valor < 0,
+			        0,
+			        IF (
+			            _valor > 1.5,
+			            1.5,
+			            _valor
+			        )
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 59e7283e-f354-434e-9240-d3fef3494c15
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor_Obj2 = ```
+			
+			VAR _valor = 
+			    RH_VariableMensual[Presupuesto2] * RH_VariableMensual[Peso_Obj2]
+			RETURN
+			    IF (
+			        _Valor < 0,
+			        0,
+			        IF (
+			            _valor > 1.5,
+			            1.5,
+			            _valor
+			        )
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: efbd587d-c191-4c10-b082-83724ca07358
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor_Obj3 = ```
+			
+			VAR _valor = 
+			    RH_VariableMensual[Presupuesto3] * RH_VariableMensual[Peso_Obj3]
+			RETURN
+			    IF (
+			        _Valor < 0,
+			        0,
+			        IF (
+			            _valor > 1.5,
+			            1.5,
+			            _valor
+			        )
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 9f0372d1-df2b-4561-9cd7-0b314f687fe6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor_Obj4 = ```
+			
+			VAR _valor = 
+			    RH_VariableMensual[Presupuesto4] * RH_VariableMensual[Peso_Obj4]
+			RETURN
+			    IF (
+			        _Valor < 0,
+			        0,
+			        IF (
+			            _valor > 1.5,
+			            1.5,
+			            _valor
+			        )
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 718b66c9-506d-4d49-b8e3-113d1b7bc102
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValorVariable = ```
+			
+			VAR _valor = 
+			    RH_VariableMensual[Valor_Obj1] + RH_VariableMensual[Valor_Obj2] + RH_VariableMensual[Valor_Obj3] + RH_VariableMensual[Valor_Obj4]
+			RETURN
+			    //_valor
+			    IF (
+			        _valor > 1.5,
+			        1.5,
+			        _valor
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: fd7ac687-0743-4ff3-adad-11f3cc738ae3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_VariableMensual = calculated
+		mode: import
+		source = ```
+				
+				    UNION(
+				        SELECTCOLUMNS(
+				            '2026_C10', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", BLANK(), "Avance4", BLANK(), "Presupuesto4", BLANK()
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_C11', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", [Objetivos_4], "Avance4", [Avance_4], "Presupuesto4", [Presupuesto_4]
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_C20-C30', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],
+				                "Objetivo4", [Objetivos_4], "Avance4", [Avance_4], "Presupuesto4", [Presupuesto_4]                
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_CANALES', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", BLANK(), "Avance4", BLANK(), "Presupuesto4", BLANK()
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_G-VENTAS', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", BLANK(), "Avance4", BLANK(), "Presupuesto4", BLANK()
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_G-MARKETING', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", BLANK(), "Avance4", BLANK(), "Presupuesto4", BLANK()
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_SAC', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", BLANK(), "Avance4", BLANK(), "Presupuesto4", BLANK()
+				            ),
+				        SELECTCOLUMNS(
+				            '2026_SDI', 
+				                "Periodo", [AñoMes], "Quarto", [Cuarto], 
+				                "CodVendedor", [CodVendedor], "nbVendedor", [nbVendedor], 
+				                "Cargo", [Cargo], "Item", [Item], 
+				                "Regional", [Regional], "Sucursal", [CodSuc], 
+				                "Objetivo1", [Objetivos_1], "Avance1", [Avance_1], "Presupuesto1", [Presupuesto_1], 
+				                "Objetivo2", [Objetivos_2], "Avance2", [Avance_2], "Presupuesto2", [Presupuesto_2], 
+				                "Objetivo3", [Objetivos_3], "Avance3", [Avance_3], "Presupuesto3", [Presupuesto_3],  
+				                "Objetivo4", [Objetivos_4], "Avance4", [Avance_4], "Presupuesto4", [Presupuesto_4]
+				            )
+				    )
+				
+				```
+
+	annotation PBI_Id = 1dc5e96bdd694e09b84d13c2b4d0c0ab
+

@@ -1,0 +1,114 @@
+table Vendedores
+	lineageTag: 889a256a-e7b7-48ec-a8bf-76f3c326e23c
+
+	measure cuantos = count(Vendedores[ItemRRHH])
+		formatString: 0
+		lineageTag: 47e120f1-598b-423b-953e-19d208a9c221
+
+	column Codigo
+		dataType: int64
+		formatString: 0
+		lineageTag: a5cb1795-9d30-4c83-b0c2-5c8a9f9b4b84
+		summarizeBy: none
+		sourceColumn: Codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbVendedor
+		dataType: string
+		lineageTag: a50c3898-b222-4aab-b0b6-a4991a4309fd
+		summarizeBy: none
+		sourceColumn: NbVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column VendedorReg
+		dataType: int64
+		formatString: 0
+		lineageTag: 26096bca-c14d-47aa-890f-22b594e76eae
+		summarizeBy: sum
+		sourceColumn: VendedorReg
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemRRHH
+		dataType: int64
+		formatString: 0
+		lineageTag: b7ee515d-9bc0-46d4-87d1-f1a5297101af
+		summarizeBy: sum
+		sourceColumn: ItemRRHH
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbVendedorRRHH
+		dataType: string
+		lineageTag: 99eb9778-6b6d-4530-8949-1e463bcbfdc3
+		summarizeBy: none
+		sourceColumn: NbVendedorRRHH
+
+		annotation SummarizationSetBy = Automatic
+
+	column SucursalVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 442ab97b-74f7-4fcd-aee4-c96da08c0a32
+		summarizeBy: sum
+		sourceColumn: SucursalVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column CargoVendedor
+		dataType: string
+		lineageTag: 2e65d57e-438f-4a74-b8d7-31ab6db4c4af
+		summarizeBy: none
+		sourceColumn: CargoVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedorReg = ```
+			CALCULATE(values(Regionales[Regional]), FILTER(Regionales, Regionales[CodRegional] = Vendedores[VendedorReg])) 
+			```
+		lineageTag: cc352d4a-dcb1-436d-8c94-9b7c4a27ee21
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbSucursalVendedor = CALCULATE(VALUES(Sucursales[Sucursal]), FILTER(Sucursales, Sucursales[CodSuc] = Vendedores[SucursalVendedor]))
+		lineageTag: 635fdfb4-f96c-4743-bfef-a5ae805d9466
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column UsuarioSAP
+		dataType: string
+		lineageTag: a47f2d73-7a87-423a-8b54-cd8893309cee
+		summarizeBy: none
+		sourceColumn: UsuarioSAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column9
+		dataType: string
+		lineageTag: 0aa152ce-4670-41e5-a52f-492d32dbe9a1
+		summarizeBy: none
+		sourceColumn: Column9
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Vendedores-9020faaa-47a2-401c-a5ff-24328c14cb85 = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Vendedores1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Vendedores"]}[Data],
+				    #"Filas en blanco eliminadas" = Table.SelectRows(Vendedores1, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Filas filtradas" = Table.SelectRows(#"Filas en blanco eliminadas", each [Codigo] <> 100)
+				in
+				    #"Filas filtradas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

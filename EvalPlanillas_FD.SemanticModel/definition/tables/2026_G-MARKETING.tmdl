@@ -1,0 +1,548 @@
+table 2026_G-MARKETING
+	lineageTag: 7c5751d9-a3e9-4652-8ca0-98ee5fe8c8e3
+
+	column Item
+		formatString: 0
+		lineageTag: 39f4b279-7420-4a87-88ee-d2651126a9dd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: 2e0b20ad-abb2-487b-bf57-e545b7f2f321
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 8cb24906-1d2b-4f0b-93b3-101b8c8e57e5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: 1070f741-71e7-47bb-a67a-a9547c2964ad
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: 045acde6-9a55-4490-a0aa-9103298f0af2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: 2bdc09bc-7a5a-483c-9b57-cd80992bcfd8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 9043a348-0f02-41ca-b840-138f1833b8c0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: 19560fc4-340e-4f80-8a07-7b8f93229bda
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_1 =
+			
+			VAR _Portafolio =
+			    SWITCH(
+			        '2026_G-MARKETING'[Cargo],
+			        "PAUT", "RODAM. AUTOMOTRIZ",
+			        "PIND", "RODAM. INDUSTRIAL",
+			        "PEPP", "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS",
+			        "PLUB", "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)",
+			        BLANK()
+			    )
+			RETURN
+			    CALCULATE(
+			        SUM(Objetivos[ObjetivoBs]),
+			        FILTER(
+			            Objetivos,
+			            Objetivos[Periodo] = '2026_G-MARKETING'[AñoMes] &&
+			            IF(
+			                NOT(ISBLANK(_Portafolio)),
+			                RELATED(Lineas[Portafolio]) = _Portafolio,
+			                TRUE()
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 9182021b-0159-45fc-a7d9-5486b0abc28a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 =
+			
+			VAR _Portafolio =
+			    SWITCH(
+			        '2026_G-MARKETING'[Cargo],
+			        "PAUT", "RODAM. AUTOMOTRIZ",
+			        "PIND", "RODAM. INDUSTRIAL",
+			        "PEPP", "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS",
+			        "PLUB", "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)",
+			        BLANK()
+			    )
+			RETURN
+			    CALCULATE(
+			        SUM(Ventas[Venta]),
+			        FILTER(
+			            Ventas,
+			            RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes] &&
+			            IF(
+			                NOT(ISBLANK(_Portafolio)),
+			                RELATED(Lineas[Portafolio]) = _Portafolio,
+			                TRUE()
+			            )
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: d7a9d9f5-0714-43fa-94ca-6a8ab38a3be6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_2 = ```
+			
+			VAR _Portafolio =
+			    SWITCH(
+			        '2026_G-MARKETING'[Cargo],
+			        "PAUT", "RODAM. AUTOMOTRIZ",
+			        "PIND", "RODAM. INDUSTRIAL",
+			        "PEPP", "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS",
+			        "PLUB", "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)",
+			        BLANK()
+			    )
+			RETURN
+			    CALCULATE(
+			        SUM(Objetivos[UtilidadObjBs]),
+			        FILTER(
+			            Objetivos,
+			            Objetivos[Periodo] = '2026_G-MARKETING'[AñoMes]  &&
+			            IF(
+			                NOT(ISBLANK(_Portafolio)),
+			                RELATED(Lineas[Portafolio]) = _Portafolio,
+			                TRUE()
+			            )
+			        )
+			    ) 
+			```
+		formatString: #,0.00
+		lineageTag: d3c64ad6-dcb2-492a-84a4-51517fc5808f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 =
+			
+			VAR _Portafolio =
+			    SWITCH(
+			        '2026_G-MARKETING'[Cargo],
+			        "PAUT", "RODAM. AUTOMOTRIZ",
+			        "PIND", "RODAM. INDUSTRIAL",
+			        "PEPP", "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS",
+			        "PLUB", "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)",
+			        BLANK()
+			    )
+			VAR _Costo =
+			    CALCULATE(
+			        SUM(Ventas[Costo]),
+			        FILTER(
+			            Ventas,
+			            RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes] &&
+			            IF(
+			                NOT(ISBLANK(_Portafolio)),
+			                RELATED(Lineas[Portafolio]) = _Portafolio,
+			                TRUE()
+			            )
+			        )
+			    )
+			RETURN
+			    '2026_G-MARKETING'[Avance_1] - _Costo
+		formatString: #,0.00
+		lineageTag: 6cd2e64f-4df4-48f4-8bc2-e8510c1467ef
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_3 = ```
+			
+			VAR _Portafolio =
+			    SWITCH(
+			        '2026_G-MARKETING'[Cargo],
+			        "PAUT", "RODAM. AUTOMOTRIZ",
+			        "PIND", "RODAM. INDUSTRIAL",
+			        "PEPP", "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS",
+			        "PLUB", "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)",
+			        BLANK()
+			    )
+			VAR _calc1 = EOMONTH('2026_G-MARKETING'[AñoMes], -13) + 1
+			VAR _calc2 = 
+			    
+			    IF (
+			        ISBLANK(_Portafolio),
+			        CALCULATE(
+			            DISTINCTCOUNT(Ventas[Nit]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = _calc1 &&
+			                Ventas[EsPrimeraCompra] = 1
+			            )
+			        ),
+			        CALCULATE(
+			            DISTINCTCOUNT(Ventas[Nit]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = _calc1 &&
+			                RELATED(Materiales[Portafolio]) = _Portafolio &&
+			                Ventas[EsPrimeraCompra] = 1
+			            )
+			        )
+			    )
+			
+			RETURN
+			 _calc2
+			```
+		formatString: 0
+		lineageTag: c4927ad4-fa4c-4a58-95d3-7fb60f97e6b6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Avance_3 = ```
+			
+			    VAR _Portafolio =
+			    SWITCH(
+			        '2026_G-MARKETING'[Cargo],
+			        "PAUT", "RODAM. AUTOMOTRIZ",
+			        "PIND", "RODAM. INDUSTRIAL",
+			        "PEPP", "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS",
+			        "PLUB", "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)",
+			        BLANK()
+			    )
+				RETURN
+			    IF (
+			        ISBLANK(_Portafolio),
+			        CALCULATE(
+			            DISTINCTCOUNT(Ventas[Nit]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes] &&
+			                Ventas[EsPrimeraCompra] = 1   
+			            )
+			        ),
+			        CALCULATE(
+			            DISTINCTCOUNT(Ventas[Nit]),
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes] &&
+			                RELATED(Materiales[Portafolio]) = _Portafolio &&
+			                Ventas[EsPrimeraCompra] = 1   
+			            )
+			        )
+			    )
+			```
+		formatString: 0
+		lineageTag: 69d3ed44-80f1-4bb7-8338-6598d90b0fcc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = DIVIDE('2026_G-MARKETING'[Avance_1], '2026_G-MARKETING'[Objetivos_1], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 87ca8e29-bd67-4911-bf36-8ec2074b8318
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = DIVIDE('2026_G-MARKETING'[Avance_2], '2026_G-MARKETING'[Objetivos_2], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 0683714b-de9d-47d1-aada-f40576532545
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = ```
+			// la mora no puede ser mayor al 10% de la cartera
+			VAR _Calc = 
+			    DIVIDE (
+			        '2026_G-MARKETING'[Avance_3],
+			        '2026_G-MARKETING'[Objetivos_3],
+			        0
+			    )
+			Return
+			    _Calc
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 0192bb5d-6b26-42fe-85b1-bbe1e24252d2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_Desa = BLANK()
+		formatString: 0
+		lineageTag: 61e77b72-505b-4674-bb2e-7cfee8982a14
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = ```
+			
+			    CALCULATE(
+			        VALUES(Fechas[NbTrimestreAño]),
+			        filter(Fechas, Fechas[AñoMes] = '2026_G-MARKETING'[AñoMes])
+			    )
+			
+			```
+		lineageTag: b7c0cb95-c3ab-4269-a6d4-232f1b353da2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Costo = ```
+			
+			    IF (
+			        '2026_G-MARKETING'[Cargo] = "PAUT",
+			        CALCULATE(
+			            SUM(Ventas[Costo]),
+			            FILTER(
+			                FILTER(
+			                    Ventas,
+			                    RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes]
+			                ),
+			                RELATED(Materiales[Portafolio]) = "RODAM. AUTOMOTRIZ"
+			            )
+			        ),
+			        IF (
+			            '2026_G-MARKETING'[Cargo] = "PIND",
+			            CALCULATE(
+			                SUM(Ventas[Costo]),
+			                FILTER(
+			                    FILTER(
+			                        Ventas,
+			                        RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes]
+			                    ),
+			                    RELATED(Materiales[Portafolio]) = "RODAM. INDUSTRIAL"
+			                )
+			            ),
+			            IF (
+			                '2026_G-MARKETING'[Cargo] = "PEPP",
+			                CALCULATE(
+			                    SUM(Ventas[Costo]),
+			                    FILTER(
+			                        FILTER(
+			                            Ventas,
+			                            RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes]
+			                        ),
+			                        RELATED(Materiales[Portafolio]) = "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS"
+			                    )
+			                ),
+			                IF (
+			                    '2026_G-MARKETING'[Cargo] = "PLUB",
+			                    CALCULATE(
+			                        SUM(Ventas[Costo]),
+			                        FILTER(
+			                            FILTER(
+			                                Ventas,
+			                                RELATED(Fechas[AñoMes]) = '2026_G-MARKETING'[AñoMes]
+			                            ),
+			                            RELATED(Materiales[Portafolio]) = "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)"
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: 7ccd3dff-59a6-4c59-9587-f7dbece4fedc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = ```
+			
+			VAR _Vencido = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                CxC,
+			                CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                CxC,
+			                CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			
+			RETURN
+			
+			    IF (
+			        '2026_G-MARKETING'[TKPI3] = BLANK(), 
+			        BLANK(),
+			        DIVIDE(_Vencido, _Vencido + _Vigente, -1)
+			    )
+			
+			```
+		lineageTag: b39d4973-1503-41ed-afd5-d110325ff5ad
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 3cfb83d4-e7af-47e1-bc25-f567db6577a3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 73cca4b8-f790-4642-8256-e1f4e650feed
+			defaultHierarchy: LocalDateTable_a5fcd6b0-7fe4-4e82-a876-95279151fb9c.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Sucursal
+		lineageTag: 04fe77ba-29e3-40ee-9771-06e2f53a8ddc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: ff163095-d169-4a92-adbe-c975b53afe77
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: a3799431-3738-4ddd-a7a2-e55ffebcf4e0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: 44b4a14b-4b47-44c6-bd24-dfa1c9dab379
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: c1c0dfe1-f454-4eea-a750-fbafa904933c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: b4945d0c-fe7b-42fb-be06-e161d5d4d688
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: 192a85a7-6b86-4870-b8d2-2a94e1277de7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: 8421a808-660d-4faf-be09-c223bc5b5745
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: c6d18e01-7a38-47e7-bddd-0df81e144841
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_G-MARKETING = calculated
+		mode: import
+		source =
+				UNION(
+				    // PORTAFOLIO RODAMIOENTOS AUTOMOTRIZ
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "PAUT" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // PORTAFOLIO RODAMIENTOS INDUSTRIAL
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "PIND" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // PORTAFOLIO LUBRICANTES
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "PLUB" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // PORTAFOLIO AUTOMOTRIEQUIPOS DE SEGURIDAD Y HERRAMIENTAS
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "PEPP" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    //Gerente Marketing
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "GMK" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    //Coordinador de Marketing
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "CDM" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				     //Asistente de Marketing
+				     ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "ADM" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				)
+
+	annotation PBI_Id = 0595c5ba64bf4aefb78730f4b95acc23
+

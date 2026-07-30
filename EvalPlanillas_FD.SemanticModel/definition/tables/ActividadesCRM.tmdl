@@ -1,0 +1,289 @@
+table ActividadesCRM
+	lineageTag: dde06af1-0b07-49c5-8078-a7115a7be538
+
+	column 'App ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 25799b74-c5cd-49ad-b2a4-ff85735b2bc9
+		summarizeBy: count
+		sourceColumn: App ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Actividad'
+		dataType: string
+		lineageTag: 94c37df5-67b2-49f0-ae62-58ad5230d064
+		summarizeBy: none
+		sourceColumn: Tipo Actividad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Usuario
+		dataType: string
+		lineageTag: 24385489-a9ca-450e-b201-6bff0a089e26
+		summarizeBy: none
+		sourceColumn: Usuario
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: bf013b66-a363-4fef-92b1-62ae9399ec06
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tp.DC'
+		dataType: string
+		lineageTag: f2cbf078-7f50-404f-96b0-18e7226026d8
+		summarizeBy: none
+		sourceColumn: Tp.DC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Documento
+		dataType: string
+		lineageTag: 5038824f-94fa-41f6-a6cc-da8a06f9e79f
+		summarizeBy: none
+		sourceColumn: Documento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Id. Seguimiento'
+		dataType: string
+		lineageTag: ff356f65-9e87-4d10-a396-071e0a560982
+		summarizeBy: none
+		sourceColumn: Id. Seguimiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Asunto
+		dataType: string
+		lineageTag: 4893f9a2-6aef-4276-9a80-2c38f153216e
+		summarizeBy: none
+		sourceColumn: Asunto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Act.'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 051d0402-047a-4355-a9a0-cc91e0f9c10c
+		summarizeBy: none
+		sourceColumn: Fecha Act.
+
+		variation Variación
+			isDefault
+			relationship: c9aedfed-12ae-4ab9-b729-c98e8c33e912
+			defaultHierarchy: LocalDateTable_04d8d667-fef4-4994-a06f-79833d048e12.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Hora Act.'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 3ad160f6-cbb8-4877-bee7-5096e1e0a7e9
+		summarizeBy: none
+		sourceColumn: Hora Act.
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Fecha inicio'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 090a8242-e229-4d3f-95cd-aeb579d5a225
+		summarizeBy: none
+		sourceColumn: Fecha inicio
+
+		variation Variación
+			isDefault
+			relationship: 21540983-4681-48f5-a72b-bde9d8effa46
+			defaultHierarchy: LocalDateTable_450ba454-f66e-4cde-8e78-c672a7dfbe72.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Hora inicio'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 9b7f13a9-f434-43fc-bea9-711502f879b9
+		summarizeBy: none
+		sourceColumn: Hora inicio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Fecha fin'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 03522d4c-163a-45bb-97dc-ec011b6e29b0
+		summarizeBy: none
+		sourceColumn: Fecha fin
+
+		variation Variación
+			isDefault
+			relationship: 318361bb-dafd-4734-a6b4-084a4353930f
+			defaultHierarchy: LocalDateTable_df272d13-5b56-4ed5-bfac-e18fed80977c.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Hora fin'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 1343362f-edd8-4af5-b879-1a8f549b22ea
+		summarizeBy: none
+		sourceColumn: Hora fin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Aviso
+		dataType: string
+		lineageTag: 26970503-d483-4b96-84ec-34767754fab1
+		summarizeBy: none
+		sourceColumn: Aviso
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha aviso'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 5678f06e-ec2e-445d-b341-2ceb4e50b4b3
+		summarizeBy: none
+		sourceColumn: Fecha aviso
+
+		variation Variación
+			isDefault
+			relationship: fad5e108-019a-4910-9521-5e6bdff2bc52
+			defaultHierarchy: LocalDateTable_5b25812f-5cfd-489e-9c9d-77111109adb9.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Hora aviso'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 76e35db9-91e4-4615-9806-20fee594a992
+		summarizeBy: none
+		sourceColumn: Hora aviso
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Latitud
+		dataType: double
+		lineageTag: 49acd9b8-13f4-40a1-8629-dad8492667b5
+		summarizeBy: sum
+		sourceColumn: Latitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: ffe926d8-9a23-47cd-b375-055f32b334aa
+		summarizeBy: sum
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: fc9bd93d-5d57-4679-a053-aa649cce1846
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: f987a2e9-9110-490a-80e6-8207b3662e92
+			defaultHierarchy: LocalDateTable_37aafe8a-b081-4ea0-921c-b6e612f22be9.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'N° ident.fis.1'
+		dataType: string
+		lineageTag: a68f3d09-7fe9-47b7-9ff4-4bd5acf80486
+		summarizeBy: none
+		sourceColumn: N° ident.fis.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column CorreoDestino
+		dataType: string
+		lineageTag: 319c283d-d222-4f61-bb75-2acc6d508061
+		summarizeBy: none
+		sourceColumn: CorreoDestino
+
+		annotation SummarizationSetBy = Automatic
+
+	column CorreoDestino2
+		dataType: string
+		lineageTag: 48876f7f-9cb9-4756-a6ad-2174642d9006
+		summarizeBy: none
+		sourceColumn: CorreoDestino2
+
+		annotation SummarizationSetBy = Automatic
+
+	column DetalleActividad
+		dataType: string
+		lineageTag: d4c7f9c6-10ce-49f7-b512-aa595eaea4ba
+		summarizeBy: none
+		sourceColumn: DetalleActividad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 56c3e086-bda2-4dbb-bbbb-fc5ad83cee82
+		summarizeBy: sum
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ActividadesCRM = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"e5a3cc0a-ed85-4271-aa35-5433847cd208" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e5a3cc0a-ed85-4271-aa35-5433847cd208"]}[Data],
+				    ActividadesCRM1 = #"e5a3cc0a-ed85-4271-aa35-5433847cd208"{[entity="ActividadesCRM"]}[Data],
+				    #"Inicio del mes insertado" = Table.AddColumn(ActividadesCRM1, "Inicio del mes", each Date.StartOfMonth([#"Fecha Act."]), type date),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Inicio del mes insertado",{{"Inicio del mes", "Periodo"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

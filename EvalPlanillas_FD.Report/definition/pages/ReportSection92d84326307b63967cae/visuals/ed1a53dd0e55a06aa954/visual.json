@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "ed1a53dd0e55a06aa954",
+  "position": {
+    "x": 433.62066366270795,
+    "y": 4.1166518702155814,
+    "z": 4000,
+    "height": 710.80855625722381,
+    "width": 359.52092999882746
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Cartera"
+                }
+              },
+              "queryRef": "CarteraIVT.Cartera",
+              "nativeQueryRef": "Cartera"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Regional"
+                }
+              },
+              "queryRef": "CarteraIVT.Regional",
+              "nativeQueryRef": "Regional"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Periodo"
+                }
+              },
+              "queryRef": "CarteraIVT.Periodo",
+              "nativeQueryRef": "Periodo"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "CarteraIVT"
+                        }
+                      },
+                      "Property": "Vendedor"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "CarteraIVT.Vendedor",
+              "nativeQueryRef": "Recuento de Vendedor"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "CarteraIVT"
+                      }
+                    },
+                    "Property": "Vendedor"
+                  }
+                },
+                "Function": 2
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

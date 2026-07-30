@@ -1,0 +1,634 @@
+table 2026_C11
+	lineageTag: 3f068190-8b17-48b5-a416-5b62ef8af1a1
+
+	column FactorGestActual = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = '2026_C11'[AñoMes]), 'DiasValidosxMes'[Factor])
+		lineageTag: 5d7e4a3b-dd2b-4081-9e93-c1eba3112779
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FactorGestAnterior = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = DATEADD('2026_C11'[AñoMes], - [Valor Gestiones Previas], YEAR)), 'DiasValidosxMes'[Factor])
+		lineageTag: 53b8273e-295b-4a1e-ab33-12fd98fbb41c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_1 = ```
+			// Los objetivos son personales excepto a los especialistas que es por lineas
+			VAR _Canal = 11
+			    
+			RETURN
+			
+			    IF (
+			        '2026_C11'[Cargo] = "IVT-LUB",
+			        SUMX(
+			            FILTER(
+			                Objetivos, 
+			                Objetivos[Canal] = _Canal &&
+			                Objetivos[Periodo] = '2026_C11'[AñoMes] &&
+			                Objetivos[Regional] = '2026_C11'[Regional] &&
+			                Objetivos[Linea] = "LUBRICANTES"
+			            ), 
+			            Objetivos[ObjetivoBs]
+			        ),    
+			        IF (
+			            '2026_C11'[Cargo] = "IVT-HERR",
+			                CALCULATE(
+			                    SUM(Objetivos[ObjetivoBs]),
+			                        FILTER(
+			                            Objetivos, 
+			                            Objetivos[Canal] = _Canal &&
+			                            Objetivos[Periodo] = '2026_C11'[AñoMes] &&
+			                            Objetivos[Regional] = '2026_C11'[Regional] &&
+			                            OR (
+			                                Objetivos[Linea] = "EQUIP.D/SEGURIDAD",
+			                                Objetivos[Linea] = "EQUIP&HERRAM"
+			                            )
+			                        )
+			                    ),
+			            SUMX( // IVT, VTEC & EAGR ventas de cartera
+			                FILTER(
+			                    Objetivos, 
+			                    Objetivos[Periodo] = '2026_C11'[AñoMes] &&
+			                    Objetivos[Canal] = _Canal &&
+			                    Objetivos[Vendedor] = '2026_C11'[CodVendedor]
+			                ), 
+			                Objetivos[ObjetivoBs]
+			            )
+			        )
+			    )
+			
+			```
+		lineageTag: d25bef69-0378-46cd-8ceb-f7ce1af8335c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_2 = ```
+			// Todoslos toman el obetivo de la regional
+			 VAR _Canal = 11
+			
+			RETURN
+			    IF (
+			        '2026_C11'[Cargo] = "IVT-LUB",
+			        SUMX(
+			            FILTER(
+			                Objetivos, 
+			                Objetivos[Canal] = _Canal &&
+			                Objetivos[Periodo] = '2026_C11'[AñoMes] &&
+			                Objetivos[Linea] = "LUBRICANTES" &&
+			                Objetivos[Regional] = '2026_C11'[Regional]
+			            ), 
+			            Objetivos[UtilidadObjBs]
+			        ),    
+			        IF (
+			            '2026_C11'[Cargo] = "IVT-HERR",
+			            SUMX(
+			                FILTER(
+			                    Objetivos, 
+			                    Objetivos[Canal] = _Canal &&
+			                    Objetivos[Periodo] = '2026_C11'[AñoMes] &&
+			                    OR(
+			                        Objetivos[Linea] = "EQUIP&HERRAM", 
+			                        Objetivos[Linea] = "EQUIP.D/SEGURIDAD"
+			                        ) &&
+			                    Objetivos[Regional] = '2026_C11'[Regional]
+			                ), 
+			                Objetivos[UtilidadObjBs]
+			            ),
+			            SUMX( // IVT, VTEC & EAGR ventas de cartera
+			                FILTER(
+			                    Objetivos, 
+			                    Objetivos[Periodo] = '2026_C11'[AñoMes] &&
+			                    Objetivos[Canal] = _Canal &&
+			                    Objetivos[Vendedor] = '2026_C11'[CodVendedor]
+			                ), 
+			                Objetivos[UtilidadObjBs]
+			            )
+			        )
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: 17acc13c-cd41-4395-9591-fd0e5d377096
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_3 = ```
+			
+			VAR _Canal = 11
+			
+			VAR _Cargo =
+			    SWITCH(
+			        '2026_C11'[Cargo],
+			        "IVT-LUB", "Regional",
+			        "IVT-HERR", "Regional",
+			        "IVT", "Personal",
+			        "EAGR", "Regional",
+			        "VTEC", "Personal",
+			        BLANK()
+			    )
+			
+			
+			RETURN
+			    CALCULATE( // Calcula las CxC de la cartera
+			        SUM(CxC[Importe]),
+			        FILTER (
+			            CxC,
+			            CxC[Periodo] = '2026_C11'[AñoMes] &&
+			            IF (
+			                _Cargo = "Personal",
+			                CxC[IVT Cartera]= '2026_C11'[CodVendedor],
+			                RELATED(Sucursales[SucursalReg]) = '2026_C11'[Regional]
+			            ) &&
+			            CxC[Canal] = _Canal
+			        )
+			    )
+			
+			```
+		formatString: #,0.00
+		lineageTag: 32978304-962c-4cbf-8d12-54c1aa52cb50
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 = ```
+			
+			    IF( '2026_C11'[Cargo] = "IVT-LUB", 
+			        SUMX(
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_C11'[AñoMes] &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_C11'[Regional] &&
+			                RELATED(Materiales[Linea]) = "LUBRICANTES" &&
+			                RELATED(Canales[CodCanal]) = 11
+			                ),
+			            Ventas[Venta]
+			        ),
+			        IF( '2026_C11'[Cargo] = "IVT-HERR", 
+			            SUMX(
+			                FILTER(
+			                    Ventas, 
+			                    RELATED(Canales[CodCanal]) = 11 &&
+			                    RELATED(Fechas[AñoMes]) = '2026_C11'[AñoMes] &&
+			                    RELATED(Sucursales[SucursalReg]) = '2026_C11'[Regional] &&
+			                    OR(
+			                        RELATED(Materiales[Linea]) = "EQUIP&HERRAM", 
+			                        RELATED(Materiales[Linea]) = "EQUIP.D/SEGURIDAD"
+			                        )
+			                ), 
+			                Ventas[Venta]
+			            ),
+			            SUMX(
+			                FILTER(
+			                    CarteraIVT, 
+			                    CarteraIVT[Periodo] = '2026_C11'[AñoMes] &&
+			                    CarteraIVT[Vendedor] = '2026_C11'[CodVendedor]
+			                    ), 
+			                CarteraIVT[Ventas]
+			            )
+			        )
+			    )
+			
+			```
+		formatString: #,0.00
+		lineageTag: d71f91f5-ca8a-404a-a306-329f7981b904
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 = ```
+			
+			
+			VAR _Costo2 =
+			    IF( '2026_C11'[Cargo] = "IVT-LUB", 
+			        SUMX(
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_C11'[AñoMes] &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_C11'[Regional] &&
+			                RELATED(Materiales[Linea]) = "LUBRICANTES" &&
+			                RELATED(Canales[CodCanal]) = 11
+			                ),
+			            Ventas[Costo]
+			        ),
+			        IF( '2026_C11'[Cargo] = "IVT-HERR", 
+			            SUMX(
+			                FILTER(
+			                    Ventas, 
+			                    RELATED(Canales[CodCanal]) = 11 &&
+			                    RELATED(Fechas[AñoMes]) = '2026_C11'[AñoMes] &&
+			                    RELATED(Sucursales[SucursalReg]) = '2026_C11'[Regional] &&
+			                    OR(
+			                        RELATED(Materiales[Linea]) = "EQUIP&HERRAM", 
+			                        RELATED(Materiales[Linea]) = "EQUIP.D/SEGURIDAD"
+			                        )
+			                ), 
+			                Ventas[Costo]
+			            ),
+			            SUMX(
+			                FILTER(
+			                    CarteraIVT, 
+			                    CarteraIVT[Periodo] = '2026_C11'[AñoMes] &&
+			                    CarteraIVT[Vendedor] = '2026_C11'[CodVendedor]
+			                    ), 
+			                CarteraIVT[Costo]
+			            )
+			        )
+			    )
+			
+			RETURN
+			
+			'2026_C11'[Avance_1] - _Costo2
+			```
+		formatString: #,0.00
+		lineageTag: 59cb4c92-6089-4cee-a975-26c8973dd205
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_3 = ```
+			// Calcula el valor de la cartera VIGENTE 
+			
+			VAR _Canal =
+			    SWITCH(
+			        '2026_C11'[Cargo],
+			        "IVT-LUB", 11,
+			        "IVT-HERR", 11,
+			        BLANK()
+			    )
+			RETURN
+			
+			    IF ( // Calcula el total de las CxC de la regional
+			        NOT(ISBLANK(_Canal)),
+			        CALCULATE(
+			            SUM(CxC[Importe]),
+			            FILTER (
+			                    CxC,
+			                    CxC[Periodo] = '2026_C11'[AñoMes] &&
+			                    RELATED(Sucursales[SucursalReg]) = '2026_C11'[Regional] &&
+			                    CxC[Rangos Vencidos] = "Vigente"
+			                ),
+			                CxC[Canal] = _Canal
+			        ),
+			        CALCULATE( // Calcula las CxC de la cartera
+			            SUM(CxC[Importe]),
+			            FILTER (
+			                CxC,
+			                CxC[Periodo] = '2026_C11'[AñoMes] &&
+			                CxC[Rangos Vencidos] = "Vigente" &&
+			                CxC[IVT Cartera] = '2026_C11'[CodVendedor]
+			            )
+			        )
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: c048116d-4ed2-4e53-b2ce-7764984e99bc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = DIVIDE('2026_C11'[Avance_1], '2026_C11'[Objetivos_1], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 95ebfaa4-bdc0-4bf8-b387-c4f604fb1484
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = DIVIDE('2026_C11'[Avance_2], '2026_C11'[Objetivos_2], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 36469367-3d86-44a2-8413-b38d570a03eb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = ```
+			
+			VAR _Mora = 
+			    1 - DIVIDE (
+			        '2026_C11'[Avance_3],
+			        '2026_C11'[Objetivos_3],
+			        0
+			    )
+			VAR _Valor =
+			    IF (
+			        _Mora >= 0.44,
+			        0,
+			        IF(
+			            _Mora >= 0.4,
+			            25 * (0.44 - _Mora),
+			            IF(
+			                _Mora < 0.35,
+			                1.5,
+			                ( 1 + 10 * ( 0.4 - _Mora) )
+			
+			            )
+			        )
+			    )
+			Return
+			 _Valor
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 9684c449-ba25-473c-ab96-0ea441fe02b5
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = CALCULATE(VALUES(Fechas[NbTrimestreAño]), filter(Fechas, Fechas[AñoMes] = '2026_C11'[AñoMes]))
+		lineageTag: 2972090d-c245-4610-b207-5cab4f2b2e35
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: cf087eb9-560a-47b2-b9c0-ad8d245d8b3f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: 8d8eb4b3-8b7c-4568-90d6-d437d25072a5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: cf147857-c163-476c-8f02-531004d99ec5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = ```
+			// IVT Se rige por su cartera
+			VAR _Vencido = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER (
+			                    CxC,
+			                    CxC[IVT Cartera] = '2026_C11'[CodVendedor]
+			                ),
+			                CxC[Periodo] = ENDOFQUARTER('2026_SAC'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER (
+			                    CxC,
+			                    CxC[IVT Cartera] = '2026_C11'[CodVendedor]
+			                ),
+			                CxC[Periodo] = ENDOFQUARTER('2026_SAC'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			RETURN
+			
+			    IF (
+			        '2026_C11'[TKPI3] = BLANK(), 
+			        BLANK(),
+			        DIVIDE(_Vencido, _Vencido + _Vigente, -1)
+			    )
+			
+			
+			//SUMX(FILTER(FILTER(FILTER(RH_Mora, RH_Mora[Gestion] = 2023), RH_Mora[Quarto] = LEFT('2023_C11_IVT'[Cuarto], 2)), RH_Mora[Vendedor] = '2023_C11_IVT'[CodVendedor]), RH_Mora[Ratio])
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6c2d5ea4-828f-4d33-b6ce-ffcb739edf23
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_Desa = BLANK()
+		formatString: #,0.00
+		lineageTag: 216dc774-8c26-4022-9693-9235686c700b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 3c99150d-4b43-480b-9bb8-28fb9eb1326f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: 4d76e573-7a34-4449-ab4c-9a32a152f176
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_4 =
+			
+			VAR _Canal = 11
+			
+			RETURN
+			    CALCULATE(
+			        VALUES(RH_VisitasCRM[Visitas]),
+			        FILTER(
+			            FILTER(
+			                RH_VisitasCRM,
+			                RH_VisitasCRM[Canal] = _Canal
+			            ),
+			            RH_VisitasCRM[Periodo] = '2026_C11'[AñoMes]
+			        )
+			    )
+		lineageTag: 8de5db1a-7549-4af9-aca0-032aad020f5f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Avance_4 = ```
+			
+			    CALCULATE(
+			        COUNT(ActividadesCRM[App ID]),
+			        FILTER(
+			            ActividadesCRM,
+			            ActividadesCRM[Tipo Actividad] = "Visita" &&
+			            ActividadesCRM[Periodo] = '2026_C11'[AñoMes] &&
+			            ActividadesCRM[Vendedor] = '2026_C11'[CodVendedor]
+			        )
+			)
+			```
+		formatString: 0
+		lineageTag: 2a9f5825-67fb-4798-8338-40a42fba607c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_4 = ```
+			
+			    DIVIDE( 
+			        '2026_C11'[Avance_4],
+			        '2026_C11'[Objetivos_4]
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: a1b6b308-63b3-482d-985e-cb51a3e14f07
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 0dc4c152-34f3-4158-9c3f-efad9803b1b8
+		summarizeBy: none
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 0f13b63e-a7f2-4d5e-b37a-4f1b7c81ae10
+			defaultHierarchy: LocalDateTable_83ec7716-bd38-40ca-a29e-a69e8d7ee1ce.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Item
+		formatString: 0
+		lineageTag: 90dce236-c255-40d5-81c2-e5e0129cbbac
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: int64
+		formatString: 0
+		lineageTag: dcc7055c-7dc3-4edc-8e96-a06d8f036a3c
+		summarizeBy: sum
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		lineageTag: ad198642-65d3-4ecf-87a4-fe03f9b62e9c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: a2790d83-6019-4333-adc4-559e9408e1fe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: c19f07a6-c034-4736-921f-1aca49b195dc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: 61961b72-11b1-4d9c-8990-a15f959965fd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: 1c066c93-2772-4d48-be67-c5cb4b68b32e
+		summarizeBy: none
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: 28de83db-9ac3-4cbe-a26b-de000b01c9ac
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: f6515c6a-3bec-400f-a29b-66d1278ced68
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: 647e5b42-8a0c-456b-9f3d-a73bd4f8b085
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: 651846f8-a3c5-4f84-b54c-15d262087d50
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: 3efb1109-0136-40ec-b8f4-61d641bd0c4e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_C11-d47c560a-855a-486a-b729-dccf107d8eb8 = calculated
+		mode: import
+		source = ```
+				UNION (
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "IVT" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "IVT - ESP" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "IVT-LUB" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "IVT-HERR" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "EAGR" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),    
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "VTEC" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				)
+				```
+
+	annotation PBI_Id = 6ac5d4fd08ca4a13b1714471acf2aa74
+

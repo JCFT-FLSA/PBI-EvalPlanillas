@@ -1,0 +1,112 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "8f1783806bd7621e0465",
+  "position": {
+    "x": 206.33266533066134,
+    "y": 121.20240480961924,
+    "z": 0,
+    "height": 328.97795591182364,
+    "width": 633.42685370741481
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ObjetivosGral"
+                    }
+                  },
+                  "Property": "Sucursal"
+                }
+              },
+              "queryRef": "ObjetivosGral.Sucursal"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ObjetivosGral"
+                    }
+                  },
+                  "Property": "NbSucursal"
+                }
+              },
+              "queryRef": "ObjetivosGral.NbSucursal"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ObjetivosGral"
+                        }
+                      },
+                      "Property": "Presupuesto"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(ObjetivosGral.Presupuesto)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ObjetivosGral"
+                        }
+                      },
+                      "Property": "Avance"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(ObjetivosGral.Avance)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Avance $us"
+                }
+              },
+              "queryRef": "Medidas.Medida"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Presupuesto $us"
+                }
+              },
+              "queryRef": "Medidas.Presupuesto $us",
+              "nativeQueryRef": "Presupuesto $us"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

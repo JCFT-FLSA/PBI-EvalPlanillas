@@ -1,0 +1,238 @@
+table FacturasPOS
+	excludeFromModelRefresh
+	lineageTag: a5795478-85d6-40f2-a5dd-529630d5ad7f
+
+	column Qty
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e64c47c-93c5-4506-b249-e2ae8de21ae4
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cl.documento'
+		dataType: string
+		lineageTag: 9e6faffc-3759-4a25-8697-a23fcfc9062c
+		summarizeBy: none
+		sourceColumn: Cl.documento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clase de factura'
+		dataType: string
+		lineageTag: cf5e4d78-4096-4a3a-a8a6-40d75df7cb1f
+		summarizeBy: none
+		sourceColumn: Clase de factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Creado el'
+		dataType: string
+		lineageTag: 5751cb36-abdb-44b2-9507-d195981072c3
+		summarizeBy: none
+		sourceColumn: Creado el
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: string
+		lineageTag: b93a5487-8e12-494f-ad03-00f270f6f5c8
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column Factura
+		dataType: string
+		lineageTag: 56e43b1e-d254-4dc0-b2f6-51202c7e75fe
+		summarizeBy: none
+		sourceColumn: Factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIT
+		dataType: string
+		lineageTag: f3b037d0-914c-48c8-beb2-f029cc1d39a4
+		summarizeBy: none
+		sourceColumn: NIT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Persona Física'
+		dataType: string
+		lineageTag: d8e63b1c-14b4-447c-be7b-712bf3c12902
+		summarizeBy: none
+		sourceColumn: Persona Física
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Referencia de pago'
+		dataType: string
+		lineageTag: 7b27c990-e205-4227-b12d-d45744bc6539
+		summarizeBy: none
+		sourceColumn: Referencia de pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Responsable de pago'
+		dataType: string
+		lineageTag: d010d8ff-8665-4254-80d7-f37690984ce4
+		summarizeBy: none
+		sourceColumn: Responsable de pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: string
+		lineageTag: 1378acb2-6fc2-4fb4-bc41-cbc7b11b5cdf
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo doc.comercial'
+		dataType: string
+		lineageTag: 433fecc1-ecda-432d-92af-485151b4eb65
+		summarizeBy: none
+		sourceColumn: Tipo doc.comercial
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbClientePOS
+		dataType: string
+		lineageTag: 05d5e8ab-343b-4057-a556-4ad0899b73f0
+		summarizeBy: none
+		sourceColumn: nbClientePOS
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cantidad Cliente'
+		dataType: int64
+		formatString: 0
+		lineageTag: 19c95b3c-c3cb-499b-89cb-9b6a0a621a43
+		summarizeBy: sum
+		sourceColumn: Cantidad Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cl.documento O/P/E/F Nivel 01'
+		dataType: string
+		lineageTag: 76371985-8f18-44e2-8be1-b33affe6bc7b
+		summarizeBy: none
+		sourceColumn: Cl.documento O/P/E/F Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clase de factura Nivel 01'
+		dataType: string
+		lineageTag: 0a56bec2-fa49-4a80-a80a-53fb707ef20f
+		summarizeBy: none
+		sourceColumn: Clase de factura Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Creado el Nivel 01'
+		dataType: string
+		lineageTag: 558a8c50-e772-4b17-bfa4-5a7d0054ffae
+		summarizeBy: none
+		sourceColumn: Creado el Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Día natural Nivel 01'
+		dataType: string
+		lineageTag: f260ccb2-e477-4f82-a1b4-f40503303d2a
+		summarizeBy: none
+		sourceColumn: Día natural Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Factura Nivel 01'
+		dataType: string
+		lineageTag: 1ea293a6-69bb-4367-bbca-2edc59fb81b8
+		summarizeBy: none
+		sourceColumn: Factura Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha modificación Nivel 01'
+		dataType: string
+		lineageTag: e91a701c-126b-4ce4-b785-f2172adcf767
+		summarizeBy: none
+		sourceColumn: Fecha modificación Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hora Nivel 01'
+		dataType: string
+		lineageTag: 6a0b9eae-1acb-44f2-9ed7-836a93c0d5df
+		summarizeBy: none
+		sourceColumn: Hora Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NIT Nivel 01'
+		dataType: string
+		lineageTag: 7a2f7113-3024-4cb8-abc2-dd654cb8fbcb
+		summarizeBy: none
+		sourceColumn: NIT Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Persona Física Nivel 01'
+		dataType: string
+		lineageTag: b0320147-0223-406b-a0b6-3fb6d379ef22
+		summarizeBy: none
+		sourceColumn: Persona Física Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Referencia de pago Nivel 01'
+		dataType: string
+		lineageTag: 4d2be71d-67b9-4303-8ed5-34c5a48caed0
+		summarizeBy: none
+		sourceColumn: Referencia de pago Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Responsable de pago Nivel 01'
+		dataType: string
+		lineageTag: 7d9261e4-6e14-408c-a3e3-a5029fb3b90b
+		summarizeBy: none
+		sourceColumn: Responsable de pago Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Solicitante Nivel 01'
+		dataType: string
+		lineageTag: 302012c0-6dae-4911-9476-895d8c6f63dc
+		summarizeBy: none
+		sourceColumn: Solicitante Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo doc.comercial Nivel 01'
+		dataType: string
+		lineageTag: fd4178c5-1ed9-47d6-8aae-2756775c08cd
+		summarizeBy: none
+		sourceColumn: Tipo doc.comercial Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FacturasPOS = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({FacturasPOS_2023, FacturasPOS_2024, FacturasPOS_2025, FactPOS_2026}),
+				    #"Consultas combinadas" = Table.NestedJoin(Origen, {"NIT"}, #"Clientes POS", {"NIT"}, "Clientes POS", JoinKind.LeftOuter),
+				    #"Se expandió Clientes POS" = Table.ExpandTableColumn(#"Consultas combinadas", "Clientes POS", {"nbCliente"}, {"Clientes POS.nbCliente"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Se expandió Clientes POS",{{"Clientes POS.nbCliente", "nbClientePOS"}}),
+				    #"Filas ordenadas" = Table.Sort(#"Columnas con nombre cambiado",{{"Creado el", Order.Descending}})
+				in
+				    #"Filas ordenadas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

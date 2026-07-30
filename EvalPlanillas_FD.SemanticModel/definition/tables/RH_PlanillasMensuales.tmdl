@@ -1,0 +1,137 @@
+table RH_PlanillasMensuales
+	lineageTag: 4ce4575e-dae7-4328-9e41-343e17f0ac56
+
+	column AñoMes
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 48a7029d-4ef8-4360-a24a-6edfeee941b7
+		summarizeBy: none
+		sourceColumn: AñoMes
+
+		variation Variación
+			isDefault
+			relationship: 1da070f2-a8ee-48c6-99d8-0a954d5b6186
+			defaultHierarchy: LocalDateTable_ff439feb-ab74-4957-8a59-beb7f1d8b2b6.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Sucursal
+		dataType: string
+		lineageTag: 2fbe40c0-e82b-4f3e-b4b1-123cd00f59c4
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		dataType: string
+		lineageTag: 9093a277-6acd-4b1f-8d55-3d59840a5513
+		summarizeBy: none
+		sourceColumn: nbCeCo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		dataType: string
+		lineageTag: edc9401e-16e0-4a32-b4d6-8be0a12a04ad
+		summarizeBy: none
+		sourceColumn: Area
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		dataType: string
+		lineageTag: e8d36155-e97f-489d-9ee5-a1984caa9dca
+		summarizeBy: none
+		sourceColumn: AreaComercial
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		dataType: string
+		lineageTag: e178d6c5-48c5-4e5e-92d4-6d6e703c7f6e
+		summarizeBy: none
+		sourceColumn: nbCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		dataType: int64
+		formatString: 0
+		lineageTag: 08b24c8e-06aa-4d59-8fcc-aa15283a8c9e
+		summarizeBy: sum
+		sourceColumn: CodSuc
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		dataType: double
+		lineageTag: 87995b20-3051-43d1-962d-4b4b7403126f
+		summarizeBy: sum
+		sourceColumn: CodVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		dataType: string
+		lineageTag: c5e35958-1e88-4fba-a8a8-5f7924b2af96
+		summarizeBy: none
+		sourceColumn: UsuarioSAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		dataType: int64
+		formatString: 0
+		lineageTag: d1734dc9-c0b5-4575-9128-c88596fa1dc9
+		summarizeBy: sum
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		dataType: string
+		lineageTag: 71bfd4d6-4aaf-4d59-9f04-458dcfe5314f
+		summarizeBy: none
+		sourceColumn: nbVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: int64
+		formatString: 0
+		lineageTag: d7120281-5103-4ffd-9f76-bca33adb1c00
+		summarizeBy: sum
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		dataType: string
+		lineageTag: 6d54621e-081f-4802-a991-5eee2a6558f5
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_PlanillasMensuales-c8b011b4-c74f-4f1f-91b1-1e5e6ab47f64 = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({NominaVendedores_2025, NominaVendedores_2026}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(Origen,{{"Periodo", "AñoMes"}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"Regional", Int64.Type}}),
+				    #"Columnas reordenadas" = Table.ReorderColumns(#"Tipo cambiado",{"AñoMes", "CodVendedor", "Item", "nbVendedor", "CodSuc", "Regional", "Sucursal", "Cargo", "nbCeCo", "Area", "AreaComercial", "nbCargo", "UsuarioSAP"})
+				in
+				    #"Columnas reordenadas"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

@@ -1,0 +1,103 @@
+table ObjetivosGral
+	lineageTag: a8545eb6-0a61-4fce-bc8f-ecf09a5e5d76
+
+	column Canal
+		formatString: 0
+		lineageTag: 718a765f-3dec-4e99-be5a-91afe81673ac
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Objetivos_Gest2[Canal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		formatString: 0
+		lineageTag: 8281f194-2907-4b3d-9aef-abd85ce62eee
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Objetivos_Gest2[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Linea
+		lineageTag: 30357d75-ba2e-4b6b-adee-1026755903a4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Objetivos_Gest2[Linea]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 29df1f3b-5820-41bc-9f43-de7da2d71022
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Objetivos_Gest2[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 6e11f575-a8ff-4aaa-9431-368c67816283
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Objetivos_Gest2[AñoMes]
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Avance = ```
+			
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER(
+			                    FILTER(
+			                        FILTER(
+			                            Ventas, 
+			                            RELATED(Sucursales[CodSuc]) = ObjetivosGral[Sucursal]
+			                        ),
+			                        RELATED(Canales[CodCanal]) = ObjetivosGral[Canal]
+			                    ), 
+			                    RELATED(Fechas[AñoMes]) = ObjetivosGral[AñoMes]
+			                ), 
+			                RELATED(Lineas[Linea]) = ObjetivosGral[Linea]
+			            ), 
+			            Ventas[Vendedor] = ObjetivosGral[CodVendedor]
+			        ), 
+			        Ventas[Venta]
+			    )
+			```
+		lineageTag: e403f5bc-8b2a-4036-97db-a20ebf801f9c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Presupuesto = sumx(filter(filter(FILTER(FILTER(filter(Objetivos, Objetivos[Canal] = ObjetivosGral[Canal]), Objetivos[Sucursal] = ObjetivosGral[Sucursal]), Objetivos[Vendedor] = ObjetivosGral[CodVendedor]), Objetivos[Linea] = ObjetivosGral[Linea]), Objetivos[GestionMes] = ObjetivosGral[AñoMes]), Objetivos[Objetivo])
+		lineageTag: b02499c4-48a6-4518-a41b-71e536135ca4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NbSucursal = CALCULATE(VALUES(Sucursales[Sucursal]), filter(Sucursales, Sucursales[CodSuc] = ObjetivosGral[Sucursal]))
+		lineageTag: b233fc1a-8955-4631-84e7-5bf01e613c8b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ObjetivosGral-004af5c4-3223-4369-8569-79b6b682c785 = calculated
+		mode: import
+		source = ```
+				union(Objetivos_Gest2, Objetivos_Gest1, Objetivos_Gest0) 
+				```
+

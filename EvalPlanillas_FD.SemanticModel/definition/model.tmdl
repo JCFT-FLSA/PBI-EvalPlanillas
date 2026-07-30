@@ -1,0 +1,131 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-BO
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Transformar archivo de Planillas'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Transformar archivo de Planillas\Consultas auxiliares'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Objetivos2025","Objetivos2026","Objetivos","ObjetivosSegmento","VentasSAP_2015","VentasSAP_2016","VentasSAP_2017","VentasSAP_2018","VentasSAP_2019","VentasSAP_2020","VentasSAP_2021","VentasSAP_2022","VentasSAP_2023","VentasSAP_2024","VentasHistoricas","VentasSAP_2025","VentasSAP_2026","Ventas","Canales","Clientes","Fechas","Marcas","Regionales","Sucursales_Info","Sucursales","Vendedores","ClasesFacturas","Materiales_Atrib","Materiales","RH_TablaKPI","RH_Utilidad","RH_UtilidadMensual","NominaVendedores_2025","NominaVendedores_2026","RH_PlanillasMensuales","RH_PesosVariable_2025","RH_PesosVariable_2026","RH_PesosVariable","RH_PersonalFLSA","RH_MesesInventario","RH_NivelServicio","CRM-Visitas_2025","CRM-Visitas_2026","RH_VisitasCRM","CRM_Visitas SDI_2025","CRM-Visitas SDI_2026","RH_VisitasCRM_SDI","Nomina_General_2025","Nomina_General_2026","RH_Planilla_General","Carteras2025","Carteras2026","CarteraIVT","Medidas","Parámetro1","Transformar archivo de ejemplo","Archivo de ejemplo","Transformar archivo","DiasValidosxMes","CxC","MaterialesSDI_2025","MaterialesSDI_2026","MaterialesSDI","ObjetivosSDI_2025","ObjetivosSDI_2026","ObjetivosSDI","Ramos","Sectores","ActividadesCRM","ZEERR","EERR","Clientes POS","FacturasPOS_2023","FacturasPOS_2024","FacturasPOS_2025","FactPOS_2026","FacturasPOS"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_bc9e555b-0e47-4ce9-81d5-1338379f913e
+ref table Lineas
+ref table Objetivos
+ref table ObjetivosGralDesa
+ref table MarcasDesarrollo
+ref table Ventas
+ref table FechasAñoMes
+ref table Objetivos_Gest0
+ref table ObjetivosGral
+ref table Objetivos_Gest2
+ref table Objetivos_Gest1
+ref table Canales
+ref table Clientes
+ref table Fechas
+ref table Marcas
+ref table Regionales
+ref table Sucursales
+ref table Vendedores
+ref table LocalDateTable_0b17cdbf-9dfd-4182-a049-d6b42b260abb
+ref table LocalDateTable_b39a72b8-eab1-4f74-a980-30eeba7be049
+ref table ClasesFacturas
+ref table Materiales
+ref table LocalDateTable_09cac68d-3155-4878-a6f5-74d91b672353
+ref table LocalDateTable_8c190968-a7eb-4b74-b598-9e62ebee83f3
+ref table RH_TablaKPI
+ref table RH_Utilidad
+ref table RH_PersonalFLSA
+ref table Medidas
+ref table RH_PlanillasMensuales
+ref table 2026_SDI
+ref table RH_PesosVariable
+ref table 'Gestiones Previas'
+ref table 2026_C20-C30
+ref table 2026_C10
+ref table 2026_G-VENTAS
+ref table 2026_C11
+ref table RH_TablaVariables
+ref table RH_Planilla_BonoTrimestral
+ref table 2026_CANALES
+ref table LocalDateTable_0aca5faa-d840-421d-9121-9281638c663e
+ref table LocalDateTable_13379aa4-e31d-4cfa-9b22-232f52f4f3d0
+ref table LocalDateTable_c7e15071-8eed-46bb-a36b-b5e93e1e4eb9
+ref table CarteraIVT
+ref table ObjetivosSegmento
+ref table DiasValidosxMes
+ref table LocalDateTable_97852c73-d499-4d37-94fb-9a5d0a299a08
+ref table 2026_SAC
+ref table LocalDateTable_2585b5ea-8b41-4854-bf35-735993e355f5
+ref table LocalDateTable_94c32e98-65b1-4718-9d71-3460d15b6cd6
+ref table CxC
+ref table LocalDateTable_2140c22b-882f-48a4-b196-d374b512b7dc
+ref table LocalDateTable_5ebf3cac-2dd9-44db-a2d1-5ce19c1f3af1
+ref table LocalDateTable_44f97564-a374-4b34-a277-6ddcef1c5a3b
+ref table RH_UtilidadMensual
+ref table LocalDateTable_b7a30c0e-6b95-4b65-abfe-9acc60b2abdf
+ref table LocalDateTable_edb7a5e7-8868-463c-95ca-0e4450596f20
+ref table VentasSDI
+ref table Ramos
+ref table Sectores
+ref table LocalDateTable_48712837-f8a8-4431-9ed4-82700d1cd83a
+ref table RH_MesesInventario
+ref table 2026_G-MARKETING
+ref table Sucursales_Info
+ref table VentasHistoricas
+ref table LocalDateTable_d540bd02-110a-4073-88e4-b0ae9bfb37f8
+ref table ActividadesCRM
+ref table LocalDateTable_04d8d667-fef4-4994-a06f-79833d048e12
+ref table LocalDateTable_450ba454-f66e-4cde-8e78-c672a7dfbe72
+ref table LocalDateTable_df272d13-5b56-4ed5-bfac-e18fed80977c
+ref table LocalDateTable_5b25812f-5cfd-489e-9c9d-77111109adb9
+ref table RH_VisitasCRM
+ref table LocalDateTable_ffc264f0-9dcd-4e81-b579-2bf9a7653cd0
+ref table LocalDateTable_37aafe8a-b081-4ea0-921c-b6e612f22be9
+ref table RH_VariableMensual
+ref table EERR
+ref table LocalDateTable_ea0a1b50-7c18-46b6-91a3-bfe713c4c08a
+ref table FacturasPOS
+ref table RH_ClientesNuevosAnt
+ref table NItGestAnt
+ref table NitGest2
+ref table LocalDateTable_45c219f9-79af-4272-84ad-0b22b6a1f715
+ref table RH_ClientesNuevos
+ref table LocalDateTable_f4f12070-867f-4be1-8b11-023fdbcf04ce
+ref table RH_NivelServicio
+ref table RH_Planilla_General
+ref table LocalDateTable_5177974f-298f-439e-b37a-dd333b6b7d13
+ref table LocalDateTable_12ebe87c-c09c-4944-92fb-74d0d5b58fd3
+ref table 2026_TODOS
+ref table LocalDateTable_ff439feb-ab74-4957-8a59-beb7f1d8b2b6
+ref table RH_VisitasCRM_SDI
+ref table LocalDateTable_d956e2ee-943c-4f3d-a195-f64d2f4045e7
+ref table LocalDateTable_c1770f5c-9e39-4c28-a4ac-c04f372292f1
+ref table MaterialesSDI
+ref table ObjetivosSDI
+ref table LocalDateTable_bd493131-74ad-481f-a5fd-3737b446ff93
+ref table LocalDateTable_ed9b11cb-2a31-45fe-99f7-7bc184a8c730
+ref table LocalDateTable_5f0df8fb-6e3b-4caa-8b85-cd072a106c85
+ref table LocalDateTable_83ec7716-bd38-40ca-a29e-a69e8d7ee1ce
+ref table LocalDateTable_feced06c-3852-44cd-9fed-55acd26d4889
+ref table LocalDateTable_a441ff26-6f35-463b-9c92-3e5015bbb34a
+ref table LocalDateTable_a5fcd6b0-7fe4-4e82-a876-95279151fb9c
+ref table LocalDateTable_09d65ac8-2ab1-476e-8516-be487513d433
+ref table LocalDateTable_57450423-8362-4f0c-9022-14ff237faed7
+ref table LocalDateTable_e41b5a34-7a46-428b-b324-43edb37bd16e
+ref table LocalDateTable_3b0ae192-c116-43dd-8459-1ee706299595
+
+ref cultureInfo es-ES
+

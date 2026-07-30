@@ -1,0 +1,132 @@
+table RH_Planilla_General
+	lineageTag: d28d7b75-2a04-4ce9-b3ab-357597ef7719
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: fe773198-b55c-4214-b2c2-d49480c5a32f
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: 442c6efd-1859-4f7f-8d06-f5dbfae1f309
+			defaultHierarchy: LocalDateTable_5177974f-298f-439e-b37a-dd333b6b7d13.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Region
+		dataType: string
+		lineageTag: 2e8539f9-a668-4918-b059-433c7771e48c
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: string
+		lineageTag: d6f22f3c-0f69-4cb7-ba79-376829e33edc
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Codigo
+		dataType: int64
+		formatString: 0
+		lineageTag: fce7f85b-32b0-435b-b212-32f57e798910
+		summarizeBy: none
+		sourceColumn: Codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbEmpleado
+		dataType: string
+		lineageTag: 3ae5d539-f214-4478-b035-931a34c98fde
+		summarizeBy: none
+		sourceColumn: nbEmpleado
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaIngreso
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 627a754a-ea3d-4995-a48f-8c64a0de3aa4
+		summarizeBy: none
+		sourceColumn: FechaIngreso
+
+		variation Variación
+			isDefault
+			relationship: 7fd69cc1-9933-4e2f-8a9c-cd676eae6d90
+			defaultHierarchy: LocalDateTable_12ebe87c-c09c-4944-92fb-74d0d5b58fd3.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column CodSuc
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ceb72f4-2df9-43b4-8ea1-0b4a45b9ce15
+		summarizeBy: sum
+		sourceColumn: CodSuc
+
+		annotation SummarizationSetBy = Automatic
+
+	column CargoCorto
+		dataType: string
+		lineageTag: 1becd6d3-9691-42f1-99db-1cb4407d99a7
+		summarizeBy: none
+		sourceColumn: CargoCorto
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		dataType: string
+		lineageTag: f1008df5-b0e4-4982-80b3-f735ac541db4
+		summarizeBy: none
+		sourceColumn: nbCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsComercial = ```
+			
+			VAR _Existe = 
+			    CALCULATE(
+			        VALUES(RH_VariableMensual[Item]),
+			        FILTER(
+			            RH_VariableMensual,
+			            RH_VariableMensual[Item] = RH_Planilla_General[Codigo] &&
+			            RH_VariableMensual[Periodo] = RH_Planilla_General[Periodo]
+			        )
+			    )
+			RETURN
+			IF (
+			    ISBLANK(_Existe),
+			    "NO",
+			    "SI"
+			)
+			```
+		lineageTag: 87dca234-19f1-40ae-b646-92791852c8cd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_Planilla_General = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({Nomina_General_2025, Nomina_General_2026})
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

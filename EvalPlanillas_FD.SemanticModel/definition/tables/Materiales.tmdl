@@ -1,0 +1,329 @@
+table Materiales
+	lineageTag: 4b4aaba8-ce74-4961-ac7b-9e6d77cf8744
+
+	column Qty
+		dataType: double
+		lineageTag: 08ed2077-5e24-4176-97d3-83ec09de7f13
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Altura
+		dataType: double
+		lineageTag: b6a3fad1-8fd1-470b-97e1-43d1fc9352e0
+		summarizeBy: sum
+		sourceColumn: Altura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Ancho
+		dataType: double
+		lineageTag: 73f6702a-4f0a-4c50-aa88-84b5850edc42
+		summarizeBy: sum
+		sourceColumn: Ancho
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contenido bruto'
+		dataType: double
+		lineageTag: 6faba7c3-6e8f-403d-8737-cf114460021d
+		summarizeBy: sum
+		sourceColumn: Contenido bruto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contenido neto'
+		dataType: double
+		lineageTag: 52452301-fc52-44ef-9b04-d6328e957d73
+		summarizeBy: sum
+		sourceColumn: Contenido neto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: c901ce6d-7808-4647-98be-feeed756d7af
+		summarizeBy: sum
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Peso bruto'
+		dataType: double
+		lineageTag: dfc9e212-5813-486c-903d-e7431a25c248
+		summarizeBy: sum
+		sourceColumn: Peso bruto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Peso neto'
+		dataType: double
+		lineageTag: cfe03d6a-726e-4926-aef7-e673bfe1c3e2
+		summarizeBy: sum
+		sourceColumn: Peso neto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Volumen
+		dataType: double
+		lineageTag: a284a39c-4e8a-4f92-9667-09855683e20c
+		summarizeBy: sum
+		sourceColumn: Volumen
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Creado el'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 207fb22b-e85f-4db6-8e38-1767264ca6d8
+		summarizeBy: none
+		sourceColumn: Creado el
+
+		variation Variación
+			isDefault
+			relationship: 93353d2b-5d15-4b8f-a9dd-e7c880318836
+			defaultHierarchy: LocalDateTable_09cac68d-3155-4878-a6f5-74d91b672353.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Linea
+		dataType: string
+		lineageTag: f4c0eda7-9829-4860-b514-f66ee6fd0132
+		summarizeBy: none
+		sourceColumn: Linea
+
+		annotation SummarizationSetBy = Automatic
+
+	column EAN/UPC
+		dataType: string
+		lineageTag: fd1f2efa-d1c8-45ef-bc49-0be8ea3da450
+		summarizeBy: none
+		sourceColumn: EAN/UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grupo Materiales'
+		dataType: string
+		lineageTag: 6a6cad48-b272-42e1-91ea-b70cdf3a5e9e
+		summarizeBy: none
+		sourceColumn: Grupo Materiales
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'nbGrupo Materiales'
+		dataType: string
+		lineageTag: 3aec3296-ff36-4777-b971-aa6ae1b5daec
+		summarizeBy: none
+		sourceColumn: nbGrupo Materiales
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GrupoMateriales N1'
+		dataType: string
+		lineageTag: 36a5e26a-1d73-4b3f-8b63-d2816ea3b63b
+		summarizeBy: none
+		sourceColumn: GrupoMateriales N1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GrupoMateriales N0'
+		dataType: string
+		lineageTag: 2298a7d3-fa2a-4006-9e87-422d3b9a0706
+		summarizeBy: none
+		sourceColumn: GrupoMateriales N0
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marca
+		dataType: string
+		lineageTag: 9509498d-bd55-433a-8d5b-e9410acab28b
+		summarizeBy: none
+		sourceColumn: Marca
+
+		annotation SummarizationSetBy = Automatic
+
+	column Material
+		dataType: int64
+		formatString: 0
+		lineageTag: e2f4609b-3880-4851-9658-1eb0c7b5941a
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sector
+		dataType: string
+		lineageTag: d3ba0a5d-8ada-42a1-83af-e25dcae6b08f
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Calidad
+		dataType: string
+		lineageTag: 58d34216-b336-4857-b660-074ad761db11
+		summarizeBy: none
+		sourceColumn: Calidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo de material'
+		dataType: string
+		lineageTag: eac2aebb-7e0e-4364-b256-a5629f2226c0
+		summarizeBy: none
+		sourceColumn: Tipo de material
+
+		annotation SummarizationSetBy = Automatic
+
+	column UMB
+		dataType: string
+		lineageTag: 094aa7a1-f259-4fb8-b0f9-32400e0988bb
+		summarizeBy: none
+		sourceColumn: UMB
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UM de pedido'
+		dataType: string
+		lineageTag: 7f96843c-ec5a-429c-a79e-a7da1d2ed1cd
+		summarizeBy: none
+		sourceColumn: UM de pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unidad
+		dataType: string
+		lineageTag: 04249b74-e008-427e-81bc-eb5f530130cc
+		summarizeBy: none
+		sourceColumn: Unidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unidad de peso'
+		dataType: string
+		lineageTag: 81bcb010-ec74-46ed-a42b-ce38ffdee242
+		summarizeBy: none
+		sourceColumn: Unidad de peso
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unidad de volumen'
+		dataType: string
+		lineageTag: 18600637-e70b-4d00-a217-1582771cf491
+		summarizeBy: none
+		sourceColumn: Unidad de volumen
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tamaño/Dimensión
+		dataType: string
+		lineageTag: 2f8b6acb-545d-4e78-b0a8-dacbdfdf4715
+		summarizeBy: none
+		sourceColumn: Tamaño/Dimensión
+
+		annotation SummarizationSetBy = Automatic
+
+	column DescMaterial
+		dataType: string
+		lineageTag: d6a6aa6e-2361-459c-9a56-e578e515dfb0
+		summarizeBy: none
+		sourceColumn: DescMaterial
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbMaterial
+		dataType: string
+		lineageTag: 9aac72ed-5b42-48d1-a3c1-046998f1b0fd
+		summarizeBy: none
+		sourceColumn: nbMaterial
+
+		annotation SummarizationSetBy = Automatic
+
+	column Relacionador
+		dataType: string
+		lineageTag: 512632bd-89a3-42a1-b3bf-602811139028
+		summarizeBy: none
+		sourceColumn: Relacionador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portafolio
+		dataType: string
+		lineageTag: 7bb419b6-d897-41f0-8a7c-e68bb4edc8b8
+		summarizeBy: none
+		sourceColumn: Portafolio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UM contenido'
+		dataType: string
+		lineageTag: 6d7e2737-15b3-4cc0-ae8d-578b41f7a88d
+		summarizeBy: none
+		sourceColumn: UM contenido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ABC GLOBAL'
+		dataType: string
+		lineageTag: 3a066d03-bf77-4cca-b86b-49a2ba31f476
+		summarizeBy: none
+		sourceColumn: ABC GLOBAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column PesoBruto_Grm
+		dataType: double
+		lineageTag: 2746246f-c939-4ad5-b988-f1786056a69e
+		summarizeBy: sum
+		sourceColumn: PesoBruto_Grm
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Volumen_mm3
+		dataType: double
+		lineageTag: df9d7852-4612-4f20-8abf-3abb4e505949
+		summarizeBy: sum
+		sourceColumn: Volumen_mm3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Materiales-531d67a1-fee2-4ee3-b208-42fcfdf37500 = m
+		mode: import
+		source = ```
+				let
+				    Origen = Materiales_Atrib
+				in 
+				    Origen
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

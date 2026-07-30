@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "1379ed8e23d0661ad163",
+  "position": {
+    "x": 793.14159366153547,
+    "y": 9.6055210305030236,
+    "z": 0,
+    "height": 710.80855625722381,
+    "width": 487.13713797551048
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Vendedor"
+                }
+              },
+              "queryRef": "CarteraIVT.Vendedor",
+              "nativeQueryRef": "Vendedor"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

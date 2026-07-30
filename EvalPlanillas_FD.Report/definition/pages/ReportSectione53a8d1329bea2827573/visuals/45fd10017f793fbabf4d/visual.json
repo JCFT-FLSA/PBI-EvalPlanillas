@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "45fd10017f793fbabf4d",
+  "position": {
+    "x": 264.8379369838691,
+    "y": 233.27693931221629,
+    "z": 0,
+    "height": 279.93232717465958,
+    "width": 279.93232717465958
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Pasos para generar planilla Trimestral."
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Generar CxC al cierre del trimestre"
+                  }
+                ],
+                "listType": "ordered"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "\"https://finilagersa2014.sharepoint.com/sites/bw_bi/Documentos compartidos/BI-BW/Maestros/CxC/\"",
+                    "textStyle": {
+                      "color": "#a31515"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Y dar el nombre que corresponda en la secuencia"
+                  }
+                ],
+                "listType": "ordered",
+                "indent": 1
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Registrar Utilidad del Trimestre"
+                  }
+                ],
+                "listType": "ordered"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

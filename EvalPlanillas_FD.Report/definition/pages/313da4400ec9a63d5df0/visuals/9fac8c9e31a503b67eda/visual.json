@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "9fac8c9e31a503b67eda",
+  "position": {
+    "x": 501.36135657989013,
+    "y": 86.821112968712683,
+    "z": 0,
+    "height": 507.47551946501073,
+    "width": 651.76976355385716,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ObjetivosSDI_2025"
+                    }
+                  },
+                  "Property": "Periodo"
+                }
+              },
+              "queryRef": "ObjetivosSDI_2025.Periodo",
+              "nativeQueryRef": "Periodo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ObjetivosSDI_2025"
+                    }
+                  },
+                  "Property": "Tipo de Servicio"
+                }
+              },
+              "queryRef": "ObjetivosSDI_2025.Tipo de Servicio",
+              "nativeQueryRef": "Tipo de Servicio"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ObjetivosSDI_2025"
+                        }
+                      },
+                      "Property": "Objetivo"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(ObjetivosSDI_2025.Objetivo)",
+              "nativeQueryRef": "Objetivo"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,553 @@
+table 2026_G-VENTAS
+	lineageTag: 6abe6925-4227-4ca7-993d-9510b0979eb6
+
+	column Item
+		formatString: 0
+		lineageTag: f22f0669-2db4-4d26-9c17-9c46eef78f98
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: 52cc838f-33da-48f0-9e3c-6664fe687305
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactorGestActual = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = '2026_G-VENTAS'[AñoMes]), 'DiasValidosxMes'[Factor])
+		lineageTag: 819794e5-d47b-4ebe-9b55-f0129c9f337a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FactorGestAnterior = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = DATEADD('2026_C11'[AñoMes], - [Valor Gestiones Previas], YEAR)), 'DiasValidosxMes'[Factor])
+		lineageTag: b0d081d1-c63b-407b-a2a3-dbae214f6d11
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_1 = ```
+			
+			IF ( 
+			    '2026_G-VENTAS'[Cargo] = "GRO", 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                Objetivos, 
+			                Objetivos[Periodo] = '2026_G-VENTAS'[AñoMes]), 
+			            Objetivos[Regional] = '2026_G-VENTAS'[Regional]), 
+			        Objetivos[ObjetivoBs]
+			    ) , 
+			    SUMX(
+			        FILTER(
+			            Objetivos, 
+			            Objetivos[Periodo] = '2026_G-VENTAS'[AñoMes]), 
+			        Objetivos[ObjetivoBs]
+			    ) 
+			)
+			```
+		formatString: #,0.00
+		lineageTag: ad264337-b1d0-4242-8197-7c36d35a0c67
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_2 = ```
+			// Enero 2023 = Se utiilzo el avance de ventas nacional. Se modifico en febrero.
+			IF ( 
+			    '2026_G-VENTAS'[Cargo] = "GRO", 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                Objetivos, 
+			                Objetivos[Periodo] = '2026_G-VENTAS'[AñoMes]), 
+			            Objetivos[Regional] = '2026_G-VENTAS'[Regional]), 
+			        Objetivos[UtilidadObjBs]
+			    ) , 
+			    SUMX(
+			        FILTER(
+			            Objetivos, 
+			            Objetivos[Periodo] = '2026_G-VENTAS'[AñoMes]), 
+			        Objetivos[UtilidadObjBs]
+			    )
+			)
+			```
+		formatString: #,0.00
+		lineageTag: 0fb50f81-4b2a-4f79-b1a6-6ae40581f12c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_3 =
+			// CAlcula CxC Total
+			IF (
+			    '2026_G-VENTAS'[Cargo] = "GRO",
+			    CALCULATE(
+			        SUM(CxC[Importe]),
+			        FILTER (
+			            FILTER(
+			                CxC,
+			                CxC[Periodo] = '2026_G-VENTAS'[AñoMes]
+			            ),
+			            CxC[RegOfiVentas] = '2026_G-VENTAS'[Regional]
+			        )
+			    ),
+			    CALCULATE(
+			        SUM(CxC[Importe]),
+			        FILTER (
+			            CxC,
+			            CxC[Periodo] = '2026_G-VENTAS'[AñoMes]
+			        )
+			    )
+			)
+		formatString: #,0.00
+		lineageTag: 01066b52-2e74-46a5-bb19-142005f361d1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 = ```
+			
+			IF ( 
+			    '2026_G-VENTAS'[Cargo] = "GRO", 
+			    SUMX(
+			        FILTER(
+			            Ventas, 
+			            RELATED(Fechas[AñoMes]) = '2026_G-VENTAS'[AñoMes] &&
+			            RELATED(Sucursales[SucursalReg]) = '2026_G-VENTAS'[Regional]), 
+			        Ventas[Venta]
+			    ) , 
+			    SUMX(
+			        FILTER(
+			            Ventas, 
+			            RELATED(Fechas[AñoMes]) = '2026_G-VENTAS'[AñoMes]), 
+			        Ventas[Venta]
+			    ) 
+			)
+			```
+		formatString: #,0.00
+		lineageTag: b7f2ba71-f98e-491a-b4fc-29081b4a4121
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 = ```
+			// Calcula el margen de utilidad bruta 
+			VAR _Costo =
+			    IF ( 
+			        '2026_G-VENTAS'[Cargo] = "GRO", 
+			        SUMX(
+			            FILTER(
+			                Ventas, 
+			                RELATED(Fechas[AñoMes]) = '2026_G-VENTAS'[AñoMes] &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_G-VENTAS'[Regional]), 
+			            Ventas[Costo]
+			        ) , 
+			        SUMX(
+			            FILTER(
+			                Ventas, 
+			                RELATED(Fechas[AñoMes]) = '2026_G-VENTAS'[AñoMes]), 
+			            Ventas[Costo]
+			        )   
+			    )
+			RETURN
+			     '2026_G-VENTAS'[Avance_1] - _Costo
+			```
+		formatString: #,0.00
+		lineageTag: 352e8247-a46f-413a-b03b-c15ddfe66fdc
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_3 = ```
+			// Calcula CxC Vigente 
+			    IF (
+			        '2026_G-VENTAS'[Cargo] = "GRO",
+			        CALCULATE(
+			            SUM(CxC[Importe]),
+			            FILTER (
+			                CxC,
+			                CxC[Periodo] = '2026_G-VENTAS'[AñoMes] &&
+			                CxC[Rangos Vencidos] = "Vigente" &&
+			                CxC[RegOfiVentas] = '2026_G-VENTAS'[Regional]
+			            )
+			        ),
+			        CALCULATE(
+			            SUM(CxC[Importe]),
+			            FILTER (
+			                CxC,
+			                CxC[Periodo] = '2026_G-VENTAS'[AñoMes] &&
+			                CxC[Rangos Vencidos] = "Vigente"
+			            )
+			        )
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: 46b01596-312d-40e4-9dfe-a5ecec031f8b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = DIVIDE('2026_G-VENTAS'[Avance_1], '2026_G-VENTAS'[Objetivos_1], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: edc16e74-3cc0-4f8e-b522-30155de0e08d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = DIVIDE('2026_G-VENTAS'[Avance_2], '2026_G-VENTAS'[Objetivos_2], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 57f55efa-4051-48b6-8022-2f9683e8f75e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = ```
+			// la mora no puede ser mayor al 10% de la cartera
+			VAR _Mora = 
+			    1 - DIVIDE (
+			        '2026_G-VENTAS'[Avance_3],
+			        '2026_G-VENTAS'[Objetivos_3],
+			        0
+			    )
+			VAR _Valor =
+			    IF (
+			        _Mora >= 0.44,
+			        0,
+			        IF(
+			            _Mora >= 0.4,
+			            25 * (0.44 - _Mora),
+			            IF(
+			                _Mora < 0.35,
+			                1.5,
+			                ( 1 + 10 * ( 0.4 - _Mora) )
+			            )
+			        )
+			    )
+			Return
+			    _Valor * 0.1
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 30a82506-f29a-4f0a-8470-e05ec2a071ec
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = CALCULATE(VALUES(Fechas[NbTrimestreAño]), filter(Fechas, Fechas[AñoMes] = '2026_G-VENTAS'[AñoMes]))
+		lineageTag: e93ba3c3-ebff-4ef5-9989-57b9ae1e7542
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: 1beff3e4-6051-4fc3-8b23-9efce2ca73eb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: eda349f7-dc70-4ce4-97e4-b9bf032e99fd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: 8e5753bf-fc49-42db-8f56-72054b59b7b8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = ```
+			
+			VAR _Vencido = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                CxC,
+			                CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                CxC,
+			                CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vencido_C11 =
+			    SUMX(
+			        FILTER(
+			            FILTER (
+			                FILTER(
+			                    CxC,
+			                    CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			                ),
+			                CxC[Canal] = 11
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vencido_C20 =
+			    SUMX(
+			        FILTER(
+			            FILTER (
+			                FILTER(
+			                    CxC,
+			                    CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			                ),
+			                CxC[Canal] = 20
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente_C11 =
+			    SUMX(
+			        FILTER(
+			            FILTER (
+			                FILTER(
+			                    CxC,
+			                    CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			                ),
+			                CxC[Canal] = 11
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente_C20 =
+			    SUMX(
+			        FILTER(
+			            FILTER (
+			                FILTER(
+			                    CxC,
+			                    CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			                ),
+			                CxC[Canal] = 20
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vencido_GRO = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER(
+			                    CxC,
+			                    CxC[RegOfiVentas] = '2026_G-VENTAS'[Regional]
+			                    //RELATED(Sucursales[SucursalReg]) = '2023_GERENTES'[Regional]
+			                ),
+			                CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente_GRO = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER(
+			                    CxC,
+			                    CxC[RegOfiVentas] = '2026_G-VENTAS'[Regional]
+			                    //RELATED(Sucursales[SucursalReg]) = '2023_GERENTES'[Regional]
+			                ),
+			                CxC[Periodo] = ENDOFQUARTER('2026_G-VENTAS'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			RETURN
+			
+			    IF (
+			        '2026_G-VENTAS'[TKPI3] = BLANK(), 
+			        BLANK(),
+			        IF (
+			            '2026_G-VENTAS'[Cargo] = "GRO",
+			            DIVIDE(_Vencido_GRO, _Vencido_GRO + _Vigente_GRO, -1),
+			            IF (
+			                OR('2026_G-VENTAS'[Cargo] = "JVN", '2026_G-VENTAS'[Cargo] = "GB2B"),
+			                DIVIDE( _Vencido_C11, _Vencido_C11 + _Vigente_C11, -1),
+			                IF (
+			                    OR('2026_G-VENTAS'[Cargo] = "JCI", '2026_G-VENTAS'[Cargo] = "GB2C"),
+			                    DIVIDE( _Vencido_C20, _Vencido_C20 + _Vigente_C20, -1),
+			                    DIVIDE(_Vencido, _Vencido + _Vigente, -1)
+			            )
+			        )
+			    ))
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1990e536-29e1-4b75-8f87-ce6a7e15d3d2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 6f618f0f-4400-489a-a225-d7045805e008
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 7848b0e9-dec1-4ee9-83d6-88ca5f7c5915
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: 99298c29-210d-45ae-bb0c-0ab93481d205
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 9980b6a4-5e9d-422b-aafd-39c61b571c99
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 23ebceab-cc61-45de-b821-3d4dc7dfff07
+			defaultHierarchy: LocalDateTable_09d65ac8-2ab1-476e-8516-be487513d433.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Sucursal
+		lineageTag: 2d9c9519-3e65-4b33-92a1-c3c0fc0fc7b4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: 4b434af1-24e0-4db8-9874-273367a4430b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: f11c5088-a697-4fc2-8067-39e10787447a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: c56759ea-a7bf-468d-87b6-c6774d384eb9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: 181c91f7-fdc4-4462-937b-8f834df93284
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: fea0d616-173f-41a1-90e6-058a8bfa2272
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: 7e74b62b-9f79-477d-b80e-3c32bf84f217
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: 22bbc279-e29c-4669-a66a-5ee885d70430
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: 9eb0f651-c94c-4a2f-aaa4-3cb575b7afc6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_G-VENTAS-93baafdb-69e1-4009-ad9a-a381261af7ca = calculated
+		mode: import
+		source = ```
+				UNION(
+				    //Gerente Regional
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "GRO" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    //Gerente Comercial
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "GCO" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				)
+				
+				```
+
+	annotation PBI_Id = 9297fbd3316947fe9eb26eba37c80896
+

@@ -1,0 +1,255 @@
+table Ventas
+	lineageTag: 6585c945-b9ab-42cf-b674-6a86c1b13bae
+
+	column 'Canal distribución'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dac1c55-d0b8-428b-a355-6943e82f2d0f
+		summarizeBy: none
+		sourceColumn: Canal distribución
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clase de factura'
+		dataType: string
+		lineageTag: 6b96ea0a-d7fc-47c3-9e87-f9bf6217d4a2
+		summarizeBy: none
+		sourceColumn: Clase de factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: d/m/yyyy
+		lineageTag: 471f26f0-07ad-4fef-befa-f9c9726071d3
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Factura
+		dataType: string
+		lineageTag: 494f7c00-78bd-4a88-a0e2-0355c40903f6
+		summarizeBy: none
+		sourceColumn: Factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column Material
+		dataType: int64
+		formatString: 0
+		lineageTag: acbc9b6d-40af-4cbc-b2b9-0f742818130d
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: string
+		lineageTag: e121daf1-73c3-4ec0-a8d0-105e67175b0e
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Promoción
+		dataType: string
+		lineageTag: f5035115-636f-46ac-9baf-2eb4f932daa8
+		summarizeBy: none
+		sourceColumn: Promoción
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: double
+		lineageTag: 18279917-dd2b-4176-85e2-fb7b08d9ffba
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sector
+		dataType: string
+		lineageTag: fef96c9a-4037-48d0-a2e2-e05a0f1de675
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 8691cf97-a9a0-428b-a8a8-368139aa319f
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Venta
+		dataType: double
+		lineageTag: 676feeac-f9f8-49da-beb1-7e2b332c1d61
+		summarizeBy: sum
+		sourceColumn: Venta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Costo
+		dataType: double
+		lineageTag: 7e95072e-80a8-44cb-a891-7f5493c11788
+		summarizeBy: sum
+		sourceColumn: Costo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Qty
+		dataType: double
+		formatString: 0
+		lineageTag: 7913cc07-478e-4c45-8000-959f5ce44407
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column Facturado
+		dataType: double
+		lineageTag: 7e8e51a9-e2e6-48e4-b2ea-f729c5338a76
+		summarizeBy: sum
+		sourceColumn: Facturado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Descuento
+		dataType: double
+		lineageTag: b6b74d81-f164-4d3b-a808-52e2815d8c8f
+		summarizeBy: sum
+		sourceColumn: Descuento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DescuentoBruto
+		dataType: double
+		lineageTag: 40e4573e-d164-4e4b-8244-b3e1eb07d9b1
+		summarizeBy: sum
+		sourceColumn: DescuentoBruto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Precio
+		dataType: double
+		lineageTag: 2dbc71a3-08ee-4bae-aaa6-4e752bbfa25b
+		summarizeBy: sum
+		sourceColumn: Precio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OfiVentas = ```
+			
+			VAR _xOficinaDeVentas = 
+			    CALCULATE(
+			            VALUES(Sucursales_Info[CodSuc]),
+			            FILTER(Sucursales_Info, Sucursales_Info[Oficina de Ventas] = Ventas[Sucursal])
+			        )
+			       
+			VAR _xVendedor = 
+			        CALCULATE(
+			            VALUES(Vendedores[SucursalVendedor]),
+			            FILTER(Vendedores, Vendedores[Codigo] = Ventas[Vendedor])
+			        )
+			RETURN
+			    IF (
+			        OR (
+			            OR(
+			                Ventas[Canal distribución] = 20,
+			                Ventas[Canal distribución] = 30),
+			            Ventas[Canal distribución] = 11),
+			        IF ( 
+			            OR(ISBLANK(_xVendedor), _xVendedor = 0),
+			            _xOficinaDeVentas,
+			            _xVendedor
+			        ),// Canal 10 toma la oficina de ventas de la factura
+			        _xOficinaDeVentas
+			    )
+			```
+		formatString: 0
+		lineageTag: ec9d53f2-8d20-401c-924b-fcc1a5bb3091
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nit
+		dataType: string
+		lineageTag: e0c25b45-f3c0-41ae-95fe-7db094afe526
+		summarizeBy: none
+		sourceColumn: Nit
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCliente
+		dataType: string
+		lineageTag: 056d591b-678a-4867-b69a-9af376b7d5e7
+		summarizeBy: none
+		sourceColumn: nbCliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column EsPrimeraCompra =
+			
+			IF(
+			    Ventas[Fecha] =
+			        CALCULATE(
+			            MIN( Ventas[Fecha] ),
+			            ALLEXCEPT( Ventas, Ventas[Nit] )
+			        ),
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 9d9bcd3e-918c-4f0b-a755-53774b1ceb71
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ventas-49309ebb-ae16-4a7c-9f9a-dbf9195ac257 = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({VentasSAP_2026, VentasSAP_2025, VentasSAP_2024}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Cliente", Int64.Type}, {"Canal distribución", Int64.Type}, {"Vendedor", Int64.Type}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Tipo cambiado",100,106,Replacer.ReplaceValue,{"Vendedor"}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Valor reemplazado",{"Nit"}),
+				    #"Consultas combinadas" = Table.NestedJoin(#"Columnas quitadas", {"Factura"}, FacturasPOS, {"Factura"}, "FacturasPOS", JoinKind.LeftOuter),
+				    #"Se expandió FacturasPOS" = Table.ExpandTableColumn(#"Consultas combinadas", "FacturasPOS", {"NIT", "nbClientePOS"}, {"FacturasPOS.NIT", "FacturasPOS.nbClientePOS"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Se expandió FacturasPOS",{{"FacturasPOS.NIT", "NIT_POS"}}),
+				    #"Consultas combinadas1" = Table.NestedJoin(#"Columnas con nombre cambiado", {"Cliente"}, Clientes, {"Cliente"}, "Clientes", JoinKind.LeftOuter),
+				    #"Se expandió Clientes" = Table.ExpandTableColumn(#"Consultas combinadas1", "Clientes", {"NIT_1", "nbCliente"}, {"Clientes.NIT_1", "Clientes.nbCliente"}),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Se expandió Clientes",{{"Clientes.NIT_1", "NIT_SAP"}, {"FacturasPOS.nbClientePOS", "nbClientePOS"}, {"Clientes.nbCliente", "nbCliente"}}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Columnas con nombre cambiado1", "Nit", each if [NIT_POS] = null or [NIT_POS] = 0 or [NIT_POS] = "#" then [NIT_SAP] else [NIT_POS]),
+				    #"Columnas con nombre cambiado2" = Table.RenameColumns(#"Personalizada agregada",{{"nbCliente", "nbClienteSAP"}}),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Columnas con nombre cambiado2", "nbCliente", each if [NIT_POS] = null or [NIT_POS] = 0 or [NIT_POS] = "#" then [nbClienteSAP] else [nbClientePOS]),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Personalizada agregada1",{"Canal distribución", "Clase de factura", "Fecha", "Factura", "Material", "Sucursal", "Promoción", "Vendedor", "Sector", "Cliente", "Costo", "Qty", "Facturado", "Descuento", "DescuentoBruto", "Precio", "Venta", "Nit", "nbCliente"}),
+				    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Otras columnas quitadas",{{"Nit", "Nit"}})
+				in
+				    #"Columnas con nombre cambiado3"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

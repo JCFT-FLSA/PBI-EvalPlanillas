@@ -1,0 +1,63 @@
+table DiasValidosxMes
+	lineageTag: 445acbeb-af91-4b9a-a19a-b787c1d6aa7e
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 2b94ecb5-19b4-45af-9eda-35e3a44b0678
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: 106947ca-2b15-4e13-a544-b9aedfb95576
+			defaultHierarchy: LocalDateTable_97852c73-d499-4d37-94fb-9a5d0a299a08.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Factor
+		dataType: int64
+		formatString: 0
+		lineageTag: ea16a897-9f8c-4052-9745-b2f159230fde
+		summarizeBy: sum
+		sourceColumn: Factor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: bad1e904-e1df-4610-8819-a60f29237e1f
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: eff22d62-a749-4c51-9057-32d23c7b7bcd
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DiasValidosxMes-f27deb90-417c-427e-9deb-2d59e19c23ad = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"98487f9e-d82c-4bfe-a170-727d87bf45e8" = Origen{[workspaceId="98487f9e-d82c-4bfe-a170-727d87bf45e8"]}[Data],
+				    #"d731e925-4ce4-43c8-a512-a1db7067d8a4" = #"98487f9e-d82c-4bfe-a170-727d87bf45e8"{[dataflowId="d731e925-4ce4-43c8-a512-a1db7067d8a4"]}[Data],
+				    DiasValidosxMes1 = #"d731e925-4ce4-43c8-a512-a1db7067d8a4"{[entity="DiasValidosxMes"]}[Data]
+				in
+				    DiasValidosxMes1
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

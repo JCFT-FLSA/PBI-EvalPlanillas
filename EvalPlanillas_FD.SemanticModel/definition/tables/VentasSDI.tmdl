@@ -1,0 +1,102 @@
+table VentasSDI
+	lineageTag: 803f0c98-c5af-4d7f-99e1-26d0d7e29944
+
+	column AñoMes
+		formatString: Long Date
+		lineageTag: e7d69bfb-8541-4a57-8fa6-799ff270d34b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: FechasAñoMes[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 344c4701-b18e-4264-994b-dab5d2b0a140
+			defaultHierarchy: LocalDateTable_ed9b11cb-2a31-45fe-99f7-7bc184a8c730.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Regional
+		formatString: 0
+		lineageTag: b2f3fd00-6e91-40ec-a786-12b7f879df71
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Venta = ```
+			
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER(
+			                    Ventas,
+			                    RELATED(Sucursales[SucursalReg]) = VentasSDI[Regional]
+			                ),
+			                Ventas[Material] = VentasSDI[Material]
+			            ),
+			            RELATED(Fechas[AñoMes]) = 'VentasSDI'[AñoMes]
+			        ),
+			        Ventas[Venta]
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: af1d2849-8f20-4c41-8fef-2a3f6d008875
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Material
+		formatString: 0
+		lineageTag: bc51092d-69e1-44ed-bd90-e8efc4abd892
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: MaterialesSDI[Material]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbMaterial
+		lineageTag: a5986c21-6d8c-42ad-8e41-5f219fc96bfe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: MaterialesSDI[nbMaterial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Servicio'
+		lineageTag: 6aecdaee-73b2-49a7-b458-bc9878f73290
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: MaterialesSDI[Tipo Servicio]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Eq_Trabajo
+		lineageTag: e515efc3-1a1a-4688-bc6c-8937592a5e5a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: MaterialesSDI[Eq_Trabajo]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VentasSDI = calculated
+		mode: import
+		source = ```
+				
+				    CROSSJOIN( 
+				        'FechasAñoMes', 
+				        MaterialesSDI, 
+				        SELECTCOLUMNS (
+				            FILTER(
+				                Regionales, 
+				                Regionales[CodRegional] > 0
+				            ),
+				            "Regional", Regionales[CodRegional]
+				        )
+				    )
+				```
+
+	annotation PBI_Id = 7d63cf16fa914f9784a4674aad49c761
+

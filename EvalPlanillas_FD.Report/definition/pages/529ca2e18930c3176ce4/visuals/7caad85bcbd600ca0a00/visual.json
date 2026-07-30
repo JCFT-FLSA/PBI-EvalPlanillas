@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "7caad85bcbd600ca0a00",
+  "position": {
+    "x": 269.02316694530691,
+    "y": 63.587294005254357,
+    "z": 1000,
+    "height": 242.12085025077621,
+    "width": 959.92357296393607
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Objetivos"
+                    }
+                  },
+                  "Property": "GestionMes"
+                }
+              },
+              "queryRef": "Objetivos.GestionMes",
+              "nativeQueryRef": "GestionMes"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Objetivos"
+                        }
+                      },
+                      "Property": "Objetivo"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Objetivos.Objetivo)",
+              "nativeQueryRef": "Objetivo"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

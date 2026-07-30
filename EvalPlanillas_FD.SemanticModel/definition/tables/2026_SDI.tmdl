@@ -1,0 +1,551 @@
+table 2026_SDI
+	lineageTag: dadd26a8-3711-427a-a41b-b59a31c356d2
+
+	column Item
+		formatString: 0
+		lineageTag: ed37147b-269c-4f5d-bf49-8ec6d1d4831d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = User
+
+	column Cargo
+		lineageTag: 871f5e40-c6a2-440d-9b60-2feb9c3cc1b0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactorGestActual = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = '2026_SDI'[AñoMes]), 'DiasValidosxMes'[Factor])
+		lineageTag: dae56803-768a-4c74-b613-97d239ce2e0d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FactorGestAnterior = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = DATEADD('2026_C11'[AñoMes], - [Valor Gestiones Previas], YEAR)), 'DiasValidosxMes'[Factor])
+		lineageTag: 506e0038-9d64-4ff8-9a6d-399331deede0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_1 = ```
+			
+			VAR _Equipo =
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD",
+			        BLANK()
+			    )
+			
+			RETURN
+			
+			    IF (
+			        ISBLANK(_Equipo),
+			        SUMX(
+			            FILTER(
+			                Objetivos, 
+			                Objetivos[Periodo] = '2026_SDI'[AñoMes] &&
+			                Objetivos[Linea] = "SERVICIOS" &&
+			                Objetivos[Regional] = '2026_SDI'[Regional]
+			            ), 
+			            Objetivos[ObjetivoBs]
+			        ),
+			       SUMX(
+			            FILTER(
+			                ObjetivosSDI, 
+			                ObjetivosSDI[Periodo] = '2026_SDI'[AñoMes] &&
+			                ObjetivosSDI[Tipo de Servicio] = _Equipo
+			            ), 
+			            ObjetivosSDI[ObjetivoBs]
+			        )
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: afb1abc8-03fd-4b62-9878-bfff282ac4eb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_2 = ```
+			// Objetivo Grupal para todos es el objetivo de su regional
+			VAR _Equipo =
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD",
+			        BLANK()
+			    )
+			
+			RETURN
+			    IF (
+			        ISBLANK(_Equipo),
+			        SUMX(
+			            FILTER(
+			                Objetivos, 
+			                Objetivos[Periodo] = '2026_SDI'[Añomes] &&
+			                Objetivos[Linea] = "SERVICIOS" &&
+			                Objetivos[Regional] = '2026_SDI'[Regional]
+			            ), 
+			            Objetivos[UtilidadObjBs]
+			        ),
+			       SUMX(
+			            FILTER(
+			                ObjetivosSDI, 
+			                ObjetivosSDI[Periodo] = '2026_SDI'[Añomes] &&
+			                ObjetivosSDI[Tipo de Servicio] = _Equipo
+			            ), 
+			            ObjetivosSDI[UtilidadObjBs]
+			        )
+			    )
+			```
+		lineageTag: c0b987a2-f153-4bf5-bb06-522d478b786b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_3 = ```
+			// Tareas
+			VAR _Equipo =
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD",
+			        BLANK()
+			    )
+			
+			RETURN
+			CALCULATE( 
+			    VALUES(RH_VisitasCRM_SDI[Tareas]),
+			    FILTER(
+			        RH_VisitasCRM_SDI,
+			        RH_VisitasCRM_SDI[Periodo] = '2026_SDI'[AñoMes] &&
+			        RH_VisitasCRM_SDI[Codigo de vendedor] = '2026_SDI'[CodVendedor]
+			        //RH_VisitasCRM_SDI[Equipo] = _Equipo
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: a1785d62-0387-429e-ba5f-aa00725c7096
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 = ```
+			
+			
+			VAR _Equipo =
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD",
+			        BLANK()
+			    )
+			RETURN
+			    IF(
+			        ISBLANK(_Equipo),
+			        SUMX(
+			            FILTER(
+			                Ventas, 
+			                RELATED(Fechas[AñoMes]) = '2026_SDI'[AñoMes] &&
+			                RELATED(Materiales[Linea]) = "SERVICIOS" &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_SDI'[Regional]
+			            ), 
+			            Ventas[Venta]
+			            ),
+			            SUMX(
+			                FILTER(
+			                    VentasSDI, 
+			                    VentasSDI[AñoMes] = '2026_SDI'[AñoMes] &&
+			                    VentasSDI[Eq_Trabajo] = _Equipo
+			                ), 
+			                VentasSDI[Venta]
+			            )
+			        )
+			
+			```
+		formatString: #,0.00
+		lineageTag: 2e4bb465-578c-49ca-a863-44014bd7646c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 = ```
+			// Objetivo Grupal para todos es el resultado de su regional o el nacional si es jefe
+			VAR _Equipo =
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD"
+			    )
+			
+			VAR _Costo =
+			    SUMX(
+			        FILTER(
+			            EERR,
+			            IF(
+			                _Equipo = "EQ. LUBRICACION",
+			                OR(
+			                    EERR[Estrucutra_05] = "5111000004",
+			                    EERR[Estrucutra_05] = "5111000006"
+			                ),
+			                EERR[Estrucutra_05] = "5111000001"
+			                ) &&
+			                EERR[PeriodoContable] = '2026_SDI'[AñoMes] &&
+			                EERR[División] <> "0910"
+			        ),
+			        EERR[VolumenNegocio]
+			    )
+			
+			RETURN
+			
+			'2026_SDI'[Avance_1] - _Costo    
+			
+			```
+		formatString: #,0.00
+		lineageTag: 28731e6b-82ad-41cd-a0c6-1ad91a13d31c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_3 = ```
+			
+			
+			VAR _Tareas = 
+			    CALCULATE(
+			        COUNT(ActividadesCRM[App ID]),
+			        FILTER(
+			            ActividadesCRM,
+			            ActividadesCRM[Tipo Actividad] = "Tarea" &&
+			            ActividadesCRM[Periodo] = '2026_SDI'[AñoMes] &&
+			            ActividadesCRM[Vendedor] = '2026_SDI'[CodVendedor]
+			        )
+			    )
+			
+			RETURN
+			    IF(
+			        ISBLANK(_Tareas),
+			        0,
+			        _Tareas
+			    )
+			```
+		formatString: #,0
+		lineageTag: 98da019a-0ca7-4f86-af04-99300bdf4a11
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = ```
+			DIVIDE('2026_SDI'[Avance_1], '2026_SDI'[Objetivos_1], 0) 
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: e8b96941-899e-4da0-b509-eba3f813e699
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = ```
+			DIVIDE('2026_SDI'[Avance_2], '2026_SDI'[Objetivos_2], 0) 
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6fea5a4e-16c1-48a9-a9fa-829b92a25b57
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = ```
+			DIVIDE( '2026_SDI'[Avance_3], '2026_SDI'[Objetivos_3])
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 286b9cb1-79ea-4ae4-872b-a4f18a73295a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: 78356a1e-a18a-4055-8259-d49f243883d6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: 5de799c7-621b-48c3-b38c-2beecddd897e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: 8e610a90-fc73-489d-a2b1-50fe7fdccdfe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = CALCULATE(VALUES(Fechas[NbTrimestreAño]), filter(Fechas, Fechas[AñoMes] = '2026_SDI'[AñoMes]))
+		lineageTag: e946b785-9532-46be-9b31-838f40b3da22
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = ```
+			BLANK()
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: fa173759-fb4e-4252-b754-1d356f88f14e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 6c41dfe4-05e5-4dd7-9a09-f18f361169d8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 19160743-f18c-4757-9194-ed4b4a575dda
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: e256920b-ab52-4e62-954a-0e25f6c718b6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_4 = ```
+			// Valor fijo hasta pr+oxima evaluacion (Abr/2025)
+			VAR _Equipo =
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD",
+			        BLANK()
+			    )
+			
+			RETURN
+			    CALCULATE(
+			        VALUES( RH_VisitasCRM_SDI[Visitas]),
+			        FILTER(
+			            RH_VisitasCRM_SDI,
+			            RH_VisitasCRM_SDI[Periodo] = [AñoMes] &&
+			            RH_VisitasCRM_SDI[Equipo] = _Equipo
+			        )
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: 9953ac12-6d15-4a5f-8b10-f3a404a0f241
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_4 = ```
+			
+			VAR _equipo = 
+			    SWITCH(
+			        '2026_SDI'[Cargo],
+			        "IDS-LUB", "EQ. LUBRICACION",
+			        "JILUB",  "EQ. LUBRICACION",
+			        "TLUB",  "EQ. LUBRICACION",
+			        "IDS-CONF", "EQ. CONFIABILIDAD",
+			        "JICON", "EQ. CONFIABILIDAD",
+			        "TCONF", "EQ. CONFIABILIDAD"
+			    )
+			
+			VAR _Visitas = 
+			    CALCULATE(
+			        COUNT(ActividadesCRM[App ID]),
+			        FILTER(
+			                ActividadesCRM,
+			                ActividadesCRM[Tipo Actividad] = "Visita" &&
+			                ActividadesCRM[Periodo] = '2026_SDI'[AñoMes] &&
+			                ActividadesCRM[Vendedor] = '2026_SDI'[CodVendedor]
+			            )
+			        )
+			
+			RETURN
+			    IF(
+			        ISBLANK(_Visitas),
+			        0,
+			        _Visitas
+			    )
+			```
+		formatString: 0
+		lineageTag: 731b60dd-7b1b-4935-bb72-2d8c4b798aa8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_4 = ```
+			
+			    DIVIDE('2026_SDI'[Avance_4], '2026_SDI'[Objetivos_4], 0)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: dcb4e775-3960-47dc-80e4-8f86ff425f42
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 2893fed2-9dd1-42ae-8f27-1f305406ecf7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 27712e18-bcae-4f30-a3cf-5c62c51f3f23
+			defaultHierarchy: LocalDateTable_e41b5a34-7a46-428b-b324-43edb37bd16e.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Sucursal
+		lineageTag: 0ed76e1d-4a32-4da6-af5f-66de46c3601f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: d9b68a01-67f0-40f8-a136-7b946b5b5ced
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: 7624ba94-fb88-4c63-9fa7-c62c5b14904b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: e1b66723-c7dd-4101-82cb-f3d15236582e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: a34799e0-626f-4fea-86cf-2bef31642ad2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: 9beedf51-beb7-44f6-8242-d0f33d743996
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: e42c1956-edbd-41c2-a4d3-4d1684c25d76
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: a16f6757-5c41-49cb-949a-19bf62904770
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: 7a16de60-b054-4e56-b9fd-b75d12e27231
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_SDI-0335b9c1-cedd-4e4a-812e-957e9b02e5ac = calculated
+		mode: import
+		source = ```
+				UNION(    
+				    // JILUB
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JILUB" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // JICON
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JICON" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "TCONF" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "TLUB" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "IDS-LUB" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "IDS-CONF" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				)
+				```
+
+	annotation PBI_Id = 332c7d310b19462e95556faca4cab4ef
+

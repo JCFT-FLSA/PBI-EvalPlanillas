@@ -1,0 +1,166 @@
+table Clientes
+	lineageTag: 054e574c-e2de-40b7-94c2-9122c6a8d224
+
+	column Qty
+		dataType: double
+		lineageTag: 45724cc9-a79f-4def-8c99-20cae60971d1
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d0c5e56-9548-4ba4-bb7d-a87651f47176
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grupo de cuentas'
+		dataType: string
+		lineageTag: 7d5f46b9-16ce-4d15-b832-10981a99c948
+		summarizeBy: none
+		sourceColumn: Grupo de cuentas
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCliente
+		dataType: string
+		lineageTag: 16105298-d216-4914-91f6-16572dd97c81
+		summarizeBy: none
+		sourceColumn: nbCliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ramo
+		dataType: string
+		lineageTag: 830ca8a2-3fcd-464b-8723-1d70cc557b5a
+		summarizeBy: none
+		sourceColumn: Ramo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Región
+		dataType: string
+		lineageTag: 5e2bf125-dd7b-446f-9e96-35dfb7c41712
+		summarizeBy: none
+		sourceColumn: Región
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sector
+		dataType: string
+		lineageTag: b647fc91-f995-4153-bad4-f6f5904c2d5d
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIT
+		dataType: string
+		lineageTag: af77e664-5532-492b-9f93-22570d49c3f3
+		summarizeBy: none
+		sourceColumn: NIT
+
+		annotation SummarizationSetBy = Automatic
+
+	column Centro
+		dataType: string
+		lineageTag: 8975e645-9aa2-42fa-a582-9e2ca93d6d71
+		summarizeBy: none
+		sourceColumn: Centro
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIT_1
+		dataType: string
+		lineageTag: 00347cf0-c319-4cc4-96b4-a29b4daaf14d
+		summarizeBy: none
+		sourceColumn: NIT_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Registro'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 6cac099d-c26b-4f1f-bd9d-34537665f14b
+		summarizeBy: none
+		sourceColumn: Fecha Registro
+
+		variation Variación
+			isDefault
+			relationship: 03f7acac-178e-450c-983b-b0ab02fff1fa
+			defaultHierarchy: LocalDateTable_94c32e98-65b1-4718-9d71-3460d15b6cd6.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Latitud
+		dataType: double
+		lineageTag: 58502454-22c9-408f-a0e8-dd9e7989681c
+		summarizeBy: sum
+		sourceColumn: Latitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: fb1f3758-910b-426a-890b-f17987386833
+		summarizeBy: sum
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Canal = ```
+			
+			    VAR _Canal = CALCULATE( 
+			            MAX( VentasHistoricas[Canal distribución] ) , 
+			            FILTER(
+			                VentasHistoricas, 
+			                VentasHistoricas[Cliente] = Clientes[Cliente] 
+			            )
+			        )
+			      
+			    return
+			        IF(
+			            _Canal = 12, 
+			            11, 
+			            IF (
+			                ISBLANK(_Canal),
+			                10,
+			                _Canal
+			            )
+			        )
+			```
+		formatString: 0
+		lineageTag: c2adfef9-6f61-40d0-b88d-dc2c55873cfb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clientes-ba9a3423-a66b-4551-aac5-0b34c4fa3210 = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Clientes1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Clientes"]}[Data]
+				in
+				    Clientes1
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

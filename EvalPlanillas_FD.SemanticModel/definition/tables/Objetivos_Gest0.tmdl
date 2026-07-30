@@ -1,0 +1,106 @@
+table Objetivos_Gest0
+	lineageTag: dde77863-66b8-4267-8e75-4f9d0a38208c
+
+	column Canal
+		formatString: 0
+		lineageTag: ce1c707e-5620-4c30-ad57-f9e4613c3969
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Canal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		formatString: 0
+		lineageTag: 0e65087b-e104-4902-b573-195064bd5bf2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		formatString: 0
+		lineageTag: ff25ed29-1ef4-46fd-a535-a6083510b49c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Linea
+		lineageTag: 0d77017d-07c4-4f06-91f8-9c2a8ef04353
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Linea]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: General Date
+		lineageTag: 1288a5d6-5512-4f87-a3aa-f1c93fa70c9f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: fae6de56-ae1e-4220-a432-4d97bea1b9c0
+			defaultHierarchy: LocalDateTable_edb7a5e7-8868-463c-95ca-0e4450596f20.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Objetivos_Gest0-3da69f6e-5a01-4dac-bd29-6db7ad78c86b = calculated
+		mode: import
+		source = ```
+				
+				VAR _vendedores = 
+				    DISTINCT (
+				        UNION (
+				            CALCULATETABLE (
+				                VALUES (
+				                    Ventas[Vendedor]
+				                ), 
+				                YEAR(ventas[fecha]) = YEAR(TODAY())
+				            ), 
+				            CALCULATETABLE (
+				                VALUES (
+				                    Objetivos[Vendedor]
+				                ), 
+				                Objetivos[Gestion] = YEAR(TODAY())
+				            )
+				        )
+				    )
+				
+				VAR _canales = FILTER(canales, Canales[CodCanal] <> 12)
+				
+				VAR _sucursales = filter(sucursales, Sucursales[SucursalReg] <> 0)
+				
+				VAR _fechas = 
+				    CALCULATETABLE (
+				        VALUES (
+				            Fechas[AñoMes]
+				        ), 
+				        Fechas[Año] = year(TODAY())
+				    )
+				
+				RETURN
+				
+				SELECTCOLUMNS (
+				    CROSSJOIN (
+				        _Vendedores, 
+				        _canales, 
+				        _sucursales, 
+				        Lineas, 
+				        _fechas
+				        ), 
+				        "Canal", Canales[CodCanal], 
+				        "Sucursal", Sucursales[CodSuc], 
+				        "CodVendedor", Ventas[Vendedor], 
+				        "Linea", Lineas[Linea], 
+				        "AñoMes", Fechas[AñoMes]
+				    )
+				```
+

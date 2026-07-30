@@ -1,0 +1,83 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "9a5f710022b8d05e9132",
+  "position": {
+    "x": 220.76152304609218,
+    "y": 95.230460921843687,
+    "z": 2000,
+    "height": 624.7695390781563,
+    "width": 1060.5210420841684
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fechas"
+                    }
+                  },
+                  "Property": "NbTrimestreAño"
+                }
+              },
+              "queryRef": "Fechas.NbTrimestreAño",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Materiales"
+                    }
+                  },
+                  "Property": "Linea"
+                }
+              },
+              "queryRef": "Materiales.Linea",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Materiales"
+                    }
+                  },
+                  "Property": "nbMaterial"
+                }
+              },
+              "queryRef": "Materiales.nbMaterial",
+              "active": false
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ventas"
+                    }
+                  },
+                  "Property": "Material"
+                }
+              },
+              "queryRef": "Ventas.Material",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

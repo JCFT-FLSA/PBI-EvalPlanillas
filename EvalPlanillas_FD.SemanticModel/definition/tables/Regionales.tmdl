@@ -1,0 +1,35 @@
+table Regionales
+	lineageTag: fc856f0a-6c0d-4a49-b124-5d96de994716
+
+	column CodRegional
+		dataType: int64
+		formatString: 0
+		lineageTag: 81d60605-7c71-4ff3-984f-c2e269973baf
+		summarizeBy: none
+		sourceColumn: CodRegional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: string
+		lineageTag: 7c92a792-8d1e-4e0f-b5a2-a262eeb40760
+		summarizeBy: none
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Regionales-11adc91a-8ce9-41c7-a3fc-0f3082a7996d = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Regionales1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Regionales"]}[Data]
+				in
+				    Regionales1
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

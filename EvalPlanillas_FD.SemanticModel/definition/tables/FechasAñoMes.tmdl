@@ -1,0 +1,27 @@
+table FechasAñoMes
+	lineageTag: 15d90d12-a3ef-46f0-a3d4-208613ad9843
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 7c9a2757-81de-45a9-8a99-cb447ffb9a14
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fechas[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: e98521e2-4038-4164-b11f-24aa3d0319ce
+			defaultHierarchy: LocalDateTable_0aca5faa-d840-421d-9121-9281638c663e.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition FechasAñoMes-99512652-4e12-445a-b2c7-f2306134dfc7 = calculated
+		mode: import
+		source = DISTINCT(Fechas[AñoMes])
+

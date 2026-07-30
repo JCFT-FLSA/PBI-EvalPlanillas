@@ -1,0 +1,405 @@
+table 2026_SAC
+	lineageTag: e4fd5132-44cc-4cfc-8fa8-cdf66fa33bfe
+
+	column Item
+		formatString: 0
+		lineageTag: 73b376a6-e54a-4634-a5cf-4836d7fe4045
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: a63c5d84-e13c-4461-af9a-836e2e8b1791
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: a6895c81-e181-4fe6-918b-4ae9780c3430
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: 161a907e-da07-4ce9-8b8b-4fe2937c5180
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: dad42fb2-bcc5-474b-91c5-1f6389d2fada
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactorGestActual = ```
+			
+			    SUMX (
+			        FILTER (
+			            'DiasValidosxMes',
+			            'DiasValidosxMes'[Periodo] = '2026_SAC'[AñoMes]
+			        ),
+			        'DiasValidosxMes'[Factor]
+			    )
+			```
+		formatString: 0
+		lineageTag: 73a9bf2c-59aa-4dc9-aabd-ce96c9db90e6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactorGestAnterior = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = DATEADD('2026_C11'[AñoMes], - [Valor Gestiones Previas], YEAR)), 'DiasValidosxMes'[Factor])
+		formatString: 0
+		lineageTag: c0c58095-ca29-4547-b66a-318cfb12a36f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_1 =
+			// Objetivos de C11 de la Regional
+			    IF(
+			        '2026_SAC'[Cargo] = "SAC",
+			        SUMX(
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_SAC'[AñoMes] &&
+			                Objetivos[Regional] = '2026_SAC'[Regional] &&
+			                Objetivos[Canal] = 11
+			            ),
+			            Objetivos[ObjetivoBs]
+			        ),
+			        SUMX(
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_SAC'[AñoMes] &&
+			                Objetivos[Canal] = 11
+			            ),
+			            Objetivos[ObjetivoBs]
+			        )
+			    )
+		formatString: #,0.00
+		lineageTag: 8ea7b7fb-cc48-4cfb-bbfc-34c83394d28b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_2 = ```
+			
+			     IF(
+			        '2026_SAC'[Cargo] = "SAC",
+			        SUMX(
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_SAC'[AñoMes] &&
+			                Objetivos[Regional] = '2026_SAC'[Regional] &&
+			                Objetivos[Canal] = 11
+			            ),
+			            Objetivos[UtilidadObjBs]
+			        ),
+			        SUMX(
+			            FILTER(
+			                Objetivos,
+			                Objetivos[Periodo] = '2026_SAC'[AñoMes] &&
+			                Objetivos[Canal] = 11
+			            ),
+			            Objetivos[UtilidadObjBs]
+			        )
+			    )
+			```
+		lineageTag: 3f5c3404-329e-4de3-978d-3ddae65378e9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Objetivos_3 =
+			// Calcula el total de la cartera de la reginoal de canal 11 a aprtir de 01/2024
+			    Blank()
+		formatString: #,0
+		lineageTag: c82ebb24-65a1-4dee-8dce-5ba1bddd0f75
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 = ```
+			
+			  IF(
+			        '2026_SAC'[Cargo] = "SAC",
+			        SUMX(
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_SAC'[AñoMes] &&
+			                RELATED(Sucursales[SucursalReg]) = '2026_SAC'[Regional] &&
+			                RELATED(Canales[CodCanal]) = 11
+			            ),
+			            Ventas[Venta]
+			        ),
+			        SUMX(
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_SAC'[AñoMes] &&
+			                RELATED(Canales[CodCanal]) = 11
+			            ),
+			            Ventas[Venta]
+			        )
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: 0e417966-7e55-46a9-9971-0a70d74f1214
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 =
+			
+			VAR _Costo =
+			    IF(
+			        '2026_SAC'[Cargo] = "SAC",
+			        SUMX(
+			            FILTER(
+			                    Ventas,
+			                    RELATED(Fechas[AñoMes]) = '2026_SAC'[AñoMes] &&
+			                    RELATED(Sucursales[SucursalReg]) = '2026_SAC'[Regional] &&
+			                    Ventas[Canal distribución] = 11
+			            ),
+			            Ventas[Costo]
+			        ),
+			        SUMX(
+			            FILTER(
+			                Ventas,
+			                RELATED(Fechas[AñoMes]) = '2026_SAC'[AñoMes] &&
+			                Ventas[Canal distribución] = 11
+			            ),
+			            Ventas[Costo]
+			        )
+			    )
+			RETURN
+			    '2026_SAC'[Avance_1] - _Costo
+		lineageTag: f5c07fbf-7324-4d65-855e-70df4d07754f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Avance_3 =
+			// Calcula el valor de la cartera VIGENTE de la reginoal de canal 11
+			    BLANK()
+		formatString: #,0
+		lineageTag: fbb60d1b-0699-481b-9050-0f5a8439795d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = ```
+			
+			    DIVIDE (
+			        '2026_SAC'[Avance_1],
+			        '2026_SAC'[Objetivos_1],
+			        0
+			    )
+			```
+		formatString: #,0.00\ %;-#,0.00\ %;#,0.00\ %
+		lineageTag: d57861a9-c02d-4429-b6a5-97b890e69c14
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = ```
+			
+			    DIVIDE (
+			        '2026_SAC'[Avance_2],
+			        '2026_SAC'[Objetivos_2],
+			        0
+			    )
+			```
+		formatString: #,0.00\ %;-#,0.00\ %;#,0.00\ %
+		lineageTag: a42cd4ac-7a11-4362-98bf-cb05de59cf84
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = ```
+			
+			VAR _Mora = 
+			    1 - DIVIDE (
+			        '2026_SAC'[Avance_3],
+			        '2026_SAC'[Objetivos_3],
+			        0
+			    )
+			Return
+			IF ( 
+			    _Mora < 0.1,
+			    1,
+			    0
+			)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 894bf137-6790-489c-8cdc-010cc4b57979
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = ```
+			
+			    CALCULATE (
+			        VALUES ( Fechas[NbTrimestreAño] ),
+			        FILTER ( Fechas, Fechas[AñoMes] = '2026_SAC'[AñoMes] )
+			    )
+			```
+		lineageTag: cb0bef81-3bf4-46d7-9111-0f0827af1c78
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = BLANK()
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d1cb52c2-59b9-47b0-8dc7-8994cd131126
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 5afb391d-3e63-463c-824e-8d55a6568402
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: ee01913a-b736-47d5-ad4e-8bdd3248f36a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: a8866144-b39d-4416-88b8-5bacf2498887
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: be444aaa-305c-470b-ad7f-dce11d95abb1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 6cb7eccd-3ebe-490c-a8f4-e3d94d5d1412
+			defaultHierarchy: LocalDateTable_57450423-8362-4f0c-9022-14ff237faed7.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Sucursal
+		lineageTag: da0a68a9-6bc3-4772-8920-1f247e652bdd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: a3803d77-86e9-496f-a5c2-cb2065defab2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: 517c471f-f067-46b8-adb0-f957f3a25a2a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: 459b5297-8b56-4a3c-bdf1-bca16a9e4e4a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: 9ef885f1-99cc-4bc0-b5c5-b329f8c5eed1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: 8403731f-b237-439c-bd16-36f67bfd6967
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: d4713612-8516-47f2-ae4a-00f3b68de3fc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: f9224794-644a-4f1f-91f4-e1388cc60247
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: b666dc23-6e04-411b-a166-8d73e038f6d8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_SAC-d7e4a8f1-ae2c-4934-aa54-b567679a0ca9 = calculated
+		mode: import
+		source = ```
+				
+				   UNION(
+				    // Asistente de planificación - Personal que nicio como personal comercial y paso a Supply perciben vaiable hasta diciembre
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "JSAC" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				    // Servicio de Atención al Cliente - Personal que nicio como personal comercial y paso a Supply perciben vaiable hasta diciembre
+				    ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "SAC" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				   )
+				```
+
+	annotation PBI_Id = f3b8668c9cb041d1a4e53054b8c23685
+

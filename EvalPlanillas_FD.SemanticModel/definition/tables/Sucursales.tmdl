@@ -1,0 +1,124 @@
+table Sucursales
+	lineageTag: 3a03064a-16ae-48ce-8832-3e01ccd2236f
+
+	column CodSuc
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b501788-ac05-4c21-aefe-d3821e12ee8d
+		summarizeBy: none
+		sourceColumn: CodSuc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: string
+		lineageTag: 86446901-ebef-44af-b7b9-4fac5b31a9d3
+		summarizeBy: none
+		sourceColumn: Sucursal
+		sortByColumn: CodSuc
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column SucursalReg
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f545723-4366-4e45-ac58-f0e18efd6e65
+		summarizeBy: none
+		sourceColumn: SucursalReg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Oficina de Ventas'
+		dataType: string
+		lineageTag: 9c7254ee-691d-4dcb-8067-624212ce2beb
+		summarizeBy: none
+		sourceColumn: Oficina de Ventas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitud
+		dataType: double
+		lineageTag: 0bb74e21-b476-4ff6-aa04-57e30d143b3e
+		summarizeBy: sum
+		sourceColumn: Latitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: e2c51f59-bd98-4440-a4c3-7088d2775872
+		summarizeBy: sum
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SucursalFI
+		dataType: string
+		lineageTag: b354c623-fed5-4e58-ad25-27742aa53097
+		summarizeBy: none
+		sourceColumn: SucursalFI
+
+		annotation SummarizationSetBy = Automatic
+
+	column Oficina
+		dataType: string
+		lineageTag: da5b19f2-cc6d-4bd5-b925-6f587c54511f
+		summarizeBy: none
+		sourceColumn: Oficina
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Centro Supply'
+		dataType: string
+		lineageTag: 84c07348-eb8d-48a2-8df9-561ae9f6c198
+		summarizeBy: none
+		sourceColumn: Centro Supply
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: 0540cea9-43e3-43fe-907d-0961dfe3f24e
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departamento
+		dataType: string
+		lineageTag: 56e02d8b-69da-4ef8-81e6-2c6643266ae8
+		summarizeBy: none
+		sourceColumn: Departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column Canal
+		dataType: string
+		lineageTag: 496bcc8b-6fa6-460d-8734-b6a059bc93cd
+		summarizeBy: none
+		sourceColumn: Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sucursales-76672e81-5e7d-4672-82f3-6352a537f124 = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Sucursales1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Sucursales"]}[Data],
+				    #"Texto en mayúsculas" = Table.TransformColumns(Sucursales1,{{"Sucursal", Text.Upper, type text}})
+				in
+				    #"Texto en mayúsculas"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

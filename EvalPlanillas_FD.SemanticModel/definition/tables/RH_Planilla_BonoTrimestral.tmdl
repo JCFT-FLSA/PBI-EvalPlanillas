@@ -1,0 +1,457 @@
+table RH_Planilla_BonoTrimestral
+	lineageTag: a9f1d6d8-ce40-4311-a301-1b7325ada953
+
+	column KPI1_Valor = ```
+			
+			    CALCULATE(
+			        VALUES(RH_Utilidad[Utilidad]), 
+			        FILTER(
+			            RH_Utilidad, 
+			            RH_Utilidad[Cuarto] = RH_Planilla_BonoTrimestral[Cuarto]
+			        )
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: c5096161-3227-4a3e-8843-c1a64556a4ea
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI1_Beneficio = ```
+			
+			VAR I5 = [KPI1_Valor]
+			VAR _Valor = 
+			    IF(
+			        I5 > 1.2, 
+			        1.5, 
+			        IF(
+			            I5 <= 0.8, 
+			            0,
+			            IF(
+			                I5 <= 1,
+			                5 * (I5 - 0.8),
+			                1 + 2.5 * (I5 - 1)
+			            )
+			        )
+			    )
+			VAR _PesoTabla = 
+			CALCULATE(
+			    VALUES(RH_TablaKPI[Beneficio]), 
+			    FILTER(
+			        RH_TablaKPI, 
+			        RH_TablaKPI[KPI] = RH_Planilla_BonoTrimestral[TKPI1] &&
+			        RH_TablaKPI[Valor] = 1
+			    ) 
+			)
+			
+			RETURN
+			    _Valor *_PesoTabla
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 52ed24ea-0d70-4d2c-9144-43582e039fad
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI2_Valor = ```
+			
+			VAR _Obj = 
+			    SUMX(
+			        FILTER(
+			            Objetivos,
+			            RELATED(Fechas[nbTrimestreAño])= RH_Planilla_BonoTrimestral[Cuarto]
+			        ),
+			        Objetivos[ObjetivoBs]
+			    )
+			VAR _Vta = 
+			    SUMX(
+			        FILTER(
+			            Ventas,
+			            RELATED(Fechas[nbTrimestreAño])= RH_Planilla_BonoTrimestral[Cuarto]
+			        ),
+			        Ventas[Venta]
+			    )
+			
+			RETURN
+			    DIVIDE(
+			        _Vta, 
+			        _Obj, 
+			        0
+			    )        
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 66e55f8e-16da-4d94-8fab-7b16992746f6
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI2_Beneficio = ```
+			
+			VAR I5 = [KPI2_Valor]
+			VAR _Valor = 
+			    IF(
+			        I5 > 1.2, 
+			        1.5, 
+			        IF(
+			            I5 <= 0.8, 
+			            0,
+			            IF(
+			                I5 <= 1,
+			                5 * (I5 - 0.8),
+			                1 + 2.5 * (I5 - 1)
+			            )
+			        )
+			    )
+			VAR _PesoTabla = 
+			CALCULATE(
+			    VALUES(RH_TablaKPI[Beneficio]), 
+			    FILTER(
+			        RH_TablaKPI, 
+			        RH_TablaKPI[KPI] = RH_Planilla_BonoTrimestral[TKPI2] &&
+			        RH_TablaKPI[Valor] = 1
+			    ) 
+			)
+			
+			RETURN
+			    _Valor *_PesoTabla
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: b860b2d3-ebe0-4a9b-b5d2-386143148594
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Beneficio = ```
+			
+			VAR _Mora = [KPI3_Valor]
+			
+			VAR _Valor =
+			    IF (
+			        _Mora >= 0.44,
+			        0,
+			        IF(
+			            _Mora >= 0.4,
+			            25 * (0.44 - _Mora),
+			            IF(
+			                _Mora < 0.35,
+			                1.5,
+			                ( 1 + 10 * ( 0.4 - _Mora) )
+			            )
+			        )
+			    )
+			
+			VAR _PesoTabla = 
+			CALCULATE(
+			    VALUES(RH_TablaKPI[Beneficio]), 
+			    FILTER(
+			        RH_TablaKPI, 
+			        RH_TablaKPI[KPI] = RH_Planilla_BonoTrimestral[TKPI3] &&
+			        RH_TablaKPI[Valor] = 0.4
+			    ) 
+			)
+			
+			RETURN
+			_Valor * _PesoTabla
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: c29b4fa4-8b90-4e25-8e4d-600d6a6d4f61
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Beneficios = RH_Planilla_BonoTrimestral[KPI1_Beneficio] + RH_Planilla_BonoTrimestral[KPI2_Beneficio] + RH_Planilla_BonoTrimestral[KPI3_Beneficio] + RH_Planilla_BonoTrimestral[KPI4_Beneficio]
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: a8879020-cfc4-41ca-8f5a-729806da76d2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI4_Beneficio = ```
+			
+			VAR _Valor =
+			    RH_Planilla_BonoTrimestral[KPI4_Valor]
+			
+			VAR _Gestion = 2026
+			    //RH_Planilla_BonoTrimestral[Gestion]
+			
+			VAR _Q =
+			    LEFT ( RH_Planilla_BonoTrimestral[Cuarto], 2 )
+			
+			VAR _KPI =
+			    RH_Planilla_BonoTrimestral[TKPI4] & "-" & _Q
+			
+			VAR _TablaRango =
+			    FILTER (
+			        RH_TablaKPI,
+			        RH_TablaKPI[Gestion] = _Gestion
+			            && RH_TablaKPI[KPI] = _KPI
+			            && NOT ISBLANK ( RH_TablaKPI[Valor] )
+			            && NOT ISBLANK ( RH_TablaKPI[Beneficio] )
+			    )
+			
+			VAR _PuntoInf =
+			    TOPN (
+			        1,
+			        FILTER ( _TablaRango, RH_TablaKPI[Valor] <= _Valor ),
+			        RH_TablaKPI[Valor], DESC
+			    )
+			
+			VAR _PuntoSup =
+			    TOPN (
+			        1,
+			        FILTER ( _TablaRango, RH_TablaKPI[Valor] >= _Valor ),
+			        RH_TablaKPI[Valor], ASC
+			    )
+			
+			VAR _ValorInf =
+			    MAXX ( _PuntoInf, RH_TablaKPI[Valor] )
+			
+			VAR _ValorSup =
+			    MAXX ( _PuntoSup, RH_TablaKPI[Valor] )
+			
+			VAR _BeneficioInf =
+			    MAXX ( _PuntoInf, RH_TablaKPI[Beneficio] )
+			
+			VAR _BeneficioSup =
+			    MAXX ( _PuntoSup, RH_TablaKPI[Beneficio] )
+			
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			
+			        ISBLANK ( _Valor ), BLANK (),
+			
+			        ISBLANK ( _ValorInf ) && NOT ISBLANK ( _ValorSup ), _BeneficioSup,
+			
+			        NOT ISBLANK ( _ValorInf ) && ISBLANK ( _ValorSup ), _BeneficioInf,
+			
+			        _ValorInf = _ValorSup, _BeneficioInf,
+			
+			        _BeneficioInf
+			            + DIVIDE (
+			                _Valor - _ValorInf,
+			                _ValorSup - _ValorInf
+			            )
+			            * ( _BeneficioSup - _BeneficioInf )
+			    )
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1a271c99-5961-4223-b500-142deffc73a7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor =
+			
+			VAR _Mes =
+			    CALCULATE(
+			        MAX(Fechas[AñoMes]),
+			        FILTER(
+			            Fechas,
+			            Fechas[NbTrimestreAño] = RH_Planilla_BonoTrimestral[Cuarto]
+			        )
+			    )
+			
+			VAR _TotalCartera =
+			    CALCULATE(
+			        SUM(CxC[Importe]),
+			        FILTER (
+			            CxC,
+			            CxC[Periodo] = _Mes
+			        )
+			    )
+			
+			VAR _Vigente =
+			    CALCULATE(
+			        SUM(CxC[Importe]),
+			        FILTER (
+			            CxC,
+			            CxC[Periodo] = _Mes &&
+			            CxC[Rangos Vencidos] = "Vigente"
+			        )
+			    )
+			
+			RETURN
+			    1 - DIVIDE(
+			        _Vigente,
+			        _TotalCartera
+			    )
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1cb43470-d03b-4f8b-8527-001f257ccecd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI4_Valor =
+			
+			VAR _Cuarto =
+			    RH_Planilla_BonoTrimestral[Cuarto]
+			RETURN
+			    CALCULATE (
+			        AVERAGE ( RH_NivelServicio[NivelServicio] ),
+			        RH_NivelServicio[Cuarto] = _Cuarto,
+			        NOT ISBLANK ( RH_NivelServicio[NivelServicio] )
+			    )
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 42243148-841a-4ae3-82ca-0843dca7cad6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column BeneficiosQ = RH_Planilla_BonoTrimestral[Total_Beneficios] * 0.8
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d943dba7-a25b-4a1a-8ff5-72be33b3701e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto
+		lineageTag: 02c2be9e-f19a-4544-abc0-e0cdddc02888
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[Cuarto]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		formatString: 0
+		lineageTag: 2a3d5508-dfb6-45a2-8b01-67814581e74f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 2026_SDI[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: 0544e7d7-8151-4862-a895-29db53c583a6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: f6bd27f1-2bd9-4dc8-81d5-58c0200d02d7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		lineageTag: b70a0631-c745-435e-b44e-edcb1d3b36a2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: 001099ca-427e-410f-9d90-061e623d859f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: b2079d53-974b-4a14-b190-fd7312e286ab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: 10baf078-2e40-4e79-9ed5-b584eba31cda
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 76f4c75a-c54c-468d-ba01-0abcd43ff475
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: 0ea0843d-8ed4-4781-85f1-56b13614e7b5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: 2026_SDI[TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		lineageTag: 51795c6f-c948-46ef-8f10-e17b19a4559c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: 2026_SDI[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI2_Beneficio_prueba = ```
+			
+			VAR I5 = 1.016222
+			VAR _Valor = 
+			    IF(
+			        I5 > 1.2, 
+			        1.5, 
+			        IF(
+			            I5 <= 0.8, 
+			            0,
+			            IF(
+			                I5 <= 1,
+			                5 * (I5 - 0.8),
+			                1 + 2.5 * (I5 - 1)
+			            )
+			        )
+			    )
+			VAR _PesoTabla = 
+			CALCULATE(
+			    VALUES(RH_TablaKPI[Beneficio]), 
+			    FILTER(
+			        RH_TablaKPI, 
+			        RH_TablaKPI[KPI] = RH_Planilla_BonoTrimestral[TKPI2] &&
+			        RH_TablaKPI[Valor] = 1
+			    ) 
+			)
+			
+			RETURN
+			    _Valor *_PesoTabla
+			```
+		formatString: 0.0000\ %;-0.0000\ %;0.0000\ %
+		lineageTag: 8b92c52e-3154-4f59-8931-0fb3c8456e4f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_Planilla_BonoTrimestral-e9b89d45-3591-4ab9-8f56-9d9e464d86d0 = calculated
+		mode: import
+		source =
+				UNION(
+				    GROUPBY('2026_SDI', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_SAC', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_C20-C30', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_CANALES', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_G-VENTAS', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_G-MARKETING', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_C11', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_C10', [Cuarto], [Item], [nbVendedor], [Cargo], [Regional], [Sucursal], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5]),
+				    GROUPBY('2026_TODOS', [Cuarto], [Item], [nbEmpleado], [Cargo], [Regional], [Oficina], [TKPI1], [TKPI2], [TKPI3], [TKPI4], [TKPI5])
+				)
+
+	annotation PBI_Id = 9cd1651b14d34a038f4de454ac18ddd3
+

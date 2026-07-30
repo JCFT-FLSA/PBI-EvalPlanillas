@@ -1,0 +1,24 @@
+table NitGest2
+	lineageTag: c3f01646-f4e2-4c08-bbac-a6f0f91a7240
+
+	column Nit
+		lineageTag: 768dcede-1832-4a29-a49f-cfabba97e2b8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Ventas[Nit]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition NitGest2 = calculated
+		mode: import
+		source = ```
+				
+				    CALCULATETABLE(
+				        VALUES(Ventas[Nit]),
+				        Fechas[Año] = YEAR(TODAY()) - 2,
+				        ALL(Fechas[AñoMes])
+				    )
+				```
+
+	annotation PBI_Id = 68f76e5c14e04fdf9a321d6e723fab41
+

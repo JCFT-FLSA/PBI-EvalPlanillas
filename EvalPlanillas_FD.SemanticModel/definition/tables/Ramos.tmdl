@@ -1,0 +1,34 @@
+table Ramos
+	lineageTag: 2758ac70-7325-4f37-8e01-5a6aa2d00945
+
+	column Ramo
+		dataType: string
+		lineageTag: b4d971b7-ca3d-4921-b0f1-cb01eb8fe030
+		summarizeBy: none
+		sourceColumn: Ramo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbRamo
+		dataType: string
+		lineageTag: b804b520-51db-49d0-99ef-711183eb0aff
+		summarizeBy: none
+		sourceColumn: nbRamo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ramos = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Ramos1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Ramos"]}[Data]
+				in
+				    Ramos1
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

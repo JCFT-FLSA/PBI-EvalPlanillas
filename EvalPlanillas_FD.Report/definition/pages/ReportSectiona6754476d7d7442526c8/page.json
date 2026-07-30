@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ReportSectiona6754476d7d7442526c8",
+  "displayName": "Evaluacion Baja Rotación",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

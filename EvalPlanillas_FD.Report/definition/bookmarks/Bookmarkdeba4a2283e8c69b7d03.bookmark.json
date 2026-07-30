@@ -1,0 +1,43 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Real-Presup-Gauge-Bs",
+  "name": "Bookmarkdeba4a2283e8c69b7d03",
+  "options": {
+    "targetVisualNames": [],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "ReportSection44531c15a6a041d601c1",
+    "sections": {
+      "ReportSection44531c15a6a041d601c1": {
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "b65098f8dbd87481000d": {
+            "isHidden": false
+          },
+          "06b4eacb000aec0b3818": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

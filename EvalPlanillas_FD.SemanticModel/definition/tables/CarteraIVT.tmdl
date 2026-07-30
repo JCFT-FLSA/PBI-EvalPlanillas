@@ -1,0 +1,131 @@
+table CarteraIVT
+	lineageTag: a7ada80f-f5a7-4caf-9015-d1fe46375b45
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: 6852fcc5-61de-4ef9-a43e-408ec4a979c7
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: int64
+		formatString: 0
+		lineageTag: 3273c60d-d180-4167-bea9-19c13a80b8bc
+		summarizeBy: none
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 01339517-a161-4acf-92ef-c247c5fa10a5
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cartera
+		dataType: int64
+		formatString: 0
+		lineageTag: 41a922bc-790e-4a17-ac5d-6138303f704d
+		summarizeBy: none
+		sourceColumn: Cartera
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: a750d4b5-2b2b-46c8-99ec-48a93171459c
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ventas = ```
+			
+			    SUMX (
+			        FILTER(
+			            Ventas,
+			            RELATED(Canales[CodCanal]) = CarteraIVT[CanalVendedor] &&
+			            Ventas[Cliente] = CarteraIVT[Cartera] &&
+			            RELATED(Vendedores[VendedorReg]) = CarteraIVT[Regional] &&
+			            RELATED(Fechas[AñoMes]) = DATE(CarteraIVT[Gestion], CarteraIVT[Mes], 1)
+			        ),
+			        Ventas[Venta]
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: 54ccaf4f-f97a-48f2-b567-bd6006e0f5a0
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Costo = ```
+			
+			   SUMX (
+			        FILTER(
+			            Ventas,
+			            RELATED(Canales[CodCanal]) = CarteraIVT[CanalVendedor] &&
+			            Ventas[Cliente] = CarteraIVT[Cartera] &&
+			            RELATED(Vendedores[VendedorReg]) = CarteraIVT[Regional] &&
+			            RELATED(Fechas[AñoMes]) = DATE(CarteraIVT[Gestion], CarteraIVT[Mes], 1)
+			        ),
+			        Ventas[Costo]
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: 3d9d97f0-eb1f-4b18-975f-b5cdc66acebb
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column CanalVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 21b84ff6-1fc4-4de1-b2c2-01ed4210726b
+		summarizeBy: sum
+		sourceColumn: CanalVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 9010e9aa-e234-4a06-b013-84376ca244f5
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: d5332fa8-bbfd-4cbc-9df0-49b37bb51710
+			defaultHierarchy: LocalDateTable_48712837-f8a8-4431-9ed4-82700d1cd83a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition CarteraIVT-94e43c6d-0e3d-42f8-8e4a-c80e9e94e172 = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({Carteras2025, Carteras2026}),
+				    #"Columna combinada insertada" = Table.AddColumn(Origen, "Periodo", each Text.Combine({"01/", Text.From([Mes], "es-BO"), "/", Text.From([Gestion], "es-BO")}), type text),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columna combinada insertada",{{"Periodo", type date}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

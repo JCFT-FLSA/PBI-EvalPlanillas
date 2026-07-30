@@ -1,0 +1,617 @@
+expression Materiales_Atrib =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+		    Materiales_Atrib1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Materiales_Atrib"]}[Data]
+		in
+		    Materiales_Atrib1
+	lineageTag: 55cfe74b-b040-41d8-8f91-78047b59da80
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression Parámetro1 = #"Archivo de ejemplo" meta [IsParameterQuery=true, BinaryIdentifier=#"Archivo de ejemplo", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: 8308f2fe-9f79-4e5e-a2ae-44270e759646
+	queryGroup: 'Transformar archivo de Planillas\Consultas auxiliares'
+
+	annotation PBI_ResultType = Binary
+
+	annotation PBI_NavigationStepName = Navegación
+
+expression 'Transformar archivo de ejemplo' =
+		let
+		    Origen = Excel.Workbook(Parámetro1, null, true),
+		    Data_Sheet = Origen{[Item="Data",Kind="Sheet"]}[Data]
+		in
+		    Data_Sheet
+	lineageTag: 47a75320-7d06-4262-bb40-c569f2c4f808
+	queryGroup: 'Transformar archivo de Planillas'
+
+	annotation PBI_ResultType = Table
+
+expression 'Archivo de ejemplo' =
+		let
+		    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/BW_BI", [ApiVersion = 15]),
+		    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+		    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+		    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+		    Planillas = Maestros{[Name="Planillas"]}[Content],
+		    #"2019-06 xlsx" = Planillas{[Name="2019-06.xlsx"]}[Content]
+		in
+		    #"2019-06 xlsx"
+	lineageTag: 4b601434-0717-460e-8811-77c3d96fa608
+	queryGroup: 'Transformar archivo de Planillas\Consultas auxiliares'
+
+	annotation PBI_ResultType = Binary
+
+	annotation PBI_NavigationStepName = Navegación
+
+expression 'Transformar archivo' =
+		let
+		    Origen = (Parámetro1 as binary) => let
+		    Origen = Excel.Workbook(Parámetro1, null, true),
+		    Data_Sheet = Origen{[Item="Data",Kind="Sheet"]}[Data]
+		in
+		    Data_Sheet
+		in
+		    Origen
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transformar archivo de ejemplo""}" ]
+	lineageTag: ab258bcc-538f-429c-a9cd-3e0fcc6a2798
+	queryGroup: 'Transformar archivo de Planillas\Consultas auxiliares'
+
+	annotation PBI_ResultType = Function
+
+expression VentasSAP_2024 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"a05a1560-5ff7-4b22-9a20-18ae96dc3f3b" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="a05a1560-5ff7-4b22-9a20-18ae96dc3f3b"]}[Data],
+		    VentasSAP_1 = #"a05a1560-5ff7-4b22-9a20-18ae96dc3f3b"{[entity="VentasSAP_2024"]}[Data],
+		    #"Filas filtradas" = Table.SelectRows(VentasSAP_1, each true)
+		in
+		    #"Filas filtradas"
+	lineageTag: 2d3117d6-e8c9-44e8-a351-68af01f5eaa9
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Objetivos2025 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"]}[Data],
+		    Objetivos1 = #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"{[entity="Objetivos2025"]}[Data],
+		    #"Personalizada agregada" = Table.AddColumn(Objetivos1, "ObjetivoBs", each [Objetivo] * 6.96),
+		    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "UtilidadObjBs", each [UtilidadObj] * 6.96),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Personalizada agregada1",{{"ObjetivoBs", type number}, {"UtilidadObjBs", type number}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 316bc270-3913-4de8-8c0e-8eee0b341129
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2025 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"]}[Data],
+		    VentasSAP_1 = #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"{[entity="VentasSAP_2025"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 273e18a1-d011-4e31-8624-0b65b41f5362
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression VentasSAP_2015 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"47f11f30-c171-4555-b937-aa02cfc51a5e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="47f11f30-c171-4555-b937-aa02cfc51a5e"]}[Data],
+		    VentasSAP_1 = #"47f11f30-c171-4555-b937-aa02cfc51a5e"{[entity="VentasSAP_2015"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 399808b8-304b-4df2-a72e-ded709f4f878
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2016 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"47f11f30-c171-4555-b937-aa02cfc51a5e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="47f11f30-c171-4555-b937-aa02cfc51a5e"]}[Data],
+		    VentasSAP_1 = #"47f11f30-c171-4555-b937-aa02cfc51a5e"{[entity="VentasSAP_2016"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: da43b24e-91b8-435a-ae29-d36bbc774bc2
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2017 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"8537b64f-6890-4f01-86a0-47df21727ac7" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8537b64f-6890-4f01-86a0-47df21727ac7"]}[Data],
+		    VentasSAP_1 = #"8537b64f-6890-4f01-86a0-47df21727ac7"{[entity="VentasSAP_2017"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 6e84e463-6fe3-4e2f-8367-3ef35148cf56
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2018 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"98487f9e-d82c-4bfe-a170-727d87bf45e8" = Origen{[workspaceId="98487f9e-d82c-4bfe-a170-727d87bf45e8"]}[Data],
+		    #"0f9d7462-695c-4ff5-91d7-f6dc675143a5" = #"98487f9e-d82c-4bfe-a170-727d87bf45e8"{[dataflowId="0f9d7462-695c-4ff5-91d7-f6dc675143a5"]}[Data],
+		    VentasSAP_1 = #"0f9d7462-695c-4ff5-91d7-f6dc675143a5"{[entity="VentasSAP_2018"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 07204a11-7a98-46ff-9cbf-e7c9f6b06c67
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2019 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"838e9d70-1fd4-47c5-aef6-829ce0bd5333" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="838e9d70-1fd4-47c5-aef6-829ce0bd5333"]}[Data],
+		    VentasSAP_1 = #"838e9d70-1fd4-47c5-aef6-829ce0bd5333"{[entity="VentasSAP_2019"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 98b8b076-5fc8-4288-97fa-17e8048c6e27
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2020 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"838e9d70-1fd4-47c5-aef6-829ce0bd5333" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="838e9d70-1fd4-47c5-aef6-829ce0bd5333"]}[Data],
+		    VentasSAP_1 = #"838e9d70-1fd4-47c5-aef6-829ce0bd5333"{[entity="VentasSAP_2020"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 8b69a1b0-c9f2-42ab-aba2-03fbbb820947
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2021 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"f20fdb8a-2318-4e5f-aa91-c7113a195415" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="f20fdb8a-2318-4e5f-aa91-c7113a195415"]}[Data],
+		    VentasSAP_1 = #"f20fdb8a-2318-4e5f-aa91-c7113a195415"{[entity="VentasSAP_2021"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 64f52edc-558a-4e82-873a-60f4ed74bc0f
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2022 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"f20fdb8a-2318-4e5f-aa91-c7113a195415" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="f20fdb8a-2318-4e5f-aa91-c7113a195415"]}[Data],
+		    VentasSAP_1 = #"f20fdb8a-2318-4e5f-aa91-c7113a195415"{[entity="VentasSAP_2022"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 8d66609d-7c24-4509-b872-25b3615483ac
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression VentasSAP_2023 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"a05a1560-5ff7-4b22-9a20-18ae96dc3f3b" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="a05a1560-5ff7-4b22-9a20-18ae96dc3f3b"]}[Data],
+		    VentasSAP_1 = #"a05a1560-5ff7-4b22-9a20-18ae96dc3f3b"{[entity="VentasSAP_2023"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 1a084985-a764-4233-9e8b-09cfe1ef5d66
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression FacturasPOS_2025 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"0027b5fa-7566-40a2-82be-c40abdf10074" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="0027b5fa-7566-40a2-82be-c40abdf10074"]}[Data],
+		    FactPOS_2025 = #"0027b5fa-7566-40a2-82be-c40abdf10074"{[entity="FactPOS_2025"]}[Data]
+		in
+		    FactPOS_2025
+	lineageTag: 53e45d01-9258-40f2-a804-39223177be0a
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression FacturasPOS_2024 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"fd4ed9f5-11bd-409d-9d88-85fe9118f7b5" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="fd4ed9f5-11bd-409d-9d88-85fe9118f7b5"]}[Data],
+		    FactPOS_2024 = #"fd4ed9f5-11bd-409d-9d88-85fe9118f7b5"{[entity="FactPOS_2024"]}[Data]
+		in
+		    FactPOS_2024
+	lineageTag: a15e24f9-6838-42c5-bc94-1597a6e59060
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'Clientes POS' =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+		    #"Clientes POS - NOSAP" = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Clientes POS - NOSAP"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Clientes POS - NOSAP",{{"Cantidad Cliente", "Qty"}, {"Cliente Nivel 01", "Cliente"}, {"Cliente Regular Nivel 01", "Cliente Regular"}, {"Correo Electrónico Nivel 01", "email"}, {"Día natural Nivel 01", "Fecha"}, {"Dirección Nivel 01", "Dirección"}, {"ID Cliente Nivel 01", "ID Cliente"}, {"NIT Nivel 01", "NIT"}, {"Nombre Completo Clie Nivel 01", "nbCliente"}, {"Teléfono Nivel 01", "Teléfono"}, {"Teléfono Móvil Nivel 01", "Teléfono2"}, {"Tratamiento Cliente Nivel 01", "Tratamiento Cliente"}}),
+		    #"Otras columnas quitadas" = Table.SelectColumns(#"Columnas con nombre cambiado",{"Qty", "Cliente", "Cliente Regular", "email", "Fecha", "Dirección", "ID Cliente", "NIT", "nbCliente", "Ramo Nivel 01", "Teléfono", "Teléfono2", "Tratamiento Cliente"}),
+		    #"Valor reemplazado" = Table.ReplaceValue(#"Otras columnas quitadas","#","",Replacer.ReplaceText,{"Fecha"}),
+		    #"Duplicados quitados" = Table.Distinct(#"Valor reemplazado", {"NIT"})
+		in
+		    #"Duplicados quitados"
+	lineageTag: 5e3a3658-3774-4b0e-92dd-bbf02a25183e
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression FacturasPOS_2023 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"fd4ed9f5-11bd-409d-9d88-85fe9118f7b5" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="fd4ed9f5-11bd-409d-9d88-85fe9118f7b5"]}[Data],
+		    FactPOS_2023 = #"fd4ed9f5-11bd-409d-9d88-85fe9118f7b5"{[entity="FactPOS_2023"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(FactPOS_2023,{{"Cantidad Cliente", "Qty"}, {"Cl.documento O/P/E/F Nivel 01", "Cl.documento"}, {"Clase de factura Nivel 01", "Clase de factura"}, {"Creado el Nivel 01", "Creado el"}, {"Día natural Nivel 01", "Fecha"}, {"Factura Nivel 01", "Factura"}}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Columnas con nombre cambiado",{"Fecha modificación Nivel 01", "Hora Nivel 01"}),
+		    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Columnas quitadas",{{"NIT Nivel 01", "NIT"}, {"Persona Física Nivel 01", "Persona Física"}, {"Referencia de pago Nivel 01", "Referencia de pago"}, {"Responsable de pago Nivel 01", "Responsable de pago"}, {"Solicitante Nivel 01", "Cliente"}, {"Tipo doc.comercial Nivel 01", "Tipo doc.comercial"}})
+		in
+		    #"Columnas con nombre cambiado1"
+	lineageTag: 6935ccd8-95aa-4846-a9bc-5f7618f918f3
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression ZEERR =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"4f7d8c0b-bfc8-4a1a-84ec-4521d1f79c3f" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="4f7d8c0b-bfc8-4a1a-84ec-4521d1f79c3f"]}[Data],
+		    ZEERR1 = #"4f7d8c0b-bfc8-4a1a-84ec-4521d1f79c3f"{[entity="ZEERR"]}[Data]
+		in
+		    ZEERR1
+	lineageTag: bbe1de68-cdb7-4431-8d66-679477472c2b
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Objetivos2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    Objetivos1 = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="Objetivos2026"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(Objetivos1,{{"Venta Neta Bs", "ObjetivoBs"}, {"Utilidad bruta Bs", "UtilidadObjBs"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: 5ab419bd-6652-4f62-998c-bb5cafad4cc1
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression VentasSAP_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    VentasSAP_1 = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="VentasSAP_2026"]}[Data]
+		in
+		    VentasSAP_1
+	lineageTag: 1beb206d-c780-49a0-bee7-a1f5f47d1ed5
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression NominaVendedores_2025 =
+		let
+		    Origen = PowerBI.Dataflows([]),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"82259398-4654-4945-b052-dadb93de0f11" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="82259398-4654-4945-b052-dadb93de0f11"]}[Data],
+		    NominaVendedores_2025 = #"82259398-4654-4945-b052-dadb93de0f11"{[entity="NominaVendedores_2025"]}[Data]
+		in
+		    NominaVendedores_2025
+	lineageTag: 25f0461f-95c9-4227-a611-6c06bf7bb7a3
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression NominaVendedores_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d502af49-433b-41e4-8ad1-6ec0f3935984" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d502af49-433b-41e4-8ad1-6ec0f3935984"]}[Data],
+		    NominaVendedores_1 = #"d502af49-433b-41e4-8ad1-6ec0f3935984"{[entity="NominaVendedores_2026"]}[Data]
+		in
+		    NominaVendedores_1
+	lineageTag: a5bf4e11-86c5-4e52-9d3e-ab99437e8071
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression RH_PesosVariable_2025 =
+		let
+		    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/",[ApiVersion = 15]),
+		    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+		    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+		    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+		    #"FijoVaribleKPI_EVALUACION xlsx" = Maestros{[Name="FijoVaribleKPI_EVALUACION.xlsx"]}[Content],
+		    #"Libro de Excel importado" = Excel.Workbook(#"FijoVaribleKPI_EVALUACION xlsx"),
+		    PesosVariable2025_Sheet = #"Libro de Excel importado"{[Item="PesosVariable2025",Kind="Sheet"]}[Data],
+		    #"Encabezados promovidos" = Table.PromoteHeaders(PesosVariable2025_Sheet, [PromoteAllScalars=true]),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Gestion ", Int64.Type}, {"Mes", Int64.Type}, {"Cargo", type text}, {"Obj1", type number}, {"Obj2", type number}, {"Obj3", type number}, {"Obj4", type number}, {"Obj5", type text}, {"Obj6", type text}, {"Obj6_1", type text}, {"Obs", type text}}),
+		    #"Valor reemplazado" = Table.ReplaceValue(#"Tipo cambiado",null,0,Replacer.ReplaceValue,{"Obj3"}),
+		    #"Valor reemplazado1" = Table.ReplaceValue(#"Valor reemplazado",null,0,Replacer.ReplaceValue,{"Obj4"}),
+		    #"Valor reemplazado2" = Table.ReplaceValue(#"Valor reemplazado1",null,"0",Replacer.ReplaceValue,{"Obj5"}),
+		    #"Valor reemplazado3" = Table.ReplaceValue(#"Valor reemplazado2",null,"0",Replacer.ReplaceValue,{"Obj6"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Valor reemplazado3",{"Obj6_1"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas",{{"Obj5", type number}, {"Obj6", type number}}),
+		    #"Valor reemplazado4" = Table.ReplaceValue(#"Tipo cambiado1",null,"",Replacer.ReplaceValue,{"Obs"})
+		in
+		    #"Valor reemplazado4"
+	lineageTag: 4b4a79e1-4ff7-4f7e-b07e-144bfa863154
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression RH_PesosVariable_2026 =
+		let
+		    Origen = SharePoint.Contents("https://finilagersa2014.sharepoint.com/sites/bw_bi/",[ApiVersion = 15]),
+		    #"Documentos compartidos" = Origen{[Name="Documentos compartidos"]}[Content],
+		    #"BI-BW" = #"Documentos compartidos"{[Name="BI-BW"]}[Content],
+		    Maestros = #"BI-BW"{[Name="Maestros"]}[Content],
+		    #"FijoVaribleKPI_EVALUACION xlsx" = Maestros{[Name="FijoVaribleKPI_EVALUACION.xlsx"]}[Content],
+		    #"Libro de Excel importado" = Excel.Workbook(#"FijoVaribleKPI_EVALUACION xlsx"),
+		    PesosVariable2025_Sheet = #"Libro de Excel importado"{[Item="PesosVariable2026",Kind="Sheet"]}[Data],
+		    #"Encabezados promovidos" = Table.PromoteHeaders(PesosVariable2025_Sheet, [PromoteAllScalars=true]),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Gestion ", Int64.Type}, {"Mes", Int64.Type}, {"Cargo", type text}, {"Obj1", type number}, {"Obj2", type number}, {"Obj3", type number}, {"Obj4", type number}, {"Obj5", type text}, {"Obj6", type text}, {"Obj6_1", type text}, {"Obs", type text}}),
+		    #"Valor reemplazado" = Table.ReplaceValue(#"Tipo cambiado",null,0,Replacer.ReplaceValue,{"Obj3"}),
+		    #"Valor reemplazado1" = Table.ReplaceValue(#"Valor reemplazado",null,0,Replacer.ReplaceValue,{"Obj4"}),
+		    #"Valor reemplazado2" = Table.ReplaceValue(#"Valor reemplazado1",null,"0",Replacer.ReplaceValue,{"Obj5"}),
+		    #"Valor reemplazado3" = Table.ReplaceValue(#"Valor reemplazado2",null,"0",Replacer.ReplaceValue,{"Obj6"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Valor reemplazado3",{"Obj6_1"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas",{{"Obj5", type number}, {"Obj6", type number}}),
+		    #"Valor reemplazado4" = Table.ReplaceValue(#"Tipo cambiado1",null,"",Replacer.ReplaceValue,{"Obs"})
+		in
+		    #"Valor reemplazado4"
+	lineageTag: d5ee93ca-e229-4c70-9a98-2128e7063bfd
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression CRM-Visitas_2025 =
+		let
+		    Origen = PowerBI.Dataflows([]),
+		    #"98487f9e-d82c-4bfe-a170-727d87bf45e8" = Origen{[workspaceId="98487f9e-d82c-4bfe-a170-727d87bf45e8"]}[Data],
+		    #"c582efb2-9675-41ce-9e11-73f89908a3a4" = #"98487f9e-d82c-4bfe-a170-727d87bf45e8"{[dataflowId="c582efb2-9675-41ce-9e11-73f89908a3a4"]}[Data],
+		    VisitasCRM = #"c582efb2-9675-41ce-9e11-73f89908a3a4"{[entity="VisitasCRM"]}[Data]
+		in
+		    VisitasCRM
+	lineageTag: 4650d9d3-5c28-48b0-901b-1056d8f63a2e
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression CRM-Visitas_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    #"CRM-Visitas_1" = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="CRM-Visitas_2026"]}[Data]
+		in
+		    #"CRM-Visitas_1"
+	lineageTag: 9d26fd7e-56f2-4277-ba08-090eaf538080
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'CRM_Visitas SDI_2025' =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"]}[Data],
+		    VisitasCRM_SDI = #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"{[entity="VisitasCRM_SDI"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(VisitasCRM_SDI,{{"Canal", "Equipo"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: c8159b50-92fb-4287-9a23-3a55fa86ecb3
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'CRM-Visitas SDI_2026' =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    #"CRM-Visitas SDI_1" = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="CRM-Visitas SDI_2026"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"CRM-Visitas SDI_1",{{"Canal", "Equipo"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: f2140eb3-87b0-42c4-8854-9480b76ed76b
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Carteras2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    Carteras1 = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="Carteras2026"]}[Data]
+		in
+		    Carteras1
+	lineageTag: d398aca2-1dd3-4709-86c8-b994cd22633f
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression MaterialesSDI_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    MaterialesSDI_1 = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="MaterialesSDI_2026"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(MaterialesSDI_1,{{"CODIGO", "Material"}, {"TEXTO_BREVE", "nbMaterial"}, {"Servicio", "Tipo Servicio"}, {"EQ. TRABAJO", "Eq_Trabajo"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: de62fa87-9b10-487b-84c0-7e3d936ac26a
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression ObjetivosSDI_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"e634486e-62ef-49ab-b800-025d97a2b997" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="e634486e-62ef-49ab-b800-025d97a2b997"]}[Data],
+		    ObjetivosSDI_1 = #"e634486e-62ef-49ab-b800-025d97a2b997"{[entity="ObjetivosSDI_2026"]}[Data],
+		    #"Columnas quitadas" = Table.RemoveColumns(ObjetivosSDI_1,{"Mes"}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas quitadas",{{"Objetivo Bs", type number}, {"UtilidadObj Bs", type number}}),
+		    #"Columnas reordenadas" = Table.ReorderColumns(#"Tipo cambiado",{"Periodo", "Tipo de Servicio", "Regional", "Objetivo", "UtilidadObj", "Objetivo Bs", "UtilidadObj Bs"}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas reordenadas",{{"Objetivo Bs", "ObjetivoBs"}, {"UtilidadObj Bs", "UtilidadObjBs"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: fc39b3f0-1a93-45fb-8602-16cc38d3ebc8
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression FactPOS_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"65243f31-6621-4337-ab75-af12c8257cf9" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="65243f31-6621-4337-ab75-af12c8257cf9"]}[Data],
+		    FactPOS_1 = #"65243f31-6621-4337-ab75-af12c8257cf9"{[entity="FactPOS_2026"]}[Data]
+		in
+		    FactPOS_1
+	lineageTag: 7453cef6-1e1b-4f49-a1b1-152e36c8661d
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression MaterialesSDI_2025 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"]}[Data],
+		    MaterialesSDI_1 = #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"{[entity="MaterialesSDI_2025"]}[Data],
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(MaterialesSDI_1,{{"CODIGO", "Material"}, {"TEXTO_BREVE", "nbMaterial"}, {"Servicio", "Tipo Servicio"}, {"EQ. TRABAJO", "Eq_Trabajo"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: 65b24ff8-0b7f-4c03-b6e0-b561ac0a1c9d
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression ObjetivosSDI_2025 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"98487f9e-d82c-4bfe-a170-727d87bf45e8" = Origen{[workspaceId="98487f9e-d82c-4bfe-a170-727d87bf45e8"]}[Data],
+		    #"c582efb2-9675-41ce-9e11-73f89908a3a4" = #"98487f9e-d82c-4bfe-a170-727d87bf45e8"{[dataflowId="c582efb2-9675-41ce-9e11-73f89908a3a4"]}[Data],
+		    ObjetivosSDI_2025 = #"c582efb2-9675-41ce-9e11-73f89908a3a4"{[entity="ObjetivosSDI_2025"]}[Data],
+		    #"Personalizada agregada" = Table.AddColumn(ObjetivosSDI_2025, "Objetivo Bs", each [Objetivo] * 6.96),
+		    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "UtilidadObj Bs", each [UtilidadObj] * 6.96),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Personalizada agregada1",{{"Objetivo Bs", type number}, {"UtilidadObj Bs", type number}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado",{{"Objetivo Bs", "ObjetivoBs"}, {"UtilidadObj Bs", "UtilidadObjBs"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: 03b3a5b5-656b-4799-9cfa-d4f564da6f0c
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Carteras2025 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"]}[Data],
+		    Carteras1 = #"d0f7820e-3326-40b6-a7b9-a3d4f2875f7e"{[entity="Carteras2025"]}[Data]
+		in
+		    Carteras1
+	lineageTag: 111be2ab-7b2b-4dfe-83b3-3cc84fcd3ddf
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+
+expression Nomina_General_2025 =
+		let
+		    Origen = PowerBI.Dataflows([]),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"82259398-4654-4945-b052-dadb93de0f11" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="82259398-4654-4945-b052-dadb93de0f11"]}[Data],
+		    Nomina_General_1 = #"82259398-4654-4945-b052-dadb93de0f11"{[entity="Nomina_General_2025"]}[Data]
+		in
+		    Nomina_General_1
+	lineageTag: bb55924f-7fdb-4ece-b495-a29c34b5c637
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression Nomina_General_2026 =
+		let
+		    Origen = PowerBI.Dataflows(null),
+		    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+		    #"d502af49-433b-41e4-8ad1-6ec0f3935984" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="d502af49-433b-41e4-8ad1-6ec0f3935984"]}[Data],
+		    Nomina_General_1 = #"d502af49-433b-41e4-8ad1-6ec0f3935984"{[entity="Nomina_General_2026"]}[Data]
+		in
+		    Nomina_General_1
+	lineageTag: 6642982a-6bcb-443c-9013-cfccd8828e4a
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,114 @@
+table Medidas
+	lineageTag: 4a1603d8-7e79-4a8a-a056-2b3caed525b0
+
+	measure 'Avance $us' = DIVIDE(sum(ObjetivosGral[Avance]), 6.96, 0)
+		lineageTag: a8bea549-3103-4de0-9509-ee7a355b5a5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ventas $us' = SUM(Ventas[Venta]) / 6.96
+		lineageTag: 3b79c998-b9a2-4288-b946-c47fcce998f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Costos $us' = SUM(Ventas[Costo]) / 6.96
+		lineageTag: b24048f8-7361-40b6-9618-602d60fe3ec2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure VentasCarteraIVT = SUM(CarteraIVT[Ventas])
+		formatString: #,0
+		displayFolder: CarteraIVT
+		lineageTag: 308ac528-ffb0-4ecc-ba6e-8ea7e92f409a
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure CostosCarteraIVT = SUM(CarteraIVT[Costo])
+		formatString: #,0
+		displayFolder: CarteraIVT
+		lineageTag: 9cf70b75-c585-4803-a1cf-645752457ecc
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure GrossProfitCarteraIVT = [VentasCarteraIVT] - [CostosCarteraIVT]
+		formatString: #,0
+		displayFolder: CarteraIVT
+		lineageTag: 30e15968-0465-4dc6-b0ee-5e803f61c26c
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure %GrossProfitCarteraIVT = DIVIDE([GrossProfitCarteraIVT], [VentasCarteraIVT], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: CarteraIVT
+		lineageTag: 477f1fab-e3e9-482b-9316-9104efd1cf4f
+
+	measure ValorStock = SUM(StockMensual[Valor])
+		lineageTag: c2717441-422a-4f2e-be61-4b9fcf29145e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Presupuesto $us' = SUM(ObjetivosGral[Presupuesto])
+		lineageTag: 28ce387e-72ca-4d7f-9a99-2300973635e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TC_Sus = SELECTEDVALUE(Fechas[TC_$us], BLANK())
+		lineageTag: b1d4c441-855e-4ebe-9810-2bdab5b6730a
+
+	measure NuevosClientes = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT( Ventas[Nit] ),
+			    FILTER(
+			        VALUES( Ventas[Nit] ),
+			        -- Evaluamos la fecha mínima de compra de cada cliente:
+			        CALCULATE( MIN(Ventas[Fecha]) )
+			            >= STARTOFMONTH( Fechas[AñoMes] )
+			        &&
+			        CALCULATE( MIN( Ventas[Fecha] ) )
+			            <= ENDOFMONTH(Fechas[AñoMes])
+			    )
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Marketing
+		lineageTag: 09f0cedb-611c-4457-a812-01cb9ecac368
+
+	measure EsClienteNuevo = ```
+			
+			VAR FechaMinCliente =
+			    CALCULATE(
+			        MIN( Ventas[Fecha] ),
+			        ALLEXCEPT( Ventas, Ventas[Nit] )
+			    )
+			VAR FechaInicioContexto = MIN( Fechas[Fecha] )
+			VAR FechaFinContexto    = MAX( Fechas[Fecha] )
+			RETURN
+			IF(
+			    NOT ISBLANK( FechaMinCliente )
+			        && FechaMinCliente >= FechaInicioContexto
+			        && FechaMinCliente <= FechaFinContexto,
+			    1,
+			    0
+			)
+			
+			```
+		formatString: 0
+		displayFolder: Marketing
+		lineageTag: 99328361-1809-45e4-a61d-678f0981c59e
+
+	partition Medidas-42ba763c-7a34-4735-bcbe-40de2327c0ba = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", Int64.Type}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

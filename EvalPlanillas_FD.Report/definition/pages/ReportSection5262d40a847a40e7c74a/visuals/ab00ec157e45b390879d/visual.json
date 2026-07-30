@@ -1,0 +1,595 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "ab00ec157e45b390879d",
+  "position": {
+    "x": 166.30523047528064,
+    "y": 66.0329591593026,
+    "z": 1000,
+    "height": 654.2154287079054,
+    "width": 1114.0004776689755
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "Item"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.Item)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "nbVendedor"
+                }
+              },
+              "queryRef": "RH_Planilla_BonoTrimestral.nbVendedor",
+              "nativeQueryRef": "Nombre",
+              "displayName": "Nombre"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "Cargo"
+                }
+              },
+              "queryRef": "RH_Planilla_BonoTrimestral.Cargo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "Regional"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.Regional)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI1_Valor"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI1_Valor)",
+              "displayName": "Utilidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI1_Beneficio"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI1_Beneficio)",
+              "displayName": "BeneficioUtililidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI2_Valor"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI2_Valor)",
+              "displayName": "Ventas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI2_Beneficio"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI2_Beneficio)",
+              "displayName": "BeneficioVentas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI3_Valor"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI3_Valor)",
+              "displayName": "Mora"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI3_Beneficio"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI3_Beneficio)",
+              "displayName": "BeneficioMora"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI4_Valor"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI4_Valor)",
+              "nativeQueryRef": "NivelServicio",
+              "displayName": "NivelServicio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "KPI4_Beneficio"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.KPI4_Beneficio)",
+              "nativeQueryRef": "Beneficio_NS",
+              "displayName": "Beneficio_NS"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_Planilla_BonoTrimestral"
+                    }
+                  },
+                  "Property": "Total_Beneficios"
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.Total_Beneficios)",
+              "displayName": "TotalBeneficios"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RH_Planilla_BonoTrimestral"
+                        }
+                      },
+                      "Property": "BeneficiosQ"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RH_Planilla_BonoTrimestral.BeneficiosQ)",
+              "nativeQueryRef": "BeneficiosQ"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "RH_Planilla_BonoTrimestral"
+                  }
+                },
+                "Property": "Item"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "74.44566512235829D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI1_Valor)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "87.94528848523422D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI1_Beneficio)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "94D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI2_Valor)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "82.25996606094279D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI2_Beneficio)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "75D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI3_Valor)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "72.43690443622633D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI3_Beneficio)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "94.91503039146346D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.KPI4_Beneficio)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "100.91793030254568D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(RH_Planilla_BonoTrimestral.Total_Beneficios)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "82.94440478751187D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "RH_Planilla_BonoTrimestral.Cargo"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "251.5623092474593D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "RH_Planilla_BonoTrimestral.nbVendedor"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bb8877b1edec4b8f330b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "Item"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d2b2d773ecf62380a09b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "nbVendedor"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "abbaf295ede328457734",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "Cargo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "628721c180df9e94d9a0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "Regional"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "04556210eb917f84a640",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI1_Valor"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7304b481beefbd01a363",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI1_Beneficio"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b123d1880450b7559131",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI2_Valor"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "97756f60d549a1fe80c1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI2_Beneficio"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f455d176f57cd0dde2fb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI3_Valor"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "85b0f8c143791e378954",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI3_Beneficio"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4e3c818f55ff4f19bbad",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI4_Valor"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3f12047eab6d61675992",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "KPI4_Beneficio"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7f01ef147667d9dc6a94",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RH_Planilla_BonoTrimestral"
+              }
+            },
+            "Property": "Total_Beneficios"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e8bb5fd436e52b41fbde",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "RH_Planilla_BonoTrimestral"
+                  }
+                },
+                "Property": "BeneficiosQ"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

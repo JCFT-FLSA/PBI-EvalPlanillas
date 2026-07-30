@@ -1,0 +1,119 @@
+table RH_ClientesNuevosAnt
+	lineageTag: b17ff96e-966d-429f-8dd2-d820b39057e1
+
+	column Periodo
+		formatString: General Date
+		lineageTag: 5e4759ef-a862-4345-bb9b-72d73041d497
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Periodo]
+
+		variation Variación
+			isDefault
+			relationship: 6de2cf34-61d6-409f-9bcd-973cd68910aa
+			defaultHierarchy: LocalDateTable_45c219f9-79af-4272-84ad-0b22b6a1f715.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodCanal
+		formatString: 0
+		lineageTag: f31899d8-f018-45c2-8453-2ad16cef4faa
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [CodCanal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portafolio
+		lineageTag: b3a22810-e8d9-48c4-9939-1201b978972e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Portafolio]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NuevosClientesMes = ```
+			
+			VAR InicioMes = RH_ClientesNuevosAnt[Periodo]
+			    -- Primer día del mes en la fila actual
+			VAR FinMes    = EOMONTH( RH_ClientesNuevosAnt[Periodo], 0)
+			    -- Último día del mes en la fila actual
+			
+			RETURN
+			CALCULATE(
+			    DISTINCTCOUNT( Ventas[Nit] ),
+			    FILTER(
+			        VALUES( Ventas[Nit] ),
+			
+			        -- 1) La fecha mínima de compra cae dentro de ESTE mes
+			        CALCULATE( MIN( Ventas[Fecha] ) ) >= InicioMes &&
+			        CALCULATE( MIN( Ventas[Fecha] ) ) <= FinMes 
+			
+			        -- 2) Y NO compró ni en el año pasado ni en el mes anterior
+			        &&
+			        CALCULATE(
+			            COUNTROWS( Ventas ),
+			            FILTER (
+			                FILTER(
+			                    ALL( Ventas ),
+			                    Ventas[Canal distribución] = RH_ClientesNuevosAnt[CodCanal] && 
+			                    RELATED(Materiales[Portafolio]) = RH_ClientesNuevosAnt[Portafolio]
+			                ),
+			                Ventas[Nit] = SELECTEDVALUE( Ventas[Nit] ) &&
+			                    ( YEAR( Ventas[Fecha] ) = YEAR( RH_ClientesNuevosAnt[Periodo] ) - 1) ||
+			                    ( YEAR( Ventas[Fecha] ) = YEAR( RH_ClientesNuevosAnt[Periodo] ) ) && 
+			                    ( MONTH( Ventas[Fecha] ) < MONTH( RH_ClientesNuevosAnt[Periodo] ) )
+			                )
+			            ) = 0
+			        )
+			    )
+			
+			
+			```
+		formatString: 0
+		lineageTag: dee679e4-3085-45cd-bf77-3ba996d292af
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column NuevosClientes = [NuevosClientes]
+		formatString: 0
+		lineageTag: 2348eef2-b54d-4f3e-ba5e-5329b22a8c5b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RH_ClientesNuevosAnt = calculated
+		mode: import
+		source = ```
+				
+				DISTINCT(
+				    CROSSJOIN(
+				        SELECTCOLUMNS(
+				            FILTER(
+				                Fechas,
+				                'Fechas'[Año] = 2025 
+				            ), 
+				            "Periodo", Fechas[AñoMes]
+				        ),
+				        SELECTCOLUMNS(
+				            FILTER(
+				                Canales,
+				                Canales[CodCanal] = 10 || Canales[CodCanal] = 11 || Canales[CodCanal] = 20 || Canales[CodCanal] = 30
+				            ),
+				            "CodCanal", Canales[CodCanal]
+				        ),
+				        SELECTCOLUMNS(
+				            FILTER(
+				                Lineas,
+				                Lineas[Portafolio] = "RODAM. INDUSTRIAL" || Lineas[Portafolio] = "RODAM. AUTOMOTRIZ" || Lineas[Portafolio] = "EQUIPOS, HERRAMIENTAS, EPP y SERVICIOS" || Lineas[Portafolio] = "LUBRICANTES (FILTROS, GRASAS, LIQUIDOS DE FRENO)" 
+				            ),
+				            "Portafolio", Lineas[Portafolio]
+				        )
+				    )
+				)
+				
+				```
+
+	annotation PBI_Id = 2af7462da2d94aee807397ffe241c03f
+

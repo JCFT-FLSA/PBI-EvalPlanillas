@@ -1,0 +1,23 @@
+table NItGestAnt
+	lineageTag: b11df0f8-66ac-4110-8864-e9590f1dd33d
+
+	column Nit
+		lineageTag: cfcd1ef3-1a6d-4847-bdfa-17371bb833f9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Ventas[Nit]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition NItGestAnt = calculated
+		mode: import
+		source = ```
+				
+				    CALCULATETABLE(
+				        VALUES(Ventas[Nit]),
+				        Fechas[Año] = YEAR(TODAY())
+				    )
+				```
+
+	annotation PBI_Id = d8041e1950e9438cbedc217e654a847c
+

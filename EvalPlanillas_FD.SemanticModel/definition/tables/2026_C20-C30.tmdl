@@ -1,0 +1,481 @@
+table 2026_C20-C30
+	lineageTag: 611deb07-2755-4126-b603-0975bfecfb35
+
+	column Item
+		formatString: 0
+		lineageTag: 3adaad7a-a8ac-462e-9694-ad04e3f40435
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cargo
+		lineageTag: f911e225-50b6-49a3-9807-c8b6d45dcb60
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Cargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactorGestActual = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = '2026_C20-C30'[AñoMes]), 'DiasValidosxMes'[Factor])
+		lineageTag: 9fb2a7d6-9ab7-464a-9a06-b3176350e468
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FactorGestAnterior = SUMX(FILTER('DiasValidosxMes', 'DiasValidosxMes'[Periodo] = DATEADD('2026_C11'[AñoMes], - [Valor Gestiones Previas], YEAR)), 'DiasValidosxMes'[Factor])
+		formatString: 0
+		lineageTag: 1d81c88b-124f-4ebc-b838-b3df8c10604a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_1 = ```
+			
+			    SUMX(
+			        FILTER(
+			            Objetivos, 
+			            Objetivos[Periodo] = '2026_C20-C30'[AñoMes] &&
+			            Objetivos[Vendedor] = '2026_C20-C30'[CodVendedor]
+			        ),
+			        Objetivos[ObjetivoBs]
+			    )
+			
+			```
+		formatString: #,0.00
+		lineageTag: 0785a28a-d015-4f69-a5fc-f5ad993743ce
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_2 = ```
+			// Objetivo Grupal para todos es el objetivo de su regional
+			    SUMX(
+			        FILTER(
+			            Objetivos, 
+			            Objetivos[Periodo] = '2026_C20-C30'[AñoMes] &&
+			            Objetivos[Vendedor] = '2026_C20-C30'[CodVendedor]
+			        ),
+			        Objetivos[UtilidadObjBs]
+			    )
+			```
+		formatString: #,0.00
+		lineageTag: e2eba282-ba83-4bf7-b2f2-8aa5c9553cd0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_3 = ```
+			//Aplicable solo a C20 & C20-30
+			    IF(
+			        '2026_C20-C30'[Cargo] = "C30",
+			        BLANK(),
+			        CALCULATE( // Calcula las CxC de la cartera
+			            SUM(CxC[Importe]),
+			            FILTER (
+			                CxC,
+			                CxC[Periodo] = '2026_C20-C30'[AñoMes] &&
+			                CxC[Vendedor] = '2026_C20-C30'[CodVendedor]
+			            )
+			        )
+			    )
+			
+			```
+		formatString: #,0.00
+		lineageTag: 6b664528-307f-4562-91eb-017198b8ddb2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_1 = ```
+			// Calcula el total Ventas con el Codigo de vendedor
+			SUMX(
+			    FILTER(
+			        ventas, 
+			        RELATED(Fechas[AñoMes]) = '2026_C20-C30'[AñoMes] &&
+			        Ventas[Vendedor] = '2026_C20-C30'[CodVendedor]
+			    ),
+			    Ventas[Venta]
+			)
+			```
+		formatString: #,0.00
+		lineageTag: 3e686ed1-2fc0-4e6e-b1d1-823923a483fc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_2 = ```
+			// Utilidad Bruta
+			VAR _Costo =
+			    SUMX(
+			        FILTER(
+			            Ventas, 
+			            RELATED(Fechas[AñoMes]) = '2026_C20-C30'[AñoMes] && 
+			            Ventas[Vendedor] = '2026_C20-C30'[CodVendedor]
+			        ),
+			        Ventas[Costo]
+			    )
+			RETURN
+			    '2026_C20-C30'[Avance_1] - _Costo
+			```
+		formatString: #,0.00
+		lineageTag: cb2c2701-402b-49ea-9f72-db8e29c2e31e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_3 =
+			//Aplicable solo a C20 & C20-30
+			    IF(
+			        '2026_C20-C30'[Cargo] = "C30",
+			        BLANK(),
+			        CALCULATE( // Calcula las CxC de la cartera
+			            SUM(CxC[Importe]),
+			            FILTER (
+			                CxC,
+			                CxC[Periodo] = '2026_C20-C30'[AñoMes] &&
+			                CxC[Rangos Vencidos] = "Vigente" &&
+			                CxC[Vendedor] = '2026_C20-C30'[CodVendedor]
+			            )
+			        )
+			    )
+		formatString: #,0
+		lineageTag: 2fe27d67-b88b-4d07-9644-64ba39cf7e95
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_1 = DIVIDE('2026_C20-C30'[Avance_1], '2026_C20-C30'[Objetivos_1], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 3922348f-22b2-4fb9-8502-86a1a85751af
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_2 = DIVIDE('2026_C20-C30'[Avance_2], '2026_C20-C30'[Objetivos_2], 0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 07200963-c3ee-481a-b1f3-163865ac12d9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_3 = ```
+			
+			VAR _Canal =
+			    IF (
+			        '2026_C20-C30'[Cargo] = "C30",
+			        BLANK(),
+			        20
+			    )
+			VAR _Mora = 
+			    1 - DIVIDE (
+			        '2026_C20-C30'[Avance_3],
+			        '2026_C20-C30'[Objetivos_3],
+			        0
+			    )
+			VAR _Valor = // Fomula generada por IA en base a Tablas de Valores 
+			    IF (
+			        _Mora >= 0.44,
+			        0,
+			        IF(
+			            _Mora >= 0.4,
+			            25 * (0.44 - _Mora),
+			            IF(
+			                _Mora < 0.35,
+			                1.5,
+			                ( 1 + 10 * ( 0.4 - _Mora) )
+			
+			            )
+			        )
+			    )
+			Return
+			    IF 
+			        ( _Canal = 20, // Canal 20 & C20-30 tiene CxC como 3er objetivo
+			            _Valor,
+			            BLANK()
+			        )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: cf8fed0c-6a2f-443f-bc2d-b7a3fc1395e3
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cuarto = CALCULATE(VALUES(Fechas[NbTrimestreAño]), filter(Fechas, Fechas[AñoMes] = '2026_C20-C30'[AñoMes]))
+		lineageTag: fa9e27d9-bfe6-423b-b285-97de4edf5665
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI1
+		lineageTag: 93d83c46-a550-4cf4-afca-a45258156544
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI2
+		lineageTag: 7c8767bd-b1f0-4568-a10d-3ccbb88f1da9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI3
+		lineageTag: c5787548-249b-42d6-9028-c16215db8a9b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI3_Valor = ```
+			
+			     // IVT Se rige por su cartera
+			VAR _Vencido = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER (
+			                    CxC,
+			                    //CxC[IVT Cartera] = '2023_C20'[CodVendedor]
+			                    CxC[Vendedor] = '2026_C20-C30'[CodVendedor]
+			                ),
+			                CxC[Periodo] = ENDOFQUARTER('2026_C20-C30'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vencido"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			VAR _Vigente = 
+			    SUMX(
+			        FILTER(
+			            FILTER(
+			                FILTER (
+			                    CxC,
+			                    //CxC[IVT Cartera] = '2023_C20'[CodVendedor]
+			                    CxC[Vendedor] = '2026_C20-C30'[CodVendedor]
+			                ),
+			                CxC[Periodo] = ENDOFQUARTER('2026_SAC'[AñoMes])
+			            ),
+			            CxC[neoRangoVencido] = "Vigente"
+			        ),
+			        CxC[Importe]
+			    )
+			
+			RETURN
+			
+			    IF (
+			        '2026_C20-C30'[TKPI3] = BLANK(), 
+			        BLANK(),
+			        DIVIDE(_Vencido, _Vencido + _Vigente, -1)
+			    )
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 29de0691-d908-4722-b66c-de5b37c5f996
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		formatString: 0
+		lineageTag: 2a2ffbf1-2b65-444d-9b30-287c5faf183c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Regional]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI4
+		lineageTag: 06051fc1-090f-4cf9-a2fb-448a95687650
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TKPI4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TKPI5
+		formatString: 0
+		lineageTag: 823d666a-4b5a-4b25-8cde-23c69506cd2e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TKPI5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		formatString: yyyy-mm
+		lineageTag: 9f939c3c-0f69-4ecf-843d-68951725d186
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AñoMes]
+
+		variation Variación
+			isDefault
+			relationship: 7316399b-6ec9-4170-b8cf-6c7b69d60e9c
+			defaultHierarchy: LocalDateTable_feced06c-3852-44cd-9fed-55acd26d4889.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Sucursal
+		lineageTag: 812a4f61-4bcb-4dd3-96d4-e0af607a3d4e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Sucursal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCeCo
+		lineageTag: c22a5f35-d232-46c8-9017-e3a851d5dce0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCeCo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		lineageTag: 685d52f6-9ad9-478e-b682-9467636e8fea
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[Area]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AreaComercial
+		lineageTag: 9ef347a5-a904-4e0e-8cec-5307b242667a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[AreaComercial]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCargo
+		lineageTag: 23727093-421a-487f-b703-41a32b3a9f23
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbCargo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodVendedor
+		lineageTag: 9a016358-ce27-41ce-8ee6-42c4258fffad
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UsuarioSAP
+		lineageTag: 74854f9a-efb2-4a18-b586-a28549cf9e56
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[UsuarioSAP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodSuc
+		formatString: 0
+		lineageTag: e7734894-ea28-44cd-a1a2-cd98b27cc8e1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[CodSuc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbVendedor
+		lineageTag: c135d03a-8659-4a65-bb9f-d523bac186cd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: RH_PlanillasMensuales[nbVendedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivos_4 = ```
+			// Aplica a todos
+			VAR 
+			    _Canal = 
+			        SWITCH(
+			            '2026_C20-C30'[Cargo],
+			            "C20", 20,
+			            "C30", 30,
+			            "C20-30", 30 // Inicialmete las visitas de C30
+			        )
+			
+			RETURN
+			    CALCULATE(
+			        VALUES(RH_VisitasCRM[Visitas]),
+			        FILTER(
+			            RH_VisitasCRM,
+			            RH_VisitasCRM[Canal] = _Canal &&
+			            RH_VisitasCRM[Periodo] = '2026_C20-C30'[AñoMes]
+			        )
+			    )
+			```
+		formatString: 0
+		lineageTag: 52fb131f-8a86-48f1-82df-0ab4733af6c1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avance_4 = ```
+			
+			    CALCULATE(
+			        COUNT(ActividadesCRM[App ID]),
+			        FILTER(
+			            ActividadesCRM,
+			            ActividadesCRM[Tipo Actividad] = "Visita" &&
+			            ActividadesCRM[Periodo] = '2026_C20-C30'[AñoMes] &&
+			            ActividadesCRM[Vendedor] = '2026_C20-C30'[CodVendedor]
+			        )
+			    )
+			    
+			```
+		formatString: 0
+		lineageTag: 85d03323-f4c7-4870-865a-f5c94332b8ec
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Presupuesto_4 = ```
+			
+			    DIVIDE(
+			        '2026_C20-C30'[Avance_4],
+			        '2026_C20-C30'[Objetivos_4]
+			    )
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: cfc5e432-af95-4e2c-8589-63ea3c7cb3d0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 2026_C20-C30-8a4fd9b8-ad24-4955-b932-436dd352fa27 = calculated
+		mode: import
+		source = ```
+				
+				        UNION (
+				            ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "C20" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				            ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "C30" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK()),
+				            ADDCOLUMNS( FILTER ( RH_PlanillasMensuales, RH_PlanillasMensuales[Cargo] = "C20-30" && YEAR(RH_PlanillasMensuales[AñoMes]) = 2026 ), "TKPI1", "TU1", "TKPI2", "TV6", "TKPI3", "TM3", "TKPI4", "NS", "TKPI5", BLANK())
+				        )
+				```
+
+	annotation PBI_Id = 76bbdd3e0eeb4f93b0d810835dcd8970
+

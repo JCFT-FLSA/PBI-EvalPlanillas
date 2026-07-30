@@ -1,0 +1,221 @@
+table Fechas
+	lineageTag: 7924875d-e79b-4834-b6a6-59122b7089d2
+
+	column FechaSK
+		dataType: int64
+		formatString: 0
+		lineageTag: a5880555-8c90-43d8-b03c-f7880850fb94
+		summarizeBy: sum
+		sourceColumn: FechaSK
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año
+		dataType: int64
+		formatString: 0
+		lineageTag: d81de435-f274-471e-997b-b5cf4cf6942d
+		summarizeBy: sum
+		sourceColumn: Año
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: dd711119-2e32-43a6-955f-b953e4612c6f
+		summarizeBy: sum
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 70443a6c-0cd9-403e-b4ee-cfca6667fabf
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column AñoMes
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 382b8951-a741-4b19-b215-e9950710f2bf
+		summarizeBy: none
+		sourceColumn: AñoMes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Semana
+		dataType: int64
+		formatString: 0
+		lineageTag: 1852b418-3e68-4582-aee3-adbe72212ac9
+		summarizeBy: sum
+		sourceColumn: Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column Día
+		dataType: int64
+		formatString: 0
+		lineageTag: 3470bd54-aaf7-4dce-be81-3ba9459b66b0
+		summarizeBy: sum
+		sourceColumn: Día
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbDia
+		dataType: int64
+		formatString: 0
+		lineageTag: fcc75898-c93e-4ab4-aea8-4e3e39675b00
+		summarizeBy: sum
+		sourceColumn: NbDia
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiaSemana
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c808d59-64bf-47f2-9a1e-939d4cb504b8
+		summarizeBy: sum
+		sourceColumn: DiaSemana
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbAño
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cf33e12-e108-4c2b-b6ec-260742234716
+		summarizeBy: sum
+		sourceColumn: NbAño
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbTrimestre
+		dataType: string
+		lineageTag: 61e4cf1f-b68f-4363-9e5b-7ab68f58a7ba
+		summarizeBy: none
+		sourceColumn: NbTrimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbTrimestreAño
+		dataType: string
+		lineageTag: 57ec566c-b48d-49c7-a854-255608b0d494
+		summarizeBy: none
+		sourceColumn: NbTrimestreAño
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbMes
+		dataType: string
+		lineageTag: ccdfe975-e023-4283-9b43-df8178b4cb78
+		summarizeBy: none
+		sourceColumn: NbMes
+		sortByColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbMes3txt
+		dataType: string
+		lineageTag: be864748-a16f-4269-b76e-5d16449535b4
+		summarizeBy: none
+		sourceColumn: NbMes3txt
+		sortByColumn: Mes
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbDiaMes
+		dataType: string
+		lineageTag: 05c96f53-9532-41e2-abf0-eee4f03721f9
+		summarizeBy: none
+		sourceColumn: NbDiaMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbSemana
+		dataType: int64
+		formatString: 0
+		lineageTag: afc9376d-efe1-431b-809a-c34166d10442
+		summarizeBy: sum
+		sourceColumn: NbSemana
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbSemanaAño
+		dataType: string
+		lineageTag: c2cdf993-e301-4469-a003-5907ca2c3975
+		summarizeBy: none
+		sourceColumn: NbSemanaAño
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbDiaSemana
+		dataType: string
+		lineageTag: f02a85c4-dbbe-40f1-8570-1df1836243c6
+		summarizeBy: none
+		sourceColumn: NbDiaSemana
+		sortByColumn: DiaSemana
+
+		annotation SummarizationSetBy = Automatic
+
+	column FechaEspecial
+		dataType: string
+		lineageTag: a21420a3-a4fd-4eae-90c1-5b27c4bcd413
+		summarizeBy: none
+		sourceColumn: FechaEspecial
+
+		annotation SummarizationSetBy = Automatic
+
+	column Laborable
+		dataType: string
+		lineageTag: f3adfb08-eb37-4193-a322-45ad4638c9dc
+		summarizeBy: none
+		sourceColumn: Laborable
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: efee924f-ca01-4086-885f-e1066c6e2ac9
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: e904cae4-4f20-471d-b814-3b96054068f3
+			defaultHierarchy: LocalDateTable_8c190968-a7eb-4b74-b598-9e62ebee83f3.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition Fechas-df2ed140-c0ac-4f06-bd43-09f3a5f2cc87 = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Fechas1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Fechas"]}[Data],
+				    Ahora = Date.From(DateTime.LocalNow()),
+				    #"EsteAño" = Date.StartOfYear(Ahora),
+				    InicioVentana = Date.AddYears(#"EsteAño", -1),
+				    #"Filas filtradas" = Table.SelectRows(Fechas1, each ([AñoMes] >= InicioVentana and [Fecha] <= Ahora)),
+				    #"Filas ordenadas" = Table.Sort(#"Filas filtradas",{{"Fecha", Order.Descending}})
+				in
+				    #"Filas ordenadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

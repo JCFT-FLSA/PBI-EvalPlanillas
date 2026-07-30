@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "529ca2e18930c3176ce4",
+  "displayName": "Duplicado de Analisis de Planilla Comercial",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

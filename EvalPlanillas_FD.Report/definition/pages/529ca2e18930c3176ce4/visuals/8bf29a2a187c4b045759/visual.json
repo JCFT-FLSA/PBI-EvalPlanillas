@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "8bf29a2a187c4b045759",
+  "position": {
+    "x": 269.02316694530691,
+    "y": 399.866252686888,
+    "z": 5000,
+    "height": 242.12085025077621,
+    "width": 959.92357296393607
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CarteraIVT"
+                    }
+                  },
+                  "Property": "Periodo"
+                }
+              },
+              "queryRef": "CarteraIVT.Periodo",
+              "nativeQueryRef": "Periodo"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "CarteraIVT"
+                        }
+                      },
+                      "Property": "Ventas"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(CarteraIVT.Ventas)",
+              "nativeQueryRef": "Ventas"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,254 @@
+table RH_TablaVariables
+	lineageTag: 6730e884-3972-437a-8ec4-710b2d5cfd1a
+
+	column PeriodoIni
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 5544ae9a-be14-4f8c-8cb6-00d83cfc8f74
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PeriodoIni]
+
+		variation Variación
+			isDefault
+			relationship: 54f7ad21-af62-4dd7-926a-e94f7fbb624f
+			defaultHierarchy: LocalDateTable_13379aa4-e31d-4cfa-9b22-232f52f4f3d0.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column PeriodoFin
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: f6066e35-b58e-45a5-89ac-4e0252b37aee
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PeriodoFin]
+
+		variation Variación
+			isDefault
+			relationship: 104d3b8d-b883-414b-9e62-593d0b09ad39
+			defaultHierarchy: LocalDateTable_c7e15071-8eed-46bb-a36b-b5e93e1e4eb9.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column KPI
+		lineageTag: 6316bbe0-339f-4012-9825-048a81af08f5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [KPI]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LimInf
+		lineageTag: 235822ae-381f-4969-b31d-3f3d5d209077
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [LimInf]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LimSup
+		lineageTag: 6ad553ea-fd19-4700-acd3-de563681895f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [LimSup]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pago
+		lineageTag: 6fd7e47b-c840-4360-b78c-67983ad57635
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Pago]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition RH_TablaVariables-495e1015-2b0b-419e-985b-7eaf42092b20 = calculated
+		mode: import
+		source = ```
+				union(
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 0, "LimSup", 0.75, "Pago", 0),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.5),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.6),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 0.85, "LimSup", 0.9, "Pago", 0.8),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 0.9, "LimSup", 0.98, "Pago", 0.9),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 0.98, "LimSup", 1, "Pago", 1),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 1, "LimSup", 1.05, "Pago", 1.1),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.2),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.3),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 1.2, "LimSup", 1.4, "Pago", 1.4),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Cumplimiento", "LimInf", 1.4, "LimSup", 99999.99, "Pago", 1.8),
+				    
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0, "LimSup", 0.7, "Pago", 0),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0.7, "LimSup", 0.75, "Pago", 0.5),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.6),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.75),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0.85, "LimSup", 0.9, "Pago", 0.9),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0.9, "LimSup", 0.95, "Pago", 0.95),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 0.95, "LimSup", 1, "Pago", 1),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 1, "LimSup", 1.05, "Pago", 1.1),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.2),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.3),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Cumplimiento", "LimInf", 1.2, "LimSup", 99999.99, "Pago", 1.4),
+					
+				    ROW("PeriodoIni", "2019-09-01", "PeriodoFin", "2019-12-01", "KPI", "Cumplimiento", "LimInf", 0, "LimSup", 0.7, "Pago", 0),
+				    ROW("PeriodoIni", "2019-09-01", "PeriodoFin", "2019-12-01", "KPI", "Cumplimiento", "LimInf", 0.7, "LimSup", 1.2, "Pago", 0.2),
+				    ROW("PeriodoIni", "2019-09-01", "PeriodoFin", "2019-12-01", "KPI", "Cumplimiento", "LimInf", 1.2, "LimSup", 99999.99, "Pago", 0.24),
+				
+				    ROW("PeriodoIni", "2019-08-01", "PeriodoFin", "2019-08-01", "KPI", "Cumplimiento", "LimInf", 0, "LimSup", 0.7, "Pago", 0),
+				    ROW("PeriodoIni", "2019-08-01", "PeriodoFin", "2019-08-01", "KPI", "Cumplimiento", "LimInf", 0.7, "LimSup", 1.2, "Pago", 0.3),
+				    ROW("PeriodoIni", "2019-08-01", "PeriodoFin", "2019-08-01", "KPI", "Cumplimiento", "LimInf", 1.20, "LimSup", 99999.99, "Pago", 0.36),
+				
+					ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-07-01", "KPI", "Cumplimiento", "LimInf", 0, "LimSup", 0.7, "Pago", 0),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-07-01", "KPI", "Cumplimiento", "LimInf", 0.7, "LimSup", 1.2, "Pago", 0.3),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-07-01", "KPI", "Cumplimiento", "LimInf", 1.20, "LimSup", 99999.99, "Pago", 0.36),
+					
+				
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 0, "LimSup", 0.9, "Pago", 0),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 0.9, "LimSup", 0.95, "Pago", 0.5),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 0.95, "LimSup", 1, "Pago", 0.8),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1, "LimSup", 1.01, "Pago", 1),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.01, "LimSup", 1.02, "Pago", 1.05),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.02, "LimSup", 1.03, "Pago", 1.1),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.03, "LimSup", 1.04, "Pago", 1.15),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.04, "LimSup", 1.05, "Pago", 1.2),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.3),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.4),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crecimiento", "LimInf", 1.2, "LimSup", 999999.99, "Pago", 1.4),
+				
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 0, "LimSup", 0.85, "Pago", 0),
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 0.85, "LimSup", 0.9, "Pago", 0.2),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 0.9, "LimSup", 0.95, "Pago", 0.4),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 0.95, "LimSup", 1.01, "Pago", 0.6),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.01, "LimSup", 1.02, "Pago", 1),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.02, "LimSup", 1.03, "Pago", 1.05),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.03, "LimSup", 1.04, "Pago", 1.1),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.04, "LimSup", 1.05, "Pago", 1.15),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.2),
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.3),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crecimiento", "LimInf", 1.2, "LimSup", 999999.99, "Pago", 1.4),
+				
+				    ROW("PeriodoIni", "2019-09-01", "PeriodoFin", "2019-12-01", "KPI", "Crecimiento", "LimInf", 0, "LimSup", 1.20, "Pago", 0.40),
+				    ROW("PeriodoIni", "2019-09-01", "PeriodoFin", "2019-12-01", "KPI", "Crecimiento", "LimInf", 1.20, "LimSup", 999999.99, "Pago", 0.48),
+				
+				    ROW("PeriodoIni", "2019-08-01", "PeriodoFin", "2019-08-01", "KPI", "Crecimiento", "LimInf", 0, "LimSup", 1.20, "Pago", 0.3),
+				    ROW("PeriodoIni", "2019-08-01", "PeriodoFin", "2019-08-01", "KPI", "Crecimiento", "LimInf", 1.20, "LimSup", 999999.99, "Pago", 0.36),
+				
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-07-01", "KPI", "Crecimiento", "LimInf", 0, "LimSup", 1.20, "Pago", 0.3),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-07-01", "KPI", "Crecimiento", "LimInf", 1.20, "LimSup", 999999.99, "Pago", 0.36),
+				
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 0, "LimSup", 0.9, "Pago", 0),
+				    ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 0.9, "LimSup", 0.95, "Pago", 0.5),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 0.95, "LimSup", 1, "Pago", 0.8),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1, "LimSup", 1.01, "Pago", 1),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.01, "LimSup", 1.02, "Pago", 1.05),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.02, "LimSup", 1.03, "Pago", 1.1),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.03, "LimSup", 1.04, "Pago", 1.15),
+					ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.04, "LimSup", 1.05, "Pago", 1.2),
+				    ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.3),
+				    ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.4),
+				    ROW("PeriodoIni", "2021-01-01", "PeriodoFin", "2021-12-01", "KPI", "Crec_NR", "LimInf", 1.2, "LimSup", 999999.99, "Pago", 1.4),
+				
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 0, "LimSup", 0.85, "Pago", 0),
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 0.85, "LimSup", 0.9, "Pago", 0.2),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 0.9, "LimSup", 0.95, "Pago", 0.4),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 0.95, "LimSup", 1.01, "Pago", 0.6),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.01, "LimSup", 1.05, "Pago", 1),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.05),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.1, "LimSup", 1.15, "Pago", 1.1),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.15, "LimSup", 1.2, "Pago", 1.15),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.2, "LimSup", 1.25, "Pago", 1.2),
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.25, "LimSup", 1.3, "Pago", 1.25),
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.3, "LimSup", 1.35, "Pago", 1.3),
+				    ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.35, "LimSup", 1.4, "Pago", 1.35),
+					ROW("PeriodoIni", "2020-02-01", "PeriodoFin", "2020-12-01", "KPI", "Crec_NR", "LimInf", 1.4, "LimSup", 999999.99, "Pago", 1.4),
+				
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 0, "LimSup", 0.9, "Pago", 0),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 0.9, "LimSup", 0.95, "Pago", 0.5),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 0.95, "LimSup", 1, "Pago", 0.8),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.01, "LimSup", 1.05, "Pago", 1.05),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1, "LimSup", 1.01, "Pago", 1),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.05, "LimSup", 1.1, "Pago", 1.1),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.1, "LimSup", 1.15, "Pago", 1.15),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.15, "LimSup", 1.2, "Pago", 1.2),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.2, "LimSup", 1.25, "Pago", 1.25),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.25, "LimSup", 1.3, "Pago", 1.3),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.3, "LimSup", 1.35, "Pago", 1.35),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.35, "LimSup", 1.4, "Pago", 1.4),
+					ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-01-01", "KPI", "Crec_NR", "LimInf", 1.4, "LimSup", 999999.99, "Pago", 1.4),
+				
+				
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0, "LimSup", 0.7, "Pago", 0),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0.7, "LimSup", 0.75, "Pago", 0.5),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.6),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.75),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0.85, "LimSup", 0.90, "Pago", 0.9),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0.90, "LimSup", 0.95, "Pago", 0.95),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 0.95, "LimSup", 1, "Pago", 1.1),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 1, "LimSup", 1.1, "Pago", 1.2),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.3),
+				    ROW("PeriodoIni", "2019-07-01", "PeriodoFin", "2019-12-01", "KPI", "Variable", "LimInf", 1.2, "LimSup", 999999.99, "Pago", 1.4),
+				     
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0, "LimSup", 0.7, "Pago", 0),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0.7, "LimSup", 0.75, "Pago", 0.5),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.6),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.75),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0.85, "LimSup", 0.90, "Pago", 0.9),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0.90, "LimSup", 0.95, "Pago", 0.95),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 0.95, "LimSup", 1, "Pago", 1.1),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 1, "LimSup", 1.1, "Pago", 1.2),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 1.1, "LimSup", 1.2, "Pago", 1.3),
+				    ROW("PeriodoIni", "2020-01-01", "PeriodoFin", "2020-12-01", "KPI", "Variable", "LimInf", 1.2, "LimSup", 999999.99, "Pago", 1.4),
+				
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 0, "LimSup", 0.75, "Pago", 0),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.5),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.6),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 0.85, "LimSup", 0.90, "Pago", 0.8),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 0.90, "LimSup", 0.95, "Pago", 0.9),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 0.95, "LimSup", 1, "Pago", 1),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Individual", "LimInf", 1, "LimSup", 999999.99, "Pago", 1),
+				
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 0, "LimSup", 0.75, "Pago", 0),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.5),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.6),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 0.85, "LimSup", 0.90, "Pago", 0.8),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 0.90, "LimSup", 0.95, "Pago", 0.9),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 0.95, "LimSup", 1, "Pago", 1),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Grupal", "LimInf", 1, "LimSup", 999999.99, "Pago", 1),
+				
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 0, "LimSup", 0.75, "Pago", 0),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 0.75, "LimSup", 0.8, "Pago", 0.5),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 0.8, "LimSup", 0.85, "Pago", 0.6),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 0.85, "LimSup", 0.90, "Pago", 0.8),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 0.90, "LimSup", 0.95, "Pago", 0.9),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 0.95, "LimSup", 1, "Pago", 1),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-12-31", "KPI", "Desarrollo", "LimInf", 1, "LimSup", 999999.99, "Pago", 1),
+				
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-01-31", "KPI", "Acelerador", "LimInf", 0, "LimSup", 1, "Pago", 0),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-01-31", "KPI", "Acelerador", "LimInf", 1, "LimSup", 1.2, "Pago", 0.03),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-01-31", "KPI", "Acelerador", "LimInf", 1.2, "LimSup", 1.4, "Pago", 0.05),
+				    ROW("PeriodoIni", "2022-01-01", "PeriodoFin", "2022-01-31", "KPI", "Acelerador", "LimInf", 1.4, "LimSup", 999999.99, "Pago", 0.07),
+				
+				    ROW("PeriodoIni", "2022-02-01", "PeriodoFin", "2022-12-31", "KPI", "Acelerador", "LimInf", 0, "LimSup", 1, "Pago", 0),
+				    ROW("PeriodoIni", "2022-02-01", "PeriodoFin", "2022-12-31", "KPI", "Acelerador", "LimInf", 1, "LimSup", 1.2, "Pago", 0.01),
+				    ROW("PeriodoIni", "2022-02-01", "PeriodoFin", "2022-12-31", "KPI", "Acelerador", "LimInf", 1.2, "LimSup", 1.4, "Pago", 0.02),
+				    ROW("PeriodoIni", "2022-02-01", "PeriodoFin", "2022-12-31", "KPI", "Acelerador", "LimInf", 1.4, "LimSup", 999999.99, "Pago", 0.03)
+				)
+				```
+
+	annotation PBI_Id = fdd68e2fcd0443469598e00487bfcb5e
+

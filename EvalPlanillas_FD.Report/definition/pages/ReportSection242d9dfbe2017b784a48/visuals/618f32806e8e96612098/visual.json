@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "618f32806e8e96612098",
+  "position": {
+    "x": 273.31306990881461,
+    "y": 0,
+    "z": 0,
+    "height": 197.44680851063831,
+    "width": 1007.6595744680851,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RH_VariableMensual"
+                        }
+                      },
+                      "Property": "CodVendedor"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.CodVendedor)",
+              "nativeQueryRef": "CodVendedor"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RH_VariableMensual"
+                    }
+                  },
+                  "Property": "nbVendedor"
+                }
+              },
+              "queryRef": "RH_VariableMensual.nbVendedor",
+              "nativeQueryRef": "nbVendedor"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RH_VariableMensual"
+                        }
+                      },
+                      "Property": "Objetivo1"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Objetivo1)",
+              "nativeQueryRef": "Objetivo1"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RH_VariableMensual"
+                        }
+                      },
+                      "Property": "Avance1"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Avance1)",
+              "nativeQueryRef": "Avance1"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "RH_VariableMensual"
+                        }
+                      },
+                      "Property": "Presupuesto1"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(RH_VariableMensual.Presupuesto1)",
+              "nativeQueryRef": "Presupuesto1"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
